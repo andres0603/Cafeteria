@@ -14,6 +14,13 @@ namespace lib_cafeteria.implementaciones
         {
             optionsBuilder.UseSqlServer(this.string_conexion!, p => { });
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+           
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<personas>().ToTable("personas");
+            modelBuilder.Entity<clientes>().ToTable("clientes");
+            modelBuilder.Entity<empleadosNegocio>().ToTable("empleados");
         }
         public DbSet<categorias> categorias { get; set; }
         public DbSet<clientes> clientes { get; set; }
@@ -37,5 +44,9 @@ namespace lib_cafeteria.implementaciones
         public DbSet<roles> roles { get; set; }
         public DbSet<sedes> sedes { get; set; }
         public DbSet<tareas> tareas { get; set; }
+        public DbSet<historial_login> historial_login { get; set; }
+        public DbSet<sesiones> sesiones { get; set; }
+        public DbSet<usuario_roles> usuario_roles { get; set; }
+        public DbSet<usuarios> usuarios { get; set; }
     }
 }

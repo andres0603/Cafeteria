@@ -33,5 +33,9 @@ namespace lib_cafeteria.interfaces
         DbSet<sedes> sedes { get; set; }
         DbSet<tareas> tareas { get; set; }
         DbSet<historicos> historicos { get; set; }
+        DbSet<historial_login> historial_login { get; set; }
+        DbSet<sesiones> sesiones { get; set; }
+        DbSet<usuario_roles> usuario_roles { get; set; }
+        DbSet<usuarios> usuarios { get; set; }
     }
 }

@@ -14,11 +14,18 @@ namespace lib_cafeteria.implementaciones
 
         public List<sedes> Consultar()
         {
-            this.iConexion = new Conexion();
-            this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
+            try
+            {
+                this.iConexion = new Conexion();
+                this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
-            var lista = this.iConexion.sedes!.ToList();
-            return lista;
+                var lista = this.iConexion.sedes!.ToList();
+                return lista;
+            }
+            catch
+            {
+                throw new Exception("No se pudo encontrar la sede");
+            }
         }
 
         public sedes Guardar(sedes entidad)
@@ -26,58 +33,12 @@ namespace lib_cafeteria.implementaciones
             if (entidad.id != 0)
                 throw new Exception("Ya se guardo");
 
-
-            this.iConexion = new Conexion();
-            this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-            this.iConexion.sedes!.Add(entidad!);
-            var entry = this.iConexion!.Entry<sedes>(entidad!);
-
-            var historicos = new historicos
+            try
             {
-                nombreTabla = entry.Metadata.GetTableName(),
-                accion = entry.State.ToString(),
-                fechaCambio = DateTime.Now
-            };
-
-            this.iConexion.historicos!.Add(historicos);
-            this.iConexion.SaveChanges();
-            return entidad;
-        }
-
-        public sedes Modificar(sedes entidad)
-        {
-            this.iConexion = new Conexion();
-            this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
-            var entry = this.iConexion!.Entry<sedes>(entidad!);
-            entry.State = EntityState.Modified;
-            var historicos = new historicos
-            {
-                nombreTabla = entry.Metadata.GetTableName(),
-                accion = entry.State.ToString(),
-                fechaCambio = DateTime.Now
-            };
-            this.iConexion.historicos!.Add(historicos);
-            this.iConexion!.SaveChanges();
-
-            if (entidad.id != 0)
-                return entidad;
-            throw new Exception("");
-        }
-
-        public sedes Borrar(int id)
-        {
-            this.iConexion = new Conexion();
-            this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
-
-            var Arbol = this.iConexion.sedes!.Find(id);
-
-            if (Arbol != null)
-            {
-
-                this.iConexion.sedes.Remove(Arbol);
-                var entry = this.iConexion!.Entry<sedes>(Arbol!);
+                this.iConexion = new Conexion();
+                this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
+                this.iConexion.sedes!.Add(entidad!);
+                var entry = this.iConexion!.Entry<sedes>(entidad!);
 
                 var historicos = new historicos
                 {
@@ -85,12 +46,77 @@ namespace lib_cafeteria.implementaciones
                     accion = entry.State.ToString(),
                     fechaCambio = DateTime.Now
                 };
+
                 this.iConexion.historicos!.Add(historicos);
                 this.iConexion.SaveChanges();
-                return Arbol;
+                return entidad;
             }
+            catch
+            {
+                throw new Exception("No se pudo guardar la sede");
+            }
+        }
 
-            throw new Exception("El arbol no existe");
+        public sedes Modificar(sedes entidad)
+        {
+            try
+            {
+                this.iConexion = new Conexion();
+                this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
+
+                var entry = this.iConexion!.Entry<sedes>(entidad!);
+                entry.State = EntityState.Modified;
+                var historicos = new historicos
+                {
+                    nombreTabla = entry.Metadata.GetTableName(),
+                    accion = entry.State.ToString(),
+                    fechaCambio = DateTime.Now
+                };
+                this.iConexion.historicos!.Add(historicos);
+                this.iConexion!.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("No se pudo modificar la sede");
+            }
+            if (entidad.id != 0)
+                return entidad;
+            throw new Exception("");
+        }
+
+        public sedes Borrar(int id)
+        {
+            try
+            {
+                this.iConexion = new Conexion();
+                this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
+
+
+                var sede = this.iConexion.sedes!.Find(id);
+
+                if (sede != null)
+                {
+
+                    this.iConexion.sedes.Remove(sede);
+                    var entry = this.iConexion!.Entry<sedes>(sede!);
+
+                    var historicos = new historicos
+                    {
+                        nombreTabla = entry.Metadata.GetTableName(),
+                        accion = entry.State.ToString(),
+                        fechaCambio = DateTime.Now
+                    };
+                    this.iConexion.historicos!.Add(historicos);
+                    this.iConexion.SaveChanges();
+                    return sede;
+                }
+
+                throw new Exception("La sede no existe");
+            }
+            catch
+            {
+                throw new Exception("No se pudo borrar la sede");
+            }
         }
         public List<mesas> ObtenerMesasDisponibles(int personas)
         {

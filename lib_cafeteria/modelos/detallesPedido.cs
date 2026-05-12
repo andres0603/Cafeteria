@@ -8,7 +8,7 @@ namespace lib_cafeteria.modelos
     {
         public int id { get; set; }
         public int producto { get; set; }
-        public int producto_Extra { get; set; }
+        public int? producto_Extra { get; set; }
         public int pedidos { get; set; }
         public int cantidad { get; set; }
         public int cantidadExtra { get; set; }
