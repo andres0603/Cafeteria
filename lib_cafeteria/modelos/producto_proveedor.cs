@@ -12,7 +12,7 @@ namespace lib_cafeteria.modelos
         public string? codigoProveedor { get; set; }
         public decimal precio { get; set; }
         [ForeignKey("idProducto")]
-        public producto_Extra? _producto { get; set; }
+        public productos? _producto { get; set; }
         [ForeignKey("idProveedor")]
         public proveedores? _proveedor { get; set; }
     }

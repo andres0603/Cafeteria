@@ -38,12 +38,13 @@ public class personasUnitaria
 
         this.persona = new personas()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            nombre = "UT-" + DateTime.Now,
+            telefono = "3001234567",
+            correo = "juan.perez@email.com",
+            direccion = "Calle 100 # 15-20",
+            cedula = "10203040",
+            activo = true,
+
         };
         this.iConexion.personas!.Add(this.persona!);
         this.iConexion.SaveChanges();

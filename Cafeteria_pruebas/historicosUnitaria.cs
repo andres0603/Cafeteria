@@ -38,12 +38,9 @@ public class historicosUnitaria
 
         this.historico = new historicos()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            nombreTabla="UT-" + DateTime.Now,
+            accion="Prueba",
+            fechaCambio=DateTime.Now
         };
         this.iConexion.historicos!.Add(this.historico!);
         this.iConexion.SaveChanges();

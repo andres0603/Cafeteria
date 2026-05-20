@@ -39,11 +39,9 @@ public class estadosMesaUnitaria
         this.estadoMesa = new estadosMesa()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            descripcion = "Lista para clientes.",
+            activo = true,
+            PermiteAsignarPedido = true
         };
         this.iConexion.estadosMesa!.Add(this.estadoMesa!);
         this.iConexion.SaveChanges();

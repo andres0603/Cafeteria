@@ -39,11 +39,9 @@ public class sedesUnitaria
         this.sede = new sedes()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            direccion = "Carrera 45 # 80-12",
+            fecha_fundacion = new DateTime(2015, 05, 20),
+            activo = true
         };
         this.iConexion.sedes!.Add(this.sede!);
         this.iConexion.SaveChanges();

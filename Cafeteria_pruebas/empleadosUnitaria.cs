@@ -40,11 +40,15 @@ public class empleadosUnitaria
         this.empleado = new empleados()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            cedula = "10506070",
+            telefono = "3004445566",
+            correo = "valentina.admin@hotmail.com",
+            direccion = "Calle 80 # 45-10",
+            activo = true,
+            fechaIngreso = new DateTime(2023, 01, 15),
+            rol = 1,
+            horarios = 1,
+            salario = 2500000m
         };
         this.iConexion.empleados!.Add(this.empleado!);
         this.iConexion.SaveChanges();
@@ -78,4 +82,4 @@ public class empleadosUnitaria
         this.iConexion.SaveChanges();
     }
 }
-}
+

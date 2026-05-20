@@ -39,12 +39,13 @@ public class detallesPedidoUnitaria
 
         this.detallePedido = new detallesPedido()
         {
-            Nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            cantidad = 1,
+            descripcion = "UT-" + DateTime.Now.ToString(),
+            pedidos = 1,
+            producto = 1,
+            producto_Extra = 1,
+            cantidadExtra = 1,
+            subtotal = 7000m
         };
         this.iConexion.detallesPedido!.Add(this.detallePedido!);
         this.iConexion.SaveChanges();
@@ -78,4 +79,4 @@ public class detallesPedidoUnitaria
         this.iConexion.SaveChanges();
     }
 }
-}
+

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lib_cafeteria.implementaciones
 {
-    public class horariosNegocio
+    public class horariosNegocio : IHorariosNegocio
     {
         private IConexion? iConexion;
 

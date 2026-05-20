@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "servicio_cafeteria", "servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplicacion_cafeteria", "Aplicacion_cafeteria\Aplicacion_cafeteria.csproj", "{3962BF8F-6820-4ED3-A291-784958C074D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cafeteria_pruebas", "Cafeteria_pruebas\Cafeteria_pruebas.csproj", "{578C95BF-0609-4B19-89E6-E88C58E94D87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3962BF8F-6820-4ED3-A291-784958C074D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3962BF8F-6820-4ED3-A291-784958C074D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3962BF8F-6820-4ED3-A291-784958C074D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578C95BF-0609-4B19-89E6-E88C58E94D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578C95BF-0609-4B19-89E6-E88C58E94D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578C95BF-0609-4B19-89E6-E88C58E94D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578C95BF-0609-4B19-89E6-E88C58E94D87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

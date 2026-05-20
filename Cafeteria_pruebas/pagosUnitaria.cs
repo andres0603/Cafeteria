@@ -38,12 +38,11 @@ public class pagosUnitaria
 
         this.pago = new pagos()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            montoPagado = 30000,
+            propina = 5000,
+            metodoPago = 1,
+            pedido = 1,
+            devuelta = 18000
         };
         this.iConexion.pagos!.Add(this.pago!);
         this.iConexion.SaveChanges();

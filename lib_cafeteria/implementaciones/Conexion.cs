@@ -20,7 +20,7 @@ namespace lib_cafeteria.implementaciones
         {
             modelBuilder.Entity<personas>().ToTable("personas");
             modelBuilder.Entity<clientes>().ToTable("clientes");
-            modelBuilder.Entity<empleadosNegocio>().ToTable("empleados");
+            modelBuilder.Entity<empleados>().ToTable("empleados");
         }
         public DbSet<categorias> categorias { get; set; }
         public DbSet<clientes> clientes { get; set; }

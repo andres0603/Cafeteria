@@ -3,6 +3,7 @@ using lib_cafeteria.interfaces;
 using lib_cafeteria.modelos;
 using lib_cafeteria.nucleo;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Cafeteria_pruebas;
 
@@ -38,12 +39,12 @@ public class metodoPagoUnitaria
 
         this.metodoPagos = new metodoPago()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            metodo = "UT-" + DateTime.Now.ToString(),
+            comisionPorcentual = 10.0m,
+            requiereCodigo = false,
+            referenciaAprobacion = "N/A",
+            activo=true
+             
         };
         this.iConexion.metodoPago!.Add(this.metodoPagos!);
         this.iConexion.SaveChanges();

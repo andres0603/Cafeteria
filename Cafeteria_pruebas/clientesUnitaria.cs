@@ -11,6 +11,7 @@ public class clientesUnitaria
 {
     private IConexion? iConexion;
     private clientes? cliente;
+    private personas? persona;
 
     [TestMethod]
     public void Ejecutar()
@@ -36,6 +37,8 @@ public class clientesUnitaria
         this.iConexion = new Conexion();
         this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
+
+
         this.cliente = new clientes()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
@@ -45,6 +48,7 @@ public class clientesUnitaria
             fechaRegistro= DateTime.Now,
             telefono= "26565959",
             activo = true,
+            sedes=1
         };
         this.iConexion.clientes!.Add(this.cliente!);
         this.iConexion.SaveChanges();

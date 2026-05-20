@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lib_cafeteria.implementaciones
 {
-    public class personasNegocio
+    public class personasNegocio : IPersonasNegocio
     {
         private IConexion? iConexion;
 

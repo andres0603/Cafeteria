@@ -38,12 +38,10 @@ public class usuario_rolesUnitaria
 
         this.usuario_rol = new usuario_roles()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+             id_usuario=1,
+             id_rol=1,
+             activo=true,
+             fechaAsignacion=DateTime.Now
         };
         this.iConexion.usuario_roles!.Add(this.usuario_rol!);
         this.iConexion.SaveChanges();

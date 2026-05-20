@@ -39,11 +39,9 @@ public class usuariosUnitaria
         this.usuario = new usuarios()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            correo="andres455",
+            contraseña="andres603",
+            activo= true
         };
         this.iConexion.usuarios!.Add(this.usuario!);
         this.iConexion.SaveChanges();

@@ -39,11 +39,6 @@ public class estadosPedidoUnitaria
         this.estadoPedido = new estadosPedido()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
         };
         this.iConexion.estadosPedido!.Add(this.estadoPedido!);
         this.iConexion.SaveChanges();

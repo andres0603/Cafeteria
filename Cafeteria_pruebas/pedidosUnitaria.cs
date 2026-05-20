@@ -38,12 +38,10 @@ public class pedidosUnitaria
 
         this.pedido = new pedidos()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            notasParaCocina = "UT-" + DateTime.Now,
+            clientes = 1,
+            estadosPedido = 1,
+            total = 7000m, 
         };
         this.iConexion.pedidos!.Add(this.pedido!);
         this.iConexion.SaveChanges();

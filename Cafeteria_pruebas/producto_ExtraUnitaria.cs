@@ -39,11 +39,9 @@ public class producto_ExtraUnitaria
         this.producto_Extras = new producto_Extra()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            cantidad = 20,
+            precioAdicional = 2500,
+            activo = true
         };
         this.iConexion.producto_Extra!.Add(this.producto_Extras!);
         this.iConexion.SaveChanges();

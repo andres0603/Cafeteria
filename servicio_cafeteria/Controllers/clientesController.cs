@@ -29,7 +29,7 @@ namespace servicio_cafeteria.Controllers
         {
             if (this.IClientesNegocio == null)
                 throw new Exception("No implementado");
-            return this.IClientesNegocio!.Guardar(entidad, HttpContext);
+            return this.IClientesNegocio!.Guardar(entidad);
         }
 
         [HttpPut]
@@ -46,7 +46,7 @@ namespace servicio_cafeteria.Controllers
             try
             {
                 this.IClientesNegocio!.Borrar(id);
-                return Ok("Arbol eliminado correctamente");
+                return Ok("Cliente eliminado correctamente");
             }
             catch (Exception ex)
             {

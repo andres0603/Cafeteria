@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 namespace lib_cafeteria.modelos
 {
     public class metodoPago
@@ -12,4 +14,6 @@ namespace lib_cafeteria.modelos
         public bool activo { get; set; }
         public List<pagos>? pagos { get; set; }
     }
+  
+
 }

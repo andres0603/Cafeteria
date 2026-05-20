@@ -6,9 +6,9 @@ namespace lib_cafeteria.interfaces
 {
     public interface IMetodoPagoNegocio
     {
-        List<mesas> Consultar();
-        mesas Guardar(mesas entidad);
-        mesas Modificar(mesas entidad);
-        mesas Borrar(int id);
+        List<metodoPago> Consultar();
+        metodoPago Guardar(metodoPago entidad);
+        metodoPago Modificar(metodoPago entidad);
+        metodoPago Borrar(int id);
     }
 }

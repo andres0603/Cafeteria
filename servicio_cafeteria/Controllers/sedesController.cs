@@ -46,7 +46,7 @@ namespace servicio_cafeteria.Controllers
             try
             {
                 this.ISedesNegocio!.Borrar(id);
-                return Ok("Arbol eliminado correctamente");
+                return Ok("Sede eliminada correctamente");
             }
             catch (Exception ex)
             {

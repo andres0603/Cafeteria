@@ -11,13 +11,13 @@ namespace lib_cafeteria.implementaciones
     {
         private IConexion? iConexion;
 
-        public List<mesas> Consultar()
+        public List<metodoPago> Consultar()
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-                var lista = this.iConexion.mesas!.ToList();
+                var lista = this.iConexion.metodoPago!.ToList();
                 return lista;
             }
             catch
@@ -26,7 +26,7 @@ namespace lib_cafeteria.implementaciones
             }
         }
 
-        public mesas Guardar(mesas entidad)
+        public metodoPago Guardar(metodoPago entidad)
         {
             if (entidad.id != 0)
                 throw new Exception("Ya se guardo");
@@ -35,8 +35,8 @@ namespace lib_cafeteria.implementaciones
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-                this.iConexion.mesas!.Add(entidad!);
-                var entry = this.iConexion!.Entry<mesas>(entidad!);
+                this.iConexion.metodoPago!.Add(entidad!);
+                var entry = this.iConexion!.Entry<metodoPago>(entidad!);
 
                 var historicos = new historicos
                 {
@@ -55,14 +55,14 @@ namespace lib_cafeteria.implementaciones
             }
         }
 
-        public mesas Modificar(mesas entidad)
+        public metodoPago Modificar(metodoPago entidad)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
-                var entry = this.iConexion!.Entry<mesas>(entidad!);
+                var entry = this.iConexion!.Entry<metodoPago>(entidad!);
                 entry.State = EntityState.Modified;
                 var historicos = new historicos
                 {
@@ -82,7 +82,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public mesas Borrar(int id)
+        public metodoPago Borrar(int id)
         {
             try
             {
@@ -90,13 +90,13 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var metodoPago = this.iConexion.mesas!.Find(id);
+                var metodoPago = this.iConexion.metodoPago!.Find(id);
 
                 if (metodoPago != null)
                 {
 
-                    this.iConexion.mesas.Remove(metodoPago);
-                    var entry = this.iConexion!.Entry<mesas>(metodoPago!);
+                    this.iConexion.metodoPago.Remove(metodoPago);
+                    var entry = this.iConexion!.Entry<metodoPago>(metodoPago!);
 
                     var historicos = new historicos
                     {

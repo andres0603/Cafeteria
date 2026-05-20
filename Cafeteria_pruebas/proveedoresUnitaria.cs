@@ -39,11 +39,10 @@ public class proveedoresUnitaria
         this.proveedor = new proveedores()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            nit = "800.123.456-1",
+            direccion = "Vereda La Palma, Quindío",
+            telefono = "3104445566",
+            activo = true
         };
         this.iConexion.proveedores!.Add(this.proveedor!);
         this.iConexion.SaveChanges();

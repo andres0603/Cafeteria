@@ -39,12 +39,7 @@ public class estadoReservaUnitaria
 
         this.estadoReservas = new estadoReserva()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            nombre = "UT-" + DateTime.Now.ToString()
         };
         this.iConexion.estadoReserva!.Add(this.estadoReservas!);
         this.iConexion.SaveChanges();
@@ -78,4 +73,4 @@ public class estadoReservaUnitaria
         this.iConexion.SaveChanges();
     }
 }
-}
+

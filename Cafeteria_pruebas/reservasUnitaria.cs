@@ -38,12 +38,11 @@ public class reservasUnitaria
 
         this.reserva = new reservas()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            fechaHoraReserva = new DateTime(2026, 03, 14, 19, 30, 00),
+            numeroPersonas = 2,
+            requerimientosEspeciales = "UT-" + DateTime.Now,
+            estadoReserva = 1,
+            clientes = 1
         };
         this.iConexion.reservas!.Add(this.reserva!);
         this.iConexion.SaveChanges();

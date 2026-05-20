@@ -38,12 +38,9 @@ public class historial_loginUnitaria
 
         this.historialLogin = new historial_login()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+         fecha_ingreso= DateTime.Now,
+         id_usuario=1,
+         resultado="Ut-" + DateTime.Now
         };
         this.iConexion.historial_login!.Add(this.historialLogin!);
         this.iConexion.SaveChanges();

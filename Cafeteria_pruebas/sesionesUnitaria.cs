@@ -38,12 +38,9 @@ public class sesionesUnitaria
 
         this.sesion = new sesiones()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+             id_usuario=1,
+             estado=true,
+             fecha_sesion=DateTime.Now
         };
         this.iConexion.sesiones!.Add(this.sesion!);
         this.iConexion.SaveChanges();

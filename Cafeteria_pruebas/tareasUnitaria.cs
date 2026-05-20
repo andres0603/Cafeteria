@@ -39,11 +39,10 @@ public class tareasUnitaria
         this.tarea = new tareas()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            fechaAsignacion = DateTime.Now,
+            observaciones = "Verificar que las máquinas de expresso estén calibradas.",
+            activo = true,
+            empleados = 6
         };
         this.iConexion.tareas!.Add(this.tarea!);
         this.iConexion.SaveChanges();

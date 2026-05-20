@@ -38,12 +38,10 @@ public class producto_proveedorUnitaria
 
         this.producto_proveedores = new producto_proveedor()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            codigoProveedor = "UT-" + DateTime.Now.ToString(),
+            idProducto = 1,
+            idProveedor = 1,
+            precio = 45000
         };
         this.iConexion.producto_proveedor!.Add(this.producto_proveedores!);
         this.iConexion.SaveChanges();

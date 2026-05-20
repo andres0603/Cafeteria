@@ -38,12 +38,11 @@ public class horariosUnitaria
 
         this.horario = new horarios()
         {
-            nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            dia = "UT-",
+            horaEntrada = "10:00 am",
+            horaSalida = "07:00 PM",
+            minutosDescanso = 60,
+            activo = true
         };
         this.iConexion.horarios!.Add(this.horario!);
         this.iConexion.SaveChanges();

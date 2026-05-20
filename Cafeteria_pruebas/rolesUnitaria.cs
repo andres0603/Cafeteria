@@ -39,11 +39,9 @@ public class rolesUnitaria
         this.rol = new roles()
         {
             nombre = "UT-" + DateTime.Now.ToString(),
-            Capacidad = 253,
-            Motor = "9000cc",
-            Marca = "Airbus",
-            Modelo = "S526",
-            Estado = true,
+            descripcion = "Responsable de la operación global y gestión de inventarios.",
+            salarioBase = 2500000m,
+            activo = true
         };
         this.iConexion.roles!.Add(this.rol!);
         this.iConexion.SaveChanges();
