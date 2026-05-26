@@ -1,33 +1,88 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Login";
-    Layout=null;
+    ViewData["Title"] = "Cafeteria";
 }
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/Aplicacion_cafeteria.styles.css" asp-append-version="true" />
+<link href="~/css/estilo.css" rel="stylesheet" />
 
-<div class="login-container">
-    <div class="login-card">
-        <h2>Iniciar sesión</h2>
 
-        <form method="post">
-            <div class="form-group">
-                <label asp-for="Username">Usuario</label>
-                <input asp-for="Username" class="form-control" />
+@if (!Model.EstaLogueado)
+{
+    Layout = null;
+    @* Asegúrate de incluir los íconos de Bootstrap en tu _Layout.cshtml o aquí mismo *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@@1.11.3/font/bootstrap-icons.min.css">
+
+    <div class="login-background">
+        <div class="login-card">
+            <div class="logo-container">
+                <div class="logo-shield">
+                    <span>Cafeteria</span>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Password">Contraseña</label>
-                <input asp-for="Password" type="password" class="form-control" />
+            <h2>BIENVENIDO A LA CAFETERÍA </h2>
+            <p class="subtitle">Inicie sesión para continuar</p>
+
+            <div class="coffee-icon-container">
+                <i class="bi bi-cup-hot coffee-icon"></i>
             </div>
 
-            <button type="submit" class="btn-login">
-                Iniciar sesión
-            </button>
-        </form>
+            <form method="POST">
+                    <div class="form-group-custom">
+                        <label class="input-wrapper">
+                            Usuario:
+                        </label>
+                        <input type="text"
+                               asp-for="@Model.Usuario"
+                               class="custom-input" />
+                    </div>
 
-        <p class="mensaje">@Model.Mensaje</p>
+                <div class="form-group-custom">
+                        <label class="control-label">
+                            Contraseña:
+                        </label>
+
+                        <input type="password"
+                               asp-for="@Model.Contraseña"
+                           class="custom-input" />
+
+                    </div>
+                    <div class="button-group">
+
+                        <input type="submit"
+                               value="Limpiar"
+                               asp-page-handler="BtClean"
+                               class="btClean" />
+
+                        <input type="submit"
+                               value="Entrar"
+                               asp-page-handler="BtEnter"
+                               class="btEnter" />
+
+                    </div>
+            </form>
+        </div>
     </div>
-</div>
+}
+
+else
+{
+   <div class="bienvenido-background">
+        <div class="bienvenido-card">
+        <h1 class="display-4">
+            Bienvenido
+        </h1>
+        <img src="~/cafeteria.png" class="img-fluid"
+             style="max-width:250px;" />
+        <form method="POST">
+            <input type="submit"
+                   value="Cerrar"
+                   asp-page-handler="BtClose"
+                   class="BtClose" />
+        </form>
+        </div>
+    </div>
+}

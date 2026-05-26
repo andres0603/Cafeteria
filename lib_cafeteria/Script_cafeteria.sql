@@ -42,6 +42,8 @@ CREATE TABLE estadosPedido (
     [nombre] VARCHAR(50)
 );
 GO
+
+SELECT * from estadosPedido
 CREATE TABLE metodoPago (
     [id] INT PRIMARY KEY IDENTITY(1,1),
     [metodo] VARCHAR(50),
@@ -82,7 +84,7 @@ CREATE TABLE categorias (
 );
 GO
 CREATE TABLE personas (
-    [id] INT PRIMARY KEY,
+    [id] INT PRIMARY KEY IDENTITY(1,1),
     [cedula] VARCHAR(20) UNIQUE,
     [nombre] VARCHAR(150),
     [correo] VARCHAR(100),
@@ -151,7 +153,7 @@ CREATE TABLE pedidos (
     [total] DECIMAL(18,2),
     [notasParaCocina] TEXT,
     [clientes] INT NOT NULL REFERENCES clientes(id),
-    [estadoPedido] INT NOT NULL REFERENCES estadosPedido(id)
+    [estadosPedido] INT NOT NULL REFERENCES estadosPedido(id)
 );
 GO
 CREATE TABLE pagos (
@@ -181,7 +183,48 @@ CREATE TABLE detallesPedido (
     [descripcion] TEXT,
     [subtotal] DECIMAL(18,2)
 );
+
+CREATE TABLE historicos(
+	[id] INT PRIMARY KEY IDENTITY(1,1),
+	[nombreTabla] NVARCHAR(30) NOT NULL,
+	[accion] NVARCHAR(30) NOT NULL,
+	[fechaCambio] SMALLDATETIME
+);
+
+CREATE TABLE usuarios(
+	[id] INT PRIMARY KEY IDENTITY(1,1),
+	[nombre] NVARCHAR(30) NOT NULL,
+	[correo] NVARCHAR(30) NOT NULL,
+	[contraseña] NVARCHAR(30) NOT NULL,
+	[activo] BIT
+);
 GO
+
+CREATE TABLE historial_login(
+	[id] INT PRIMARY KEY IDENTITY(1,1),
+	[fecha_ingreso] DATETIME NOT NULL,
+	[resultado] NVARCHAR(30) NOT NULL,
+	[id_usuario] INT FOREIGN KEY REFERENCES usuarios(id)
+);
+GO
+
+CREATE TABLE usuario_roles(
+	[id] INT PRIMARY KEY IDENTITY(1,1),
+	[id_usuario] INT FOREIGN KEY REFERENCES usuarios(id),
+	[id_rol] INT FOREIGN KEY REFERENCES roles(id),
+	[fechaAsignacion] DATETIME NOT NULL,
+	[activo] BIT,
+);
+GO
+
+ CREATE TABLE sesiones(
+	[id] INT PRIMARY KEY IDENTITY(1,1),
+	[fecha_sesion] DATETIME NOT NULL,
+	[estado] BIT,
+	[id_usuario] INT FOREIGN KEY REFERENCES usuarios(id)
+);
+GO
+
 INSERT INTO categorias (nombre) VALUES
 ('Bebidas Calientes'),
 ('Panaderia'),
@@ -230,12 +273,12 @@ INSERT INTO estadosPedido (nombre) VALUES
 ('Cancelado');
 GO
 
-INSERT INTO metodoPago (metodo, comisionPorcentual, requiereCodigo, referenciaAprobacion) VALUES
-('Efectivo', 0.00, 0, 'N/A'),
-('Tarjeta de Crédito', 2.50, 1, 'V-445522'),
-('Nequi/Daviplata', 0.00, 1, 'TR-998811'),
-('Bono Regalo', 0.00, 1, 'BONO-2024'),
-('Rappi Pay', 5.00, 1, 'R-776611');
+INSERT INTO metodoPago (metodo, comisionPorcentual, requiereCodigo, referenciaAprobacion,activo) VALUES
+('Efectivo', 0.00, 0, 'N/A',1),
+('Tarjeta de Crédito', 2.50, 1, 'V-445522',1),
+('Nequi/Daviplata', 0.00, 1, 'TR-998811',1),
+('Bono Regalo', 0.00, 1, 'BONO-2024',1),
+('Rappi Pay', 5.00, 1, 'R-776611',0);
 GO
 
 INSERT INTO estadosMesa (nombre, descripcion, activo, PermiteAsignarPedido) VALUES
@@ -262,17 +305,17 @@ INSERT INTO proveedores (nombre, nit, direccion, telefono, activo) VALUES
 ('Distribuidora El Queso Dorado', '811.000.999-2', 'Km 5 Vía San Félix, Antioquia', '3127778899', 1);
 GO
 
-INSERT INTO personas (id,cedula,nombre,telefono,correo,direccion,activo) values
-(1,'Juan Pérez','10203040', '3001234567', 'juan.perez@email.com', 'Calle 100 # 15-20',  1),
-(2,'Maria Garcia','52987654', '3159876543', 'maria.g@email.com', 'Carrera 7 # 12-45', 1),
-(3,'Carlos Rodriguez', '80123456', '3204567890', 'carlos.rod@email.com', 'Avenida 19 # 103-11', 0),
-(4,'Ana Martínez', '1032456789', '3112223344', 'ana.mtz@email.com', 'Calle 45 # 25-30',  1),
-(5,'Luis Felipe Gomez', '79654321', '3015556677', 'luis.gomez@gmail.com', 'Diagonal 50 # 30-15',  1),
-(6,'Valentina Herrera', '10506070', '3004445566', 'valentina.admin@hotmail.com', 'Calle 80 # 45-10', 1),
-(7,'Mateo Salazar', '10908070', '3102223344', 'mateo.coffee@yahoo.es', 'Carrera 15 # 70-20', 1),
-(8,'Diana Castro', '52444333', '3156667788', 'diana.c@gmail.com', 'Avenida Siempre Viva 123', 1),
-(9,'Roberto Gómez', '80111222', '3209990011', 'roberto.bakery@hotmail.com', 'Transversal 5 # 40-50', 1),
-(10,'Lucía Méndez', '10304050', '3118889900', 'lucia.m@gmail.com', 'Calle 10 # 2-30', 1);
+INSERT INTO personas (cedula,nombre,telefono,correo,direccion,activo) values
+('Juan Pérez','10203040', '3001234567', 'juan.perez@email.com', 'Calle 100 # 15-20',  1),
+('Maria Garcia','52987654', '3159876543', 'maria.g@email.com', 'Carrera 7 # 12-45', 1),
+('Carlos Rodriguez', '80123456', '3204567890', 'carlos.rod@email.com', 'Avenida 19 # 103-11', 0),
+('Ana Martínez', '1032456789', '3112223344', 'ana.mtz@email.com', 'Calle 45 # 25-30',  1),
+('Luis Felipe Gomez', '79654321', '3015556677', 'luis.gomez@gmail.com', 'Diagonal 50 # 30-15',  1),
+('Valentina Herrera', '10506070', '3004445566', 'valentina.admin@hotmail.com', 'Calle 80 # 45-10', 1),
+('Mateo Salazar', '10908070', '3102223344', 'mateo.coffee@yahoo.es', 'Carrera 15 # 70-20', 1),
+('Diana Castro', '52444333', '3156667788', 'diana.c@gmail.com', 'Avenida Siempre Viva 123', 1),
+('Roberto Gómez', '80111222', '3209990011', 'roberto.bakery@hotmail.com', 'Transversal 5 # 40-50', 1),
+('Lucía Méndez', '10304050', '3118889900', 'lucia.m@gmail.com', 'Calle 10 # 2-30', 1);
 GO
 
 INSERT INTO clientes (id,fechaRegistro, sedes) VALUES
@@ -325,7 +368,7 @@ INSERT INTO reservas (fechaHoraReserva, numeroPersonas, requerimientosEspeciales
 ('2026-03-05 10:30:00', 2, 'El cliente llamó para cancelar.', 5, 5);
 GO
 
-INSERT INTO pedidos (notasParaCocina, clientes, estadoPedido, total) VALUES
+INSERT INTO pedidos (notasParaCocina, clientes, estadosPedido, total) VALUES
 ('El café muy caliente, por favor.', 1, 1, 7000),
 ('Organizar para dos personas', 2, 2, 16000),
 ('Sin novedad', 3, 3, 6500),
@@ -356,6 +399,11 @@ INSERT INTO detallesPedido (cantidad, descripcion, pedidos, producto, producto_E
 (1, 'Croissant con adicion de leche de almendras', 3, 3, 2, 1, 6500),
 (3, 'tres porciones de torta de chocolate sin adicion', 4, 4, NULL, 0, 22500),
 (1, 'Jugo de Naranja Natural', 5, 5, NULL, 0, 5000);
+GO
+
+INSERT INTO usuarios VALUES
+('andres123','Andres45@gmsil.com','123',1),
+('sara','sara@gmail.com','123',1)
 GO
 
 

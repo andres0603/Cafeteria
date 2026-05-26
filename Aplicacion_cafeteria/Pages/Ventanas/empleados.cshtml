@@ -1,0 +1,289 @@
+﻿@page
+@model empleadosModel
+@{
+    ViewData["Title"] = "empleados";
+}
+<link href="~/css/estilo.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+<center>
+    <div>
+        <form method="POST"
+            enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="dashboard-background">
+                <div class="dashboard-container">
+
+            <div class="dashboard-header" align="left">
+                <h3 style="color:white">GESTIÓN DE EMPLEADOS</h3>
+            </div>
+
+            <div class="action-buttons">
+                <input type="submit"
+                    value="Refrescar"
+                    class="btn-dashboard btn-refresh"
+                    asp-page-handler="BtRefrescar" />
+                <input type="submit"
+                    value="Nuevo"
+                    class="btn-dashboard btn-new"
+                    asp-page-handler="BtNuevo"
+                    disabled="@(Model.empleado != null)"/>
+                <input type="submit"
+                    value="Guardar"
+                    class="btn-dashboard btn-save"
+                    asp-page-handler="BtGuardar"
+                    disabled="@(Model.empleado == null)"/>
+            </div>
+
+            @if (Model.empleado != null)
+            {
+                <input type="hidden" 
+                    asp-for="@Model.empleado!.id"/>
+                <div>
+                
+                    <div class="form-group">
+                        <label style="color:white">
+                            Nombre
+                        </label>
+                        <div class="col-6">
+                            <input id="inNombre"
+                                   class="cts_forms form-control"
+                                   asp-for="@Model.empleado!.nombre" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="color:white">
+                            Cedula
+                        </label>
+                        <div class="col-6">
+                            <input id="inCedula"
+                                   class="cts_forms form-control"
+                                   asp-for="@Model.empleado!.cedula" />
+                        </div>
+                    </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Correo
+                                </label>
+                                <div class="col-6">
+                                    <input id="inCorreo"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.empleado!.correo" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Telefono
+                                </label>
+                                <div class="col-6">
+                                    <input id="inTelefono"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.empleado!.telefono" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Direccion
+                                </label>
+                                <div class="col-6">
+                                    <input id="inDireccion"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.empleado!.direccion" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Fecha de ingreso
+                                </label>
+                                <div class="col-6">
+                            <input type="date"
+                                   asp-for="@Model.empleado!.fechaIngreso"
+                                   class="form-control" />
+                             </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Rol
+                                </label>
+                                <div class="col-6">
+                                    <select id="seRol"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.empleado!.rol"
+                                            asp-items="@(new SelectList(Model.ListaRoles, "id", "nombre"))">
+                                        </select>
+                                            
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Horario
+                                </label>
+                                <div class="col-6">
+                                    <select id="seHorario"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.empleado!.horarios"
+                                            asp-items="@(new SelectList(Model.ListaHorarios, "id", "dia"))">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Salario
+                                </label>
+                                <div class="col-6">
+                                    <input id="inDireccion"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.empleado!.salario" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Activo
+                                </label>
+                                <div class="col-6">
+                                    <label>Activo</label>
+                                    <input type="checkbox"
+                                           asp-for="@Model.empleado!.activo"
+                                           class="form-check-input" />
+                                </div>
+                            </div>
+
+                    </div>
+            }
+
+            
+            @if (ViewData.ContainsKey("Mensaje"))
+            {
+                @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+            }
+
+            @if (Model.empleado != null && Model.Borrando)
+            {
+                <div class='popup'>
+                    <div class='pp_ms_inner'>
+                        <div style='width:95%'>
+                            <h2 align="left">
+                                Mensaje
+                            </h2>
+
+                            <h6 align="left">
+                                Desea borrar el empleado?
+                            </h6>
+                            <h6 align="left">
+                                @Model.empleado!.nombre
+                            </h6>
+                            
+                            <input type="submit"
+                                   value="Cerrar"
+                                   asp-page-handler="BtCerrar"
+                                   class="btn btn-secondary" />
+                            <input type="submit"
+                                   value="Borrar"
+                                   asp-page-handler="BtBorrar"
+                                   class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model != null &&
+                 Model.Lista != null &&
+                 Model.Lista.Count > 0 )
+            {
+         <div class="admin-card table-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Cedula
+                        </th>
+                        <th>
+                            Correo
+                        </th>
+                        <th>
+                            Telefono
+                        </th>
+                        <th>
+                            Direccion
+                        </th>
+                        <th>
+                            Fecha de ingreso
+                        </th>
+                        <th>
+                            Rol
+                        </th>
+                        <th>
+                            Horarios
+                        </th>
+                        <th>
+                            Salario
+                        </th>
+                        <th>
+                            Activo
+                        </th>
+
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>
+                                @elemento.nombre
+                            </td>
+                            <td>
+                                @elemento.cedula
+                            </td>
+                            <td>
+                                @elemento.correo
+                            </td>
+                            <td>
+                                @elemento.telefono
+                            </td>
+                            <td>
+                                @elemento.direccion
+                            </td>
+                            <td>
+                                @elemento.fechaIngreso.ToString("yyyy/MM/dd")
+                            </td>
+                            <td>
+                                @elemento._rol!.nombre
+                            </td>
+                            <td>
+                                @elemento._horarios!.dia
+                            </td>
+                            <td>
+                                @elemento.salario
+                            </td>
+                            <td>
+                                @elemento.activo
+                            </td>
+
+                            <td>
+                                <input type="submit"
+                                    value="Modificar"
+                                    asp-page-handler="BtModificar"
+                                    class="btn-table btn-modify"
+                                    asp-route-data="@elemento.id" />
+                                <input type="submit"
+                                    value="Borrar"
+                                    asp-page-handler="BtBorrarVal"
+                                    class="btn-table btn-delete"
+                                    asp-route-data="@elemento.id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+         </div>
+            }
+                </div>
+            </div>
+        </form>
+   
+    </div>
+</center>

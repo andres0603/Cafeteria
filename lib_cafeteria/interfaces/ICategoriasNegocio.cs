@@ -8,6 +8,6 @@ namespace lib_cafeteria.interfaces
         List<categorias> Consultar();
         categorias Guardar(categorias entidad);
         categorias Modificar(categorias entidad);
-        categorias Borrar(int id);
+        categorias Borrar(categorias entidad);
     }
 }

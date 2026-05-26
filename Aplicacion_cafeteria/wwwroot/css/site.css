@@ -1,74 +1,184 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
-.login-container {
+﻿/* Fondo general con un sutil degradado oscuro */
+.login-background {
+    background: radial-gradient(circle, #252e38 0%, #12161a 100%);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 70vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    min-height: 100vh; /* Obliga al contenedor a usar todo el alto del navegador */
+    width: 100%;
 }
 
+.bienvenido-background {
+    background: radial-gradient(circle, #252e38 0%, #12161a 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    min-height: 100vh; /* Obliga al contenedor a usar todo el alto del navegador */
+    width: 100%;
+}
+
+.text-center-background {
+    background: radial-gradient(circle, #252e38 0%, #12161a 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    min-height: 100vh; /* Obliga al contenedor a usar todo el alto del navegador */
+    width: 100%;
+}
+
+/* Tarjeta con efecto Glassmorphism (Vidrio) */
 .login-card {
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    width: 350px;
-}
-
-    .login-card h2 {
-        text-align: center;
-        margin-bottom: 25px;
-    }
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-control {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 40px 30px;
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.btn-login {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #6f4e37;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-    .btn-login:hover {
-        background-color: #5a3d2b;
-    }
-
-.mensaje {
-    margin-top: 15px;
-    color: red;
+    max-width: 450px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     text-align: center;
+    position: relative;
+    color: #ffffff;
 }
+
+.bienvenido-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    text-align: center;
+    position: relative;
+    color: #ffffff;
+}
+
+/* Contenedor del Escudo flotante */
+.logo-container {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo-shield {
+    background: linear-gradient(135deg, #c5a059 0%, #917133 100%);
+    width: 100%;
+    height: 90px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+    .logo-shield span {
+        font-weight: bold;
+        font-size: 1.3rem;
+        color: #12161a;
+        letter-spacing: 1px;
+    }
+
+/* Títulos y textos */
+.login-card h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 35px;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.login-card .subtitle {
+    color: #b0b5b9;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+..form-group-custom {
+    text-align: left;
+    margin-bottom: 10px !important; /* 👈 Esto controla la distancia CORTA entre bloques */
+    width: 100%;
+}
+
+.form-group-custom label {
+    display: block;
+    font-size: 0.85rem;
+    color: #ffffff;
+    margin-bottom: 4px !important; /* 👈 Esto pega el texto "Usuario" a su input */
+}
+
+/* Input estilizado sin usar form-control de Bootstrap */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    color: #12161a;
+    z-index: 2;
+}
+
+.custom-input {
+    width: 70%;
+    padding: 10px 10px 10px 38px;
+    background-color: #e2e6ea;
+    border: none;
+    border-radius: 6px;
+    color: #12161a;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+    .custom-input:focus {
+        outline: none;
+        background-color: #ffffff;
+    }
+
+/* Botones alineados a la par */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+    .button-group input[type="submit"] {
+        flex: 1;
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+    }
+
+.btClean {
+    background-color: #ffffff;
+    color: #12161a;
+}
+
+.btEnter {
+    background: linear-gradient(135deg, #c5a059 0%, #a68443 100%);
+    color: #ffffff;
+}
+
+    .btEnter:hover {
+        transform: translateY(-1px);
+    }

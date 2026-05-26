@@ -17,6 +17,14 @@ namespace lib_cafeteria.implementaciones
             { 
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
+                var historicos = new historicos
+                {
+                    nombreTabla = "Categorias",
+                    accion = "Select",
+                    fechaCambio = DateTime.Now
+                };
+                this.iConexion.historicos!.Add(historicos);
+                this.iConexion.SaveChanges();
                 var lista = this.iConexion.categorias!.ToList();
                 return lista;
             }
@@ -84,21 +92,18 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public categorias Borrar(int id)
+        public categorias Borrar(categorias entidad)
         {
             try 
             { 
             this.iConexion = new Conexion();
             this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
-
-            var categoria = this.iConexion.categorias!.Find(id);
-
-            if (categoria != null)
+            if (entidad != null)
             {
 
-                this.iConexion.categorias.Remove(categoria);
-                var entry = this.iConexion!.Entry<categorias>(categoria!);
+                this.iConexion.categorias.Remove(entidad);
+                var entry = this.iConexion!.Entry<categorias>(entidad!);
 
                 var historicos = new historicos
                 {
@@ -108,7 +113,7 @@ namespace lib_cafeteria.implementaciones
                 };
                 this.iConexion.historicos!.Add(historicos);
                 this.iConexion.SaveChanges();
-                return categoria;
+                return entidad;
             }
 
             throw new Exception("la categoria no existe");

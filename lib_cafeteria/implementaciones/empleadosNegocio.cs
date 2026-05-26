@@ -17,7 +17,17 @@ namespace lib_cafeteria.implementaciones
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-                var lista = this.iConexion.empleados!.ToList();
+                var historicos = new historicos
+                {
+                    nombreTabla = "Empleados",
+                    accion = "Select",
+                    fechaCambio = DateTime.Now
+                };
+                this.iConexion.historicos!.Add(historicos);
+                var lista = this.iConexion.empleados!
+                    .Include(x=>x._horarios)
+                    .Include(x=>x._rol)
+                    .ToList();
                 return lista;
             }
             catch

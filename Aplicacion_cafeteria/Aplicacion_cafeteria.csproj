@@ -6,4 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\Cafeteria.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Cafeteria.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lib_presentaciones\Lib_presentaciones.csproj" />
+  </ItemGroup>
+
 </Project>

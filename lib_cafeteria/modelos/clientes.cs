@@ -6,7 +6,7 @@ namespace lib_cafeteria.modelos
 {
     public class clientes : personas
     {
-        public DateTime fechaRegistro { get; set; }
+        public DateTime fechaRegistro { get; set; } = DateTime.Now;
         public int sedes { get; set; }
         [ForeignKey("sedes")]
         public sedes? _sedes { get; set; }

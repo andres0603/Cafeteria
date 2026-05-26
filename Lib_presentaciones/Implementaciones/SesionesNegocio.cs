@@ -1,0 +1,99 @@
+﻿
+using lib_cafeteria.modelos;
+using Lib_presentaciones.interfaces;
+using Newtonsoft.Json;
+
+namespace Lib_presentaciones.Implementaciones
+{
+    public class SesionesNegocio : IsesionesNegocio
+    {
+        private IComunicaciones? iComunicaciones;
+
+        public List<sesiones> Consultar()
+        {
+            var datos = new Dictionary<string, object>();
+            datos["Url"] = "http://localhost:5245/sesiones/Consultar";
+
+            this.iComunicaciones = new Comunicaciones();
+            var task = this.iComunicaciones.Ejecutar(datos)!;
+            task.Wait();
+            var respuesta = task.Result;
+
+            if (!respuesta.ContainsKey("Valor"))
+                return new List<sesiones>();
+
+            return JsonConvert.DeserializeObject<List<sesiones>>(
+                respuesta["Valor"].ToString()!)!;
+        }
+
+        public sesiones Guardar(sesiones entidad)
+        {
+            if (entidad.id != 0)
+                throw new Exception("Ya se guardo");
+
+            this.iComunicaciones = new Comunicaciones();
+
+            var datos = new Dictionary<string, object>();
+            datos["Url"] = "http://localhost:5245/sesiones/Guardar";
+            datos["Entidad"] = entidad;
+
+            this.iComunicaciones = new Comunicaciones();
+            var task = this.iComunicaciones.EjecutarPost(datos)!;
+            task.Wait();
+            var respuesta = task.Result;
+
+            if (!respuesta.ContainsKey("Valor"))
+                return new sesiones();
+
+            return JsonConvert.DeserializeObject<sesiones>(
+                respuesta["Valor"].ToString()!)!;
+        }
+
+        public sesiones Modificar(sesiones entidad)
+        {
+            if (entidad.id == 0)
+                throw new Exception("No se ha guardado");
+
+            this.iComunicaciones = new Comunicaciones();
+
+            var datos = new Dictionary<string, object>();
+            datos["Url"] = "http://localhost:5245/sesiones/Modificar";
+            datos["Entidad"] = entidad;
+
+            this.iComunicaciones = new Comunicaciones();
+            var task = this.iComunicaciones.EjecutarPut(datos)!;
+            task.Wait();
+            var respuesta = task.Result;
+
+            if (!respuesta.ContainsKey("Valor"))
+                return new sesiones();
+
+            return JsonConvert.DeserializeObject<sesiones>(
+                respuesta["Valor"].ToString()!)!;
+        }
+
+        public sesiones Borrar(sesiones entidad)
+        {
+            if (entidad.id == 0)
+                throw new Exception("No se ha guardado");
+
+            this.iComunicaciones = new Comunicaciones();
+
+            var datos = new Dictionary<string, object>();
+            datos["Url"] = "http://localhost:5245/sesiones/Eliminar";
+            datos["Entidad"] = entidad;
+
+            this.iComunicaciones = new Comunicaciones();
+            var task = this.iComunicaciones.EjecutarDelete(datos)!;
+            task.Wait();
+            var respuesta = task.Result;
+
+            if (!respuesta.ContainsKey("Valor"))
+                return new sesiones();
+
+            return JsonConvert.DeserializeObject<sesiones>(
+                respuesta["Valor"].ToString()!)!;
+        }
+    }
+}
+

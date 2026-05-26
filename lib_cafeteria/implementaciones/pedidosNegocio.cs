@@ -17,6 +17,13 @@ namespace lib_cafeteria.implementaciones
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
+                var historicos = new historicos
+                {
+                    nombreTabla = "Pedidos",
+                    accion = "Select",
+                    fechaCambio = DateTime.Now
+                };
+                this.iConexion.historicos!.Add(historicos);
                 var lista = this.iConexion.pedidos!.ToList();
                 return lista;
             }

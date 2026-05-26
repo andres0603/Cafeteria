@@ -1,0 +1,242 @@
+﻿@page
+@model detallesPedidoModel
+@{
+    ViewData["Title"] = "detallesPedido";
+}
+<link href="~/css/estilo.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+<center>
+    <div>
+        <form method="POST"
+            enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="dashboard-background">
+                <div class="dashboard-container">
+
+            <div class="dashboard-header" align="left">
+                <h3 style="color:white">GESTIÓN DE LOS DETALLES DE UN PEDIDO</h3>
+            </div>
+
+            <div class="action-buttons">
+                <input type="submit"
+                    value="Refrescar"
+                    class="btn-dashboard btn-refresh"
+                    asp-page-handler="BtRefrescar" />
+                <input type="submit"
+                    value="Nuevo"
+                    class="btn-dashboard btn-new"
+                    asp-page-handler="BtNuevo"
+                    disabled="@(Model.detallePedido != null)"/>
+                <input type="submit"
+                    value="Guardar"
+                    class="btn-dashboard btn-save"
+                    asp-page-handler="BtGuardar"
+                    disabled="@(Model.detallePedido == null)"/>
+            </div>
+
+            @if (Model.detallePedido != null)
+            {
+                <input type="hidden" 
+                    asp-for="@Model.detallePedido!.id"/>
+                <div>
+                
+                    <div class="form-group">
+                        <label style="color:white">
+                            Descripcion
+                        </label>
+                        <div class="col-6">
+                            <input id="inDescripcion"
+                                   class="cts_forms form-control"
+                                   asp-for="@Model.detallePedido!.descripcion" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="color:white">
+                            Cantidad de producto
+                        </label>
+                        <div class="col-6">
+                            <input id="inCantidad"
+                                   class="cts_forms form-control"
+                                   asp-for="@Model.detallePedido!.cantidad" />
+                        </div>
+                    </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Cantidad de producto extra
+                                </label>
+                                <div class="col-6">
+                                    <input id="inCantExtra"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.detallePedido!.cantidadExtra" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Producto
+                                </label>
+                                <div class="col-6">
+                                    <select id="seProducto"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.detallePedido!.producto"
+                                            asp-items="@(new SelectList(Model.ListaProductos, "id", "nombre"))">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Producto Extra
+                                </label>
+                                <div class="col-6">
+                                    <select id="seProdExtra"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.detallePedido.producto_Extra"
+                                            asp-items="@(new SelectList(Model.ListaProductoExtra, "id", "nombre"))">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Pedido
+                                </label>
+                                <div class="col-6">
+                                    <select id="seProducto"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.detallePedido!.pedidos"
+                                            asp-items="@(new SelectList(Model.ListaPedidos, "id", "id"))">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Subtotal
+                                </label>
+                                <div class="col-6">
+                                    <input id="inSubtotal"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.detallePedido!.subtotal" />
+                                </div>
+                            </div>
+
+                    </div>
+            }
+
+            
+            @if (ViewData.ContainsKey("Mensaje"))
+            {
+                @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+            }
+
+            @if (Model.detallePedido != null && Model.Borrando)
+            {
+                <div class='popup'>
+                    <div class='pp_ms_inner'>
+                        <div style='width:95%'>
+                            <h2 align="left">
+                                Mensaje
+                            </h2>
+
+                            <h6 align="left">
+                                Desea borrar el detallePedido?
+                            </h6>
+                            <h6 align="left">
+                                @Model.detallePedido!.descripcion
+                            </h6>
+                            
+                            <input type="submit"
+                                   value="Cerrar"
+                                   asp-page-handler="BtCerrar"
+                                   class="btn btn-secondary" />
+                            <input type="submit"
+                                   value="Borrar"
+                                   asp-page-handler="BtBorrar"
+                                   class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model != null &&
+                 Model.Lista != null &&
+                 Model.Lista.Count > 0 )
+            {
+         <div class="admin-card table-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <tr>
+                        <th>
+                            Descripcion
+                        </th>
+                        <th>
+                            Cantidad producto
+                        </th>
+                        <th>
+                            Cantidad producto extra
+                        </th>
+                        <th>
+                            Producto
+                        </th>
+                        <th>
+                            Producto extra
+                        </th>
+                        <th>
+                            Pedidos
+                        </th>
+                        <th>
+                            Subtotal
+                        </th>
+
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>
+                                @elemento.descripcion
+                            </td>
+                            <td>
+                                @elemento.cantidad
+                            </td>
+                            <td>
+                                @elemento.cantidadExtra
+                            </td>
+                            <td>
+                                @elemento._producto!.nombre
+                            </td>
+                            <td>
+                                @(elemento._productoExtra != null ? elemento._productoExtra.nombre : "N/A")
+                            </td>
+                            <td>
+                                @elemento._pedidos!.id
+                            </td>
+                            <td>
+                                @elemento.subtotal
+                            </td>
+
+                            <td>
+                                <input type="submit"
+                                    value="Modificar"
+                                    asp-page-handler="BtModificar"
+                                    class="btn-table btn-modify"
+                                    asp-route-data="@elemento.id" />
+                                <input type="submit"
+                                    value="Borrar"
+                                    asp-page-handler="BtBorrarVal"
+                                    class="btn-table btn-delete"
+                                    asp-route-data="@elemento.id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+         </div>
+            }
+                </div>
+            </div>
+        </form>
+   
+    </div>
+</center>

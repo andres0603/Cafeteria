@@ -18,7 +18,13 @@ namespace lib_cafeteria.implementaciones
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
+                var historicos = new historicos
+                {
+                    nombreTabla = "Sesiones",
+                    accion = "Select",
+                    fechaCambio = DateTime.Now
+                };
+                this.iConexion.historicos!.Add(historicos);
                 var lista = this.iConexion.sesiones!.ToList();
                 return lista;
             }
@@ -40,6 +46,13 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.sesiones!.Add(entidad!);
                 var entry = this.iConexion!.Entry<sesiones>(entidad!);
 
+                var historicos = new historicos
+                {
+                    nombreTabla = entry.Metadata.GetTableName(),
+                    accion = entry.State.ToString(),
+                    fechaCambio = DateTime.Now
+                };
+
                 var historico_login = new historial_login
                 {
                     id_usuario = entidad.id_usuario,
@@ -48,11 +61,20 @@ namespace lib_cafeteria.implementaciones
                 };
 
                 this.iConexion.historial_login!.Add(historico_login);
+                this.iConexion.historicos!.Add(historicos);
                 this.iConexion.SaveChanges();
                 return entidad;
             }
             catch
             {
+                var historico_login = new historial_login
+                {
+                    id_usuario = entidad.id_usuario,
+                    fecha_ingreso = DateTime.Now,
+                    resultado = "Fallido"
+                };
+                this.iConexion!.historial_login!.Add(historico_login);
+                this.iConexion.SaveChanges();
                 throw new Exception("No se pudo guardar la sesion");
             }
         }
