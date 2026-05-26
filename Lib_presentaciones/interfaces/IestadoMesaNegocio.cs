@@ -4,7 +4,7 @@ using lib_cafeteria.modelos;
 
 namespace Lib_presentaciones.interfaces
 {
-    public interface IestadosMesaNegocio
+    public interface IestadoMesaNegocio
     {
         List<estadosMesa> Consultar();
         estadosMesa Guardar(estadosMesa entidad);

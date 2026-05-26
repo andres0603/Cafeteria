@@ -8,27 +8,20 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Aplicacion_cafeteria.Pages
 {
-    public class empleadosModel : PageModel
+    public class estadoReservaModel : PageModel
     {
-        private IempleadosNegocio? IempleadosNegocio;
-        private IrolesNegocio? IrolesNegocio;
-        private IhorariosNegocio? IhorariosNegocio;
-        [BindProperty] public List<empleados>? Lista { get; set; }
-        [BindProperty] public List<roles>? ListaRoles { get; set; }
-        [BindProperty] public List<dynamic>? ListaHorarios { get; set; }
-        [BindProperty] public empleados? empleado { get; set; }
+        private IestadoReservaNegocio? IestadoReservaNegocio;
+        [BindProperty] public List<estadoReserva>? Lista { get; set; }
+        [BindProperty] public estadoReserva? estadoReserva { get; set; }
         [BindProperty] public bool Borrando { get; set; }
 
-        public empleadosModel()
+        public estadoReservaModel()
         {
-            IempleadosNegocio = new EmpleadosNegocio();
-            IrolesNegocio = new RolesNegocio();
-            IhorariosNegocio = new HorariosNegocio();
+            IestadoReservaNegocio = new EstadoReservaNegocio();
         }
 
         public void OnPostBtNuevo()
         {
-                
         }
 
         public void OnGet()
@@ -40,17 +33,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                if (IempleadosNegocio == null)
+                if (IestadoReservaNegocio == null)
                     return;
-                Lista = IempleadosNegocio.Consultar();
-                ListaRoles = IrolesNegocio!.Consultar();
-                ListaHorarios = IhorariosNegocio!.Consultar()
-                    .Select(x => new {
-                        id = x.id,
-                        dia = $"{x.dia} {x.horaEntrada} - {x.horaSalida}"
-                    })
-                    .ToList<dynamic>();
-                empleado = null;
+                Lista = IestadoReservaNegocio.Consultar();
+                estadoReserva = null;
             }
             catch (Exception ex)
             {
@@ -65,7 +51,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                estadoReserva = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
             }
@@ -80,13 +66,13 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
 
-                if (empleado == null)
+                if (estadoReserva == null)
                     return;
-                if (empleado.id == 0)
-                    empleado = IempleadosNegocio!.Guardar(empleado!);
+                if (estadoReserva.id == 0)
+                    estadoReserva = IestadoReservaNegocio!.Guardar(estadoReserva!);
                 else
-                    empleado = IempleadosNegocio!.Modificar(empleado!);
-                if (empleado.id == 0)
+                    estadoReserva = IestadoReservaNegocio!.Modificar(estadoReserva!);
+                if (estadoReserva.id == 0)
                     return;
                 OnPostBtRefrescar();
             }
@@ -100,10 +86,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
-                if (empleado == null)
+                estadoReserva = Lista!.FirstOrDefault(x => x.id == data);
+                if (estadoReserva == null)
                     return;
-                empleado = IempleadosNegocio!.Borrar(empleado!);
+                estadoReserva = IestadoReservaNegocio!.Borrar(estadoReserva!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -117,7 +103,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                estadoReserva = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = true;
             }

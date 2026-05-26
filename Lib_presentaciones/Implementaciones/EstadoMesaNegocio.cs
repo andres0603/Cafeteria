@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Lib_presentaciones.Implementaciones
 {
-    internal class EstadoMesaNegocio : IestadosMesaNegocio
+    public class EstadoMesaNegocio : IestadoMesaNegocio
     {
         private IComunicaciones? iComunicaciones;
 

@@ -1,7 +1,7 @@
 ﻿@page
-@model clientesModel
+@model mesasModel
 @{
-    ViewData["Title"] = "Clientes";
+    ViewData["Title"] = "mesas";
 }
 <link href="~/css/estilo.css" rel="stylesheet" />
 
@@ -16,7 +16,7 @@
                 <div class="dashboard-container">
 
             <div class="dashboard-header" align="left">
-                <h3 style="color:white">GESTIÓN DE CLIENTES</h3>
+                <h3 style="color:white">GESTIÓN DE MESAS</h3>
             </div>
 
             <div class="action-buttons">
@@ -28,79 +28,50 @@
                     value="Nuevo"
                     class="btn-dashboard btn-new"
                     asp-page-handler="BtNuevo"
-                    disabled="@(Model.cliente != null)"/>
+                    disabled="@(Model.mesa != null)"/>
                 <input type="submit"
                     value="Guardar"
                     class="btn-dashboard btn-save"
                     asp-page-handler="BtGuardar"
-                    disabled="@(Model.cliente == null)"/>
+                    disabled="@(Model.mesa == null)"/>
             </div>
 
-            @if (Model.cliente != null)
+            @if (Model.mesa != null)
             {
                 <input type="hidden" 
-                    asp-for="@Model.cliente!.id"/>
+                    asp-for="@Model.mesa!.id"/>
                 <div>
                 
                     <div class="form-group">
                         <label style="color:white">
-                            Nombre
+                            Número de la mesa
                         </label>
                         <div class="col-6">
                             <input id="inNombre"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.cliente!.nombre" />
+                                   asp-for="@Model.mesa!.nro_mesa" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label style="color:white">
-                            Cedula
+                            Capacidad
                         </label>
                         <div class="col-6">
                             <input id="inCedula"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.cliente!.cedula" />
+                                   asp-for="@Model.mesa!.capacidad" />
                         </div>
                     </div>
                             <div class="form-group">
                                 <label style="color:white">
-                                    Correo
+                                    Estado de la mesa
                                 </label>
                                 <div class="col-6">
-                                    <input id="inCorreo"
+                                    <select id="seRol"
                                            class="cts_forms form-control"
-                                           asp-for="@Model.cliente!.correo" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label style="color:white">
-                                    Telefono
-                                </label>
-                                <div class="col-6">
-                                    <input id="inTelefono"
-                                           class="cts_forms form-control"
-                                           asp-for="@Model.cliente!.telefono" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label style="color:white">
-                                    Direccion
-                                </label>
-                                <div class="col-6">
-                                    <input id="inDireccion"
-                                           class="cts_forms form-control"
-                                           asp-for="@Model.cliente!.direccion" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label style="color:white">
-                                    Activo
-                                </label>
-                                <div class="col-6">
-                                    <label>Activo</label>
-                                    <input type="checkbox"
-                                           asp-for="@Model.cliente!.activo"
-                                           class="form-check-input" />
+                                           asp-for="@Model.mesa!.estadoMesa"
+                                            asp-items="@(new SelectList(Model.ListaEstadosMesa, "id", "nombre"))">
+                                        </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -108,12 +79,24 @@
                                     Sedes
                                 </label>
                                 <div class="col-6">
-                                    <select id="seSedes"
-                                           class="cts_forms form-control"
-                                           asp-for="@Model.cliente!.sedes"
+                                    <select id="seHorario"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.mesa!.sedes"
                                             asp-items="@(new SelectList(Model.ListaSedes, "id", "nombre"))">
-                                        </select>
-                                            
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Activo
+                                </label>
+                                <div class="col-6">
+                                    <label>Activo</label>
+                                    <input type="checkbox"
+                                           asp-for="@Model.mesa!.activo"
+                                           class="form-check-input" />
                                 </div>
                             </div>
 
@@ -126,7 +109,7 @@
                 @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
             }
 
-            @if (Model.cliente != null && Model.Borrando)
+            @if (Model.mesa != null && Model.Borrando)
             {
                 <div class='popup'>
                     <div class='pp_ms_inner'>
@@ -136,10 +119,10 @@
                             </h2>
 
                             <h6 align="left">
-                                Desea borrar el cliente?
+                                Desea borrar el mesa?
                             </h6>
                             <h6 align="left">
-                                @Model.cliente!.nombre
+                                @Model.mesa!.nro_mesa
                             </h6>
                             
                             <input type="submit"
@@ -164,22 +147,13 @@
                 <table class="custom-table">
                     <tr>
                         <th>
-                            Nombre
+                            Número de la mesa
                         </th>
                         <th>
-                            Cedula
+                            Capacidad
                         </th>
                         <th>
-                            Correo
-                        </th>
-                        <th>
-                            Telefono
-                        </th>
-                        <th>
-                            Direccion
-                        </th>
-                        <th>
-                            Fecha de registro
+                            Estado de la mesa
                         </th>
                         <th>
                             Sede
@@ -193,22 +167,13 @@
                     {
                         <tr>
                             <td>
-                                @elemento.nombre
+                                @elemento.nro_mesa
                             </td>
                             <td>
-                                @elemento.cedula
+                                @elemento.capacidad
                             </td>
                             <td>
-                                @elemento.correo
-                            </td>
-                            <td>
-                                @elemento.telefono
-                            </td>
-                            <td>
-                                @elemento.direccion
-                            </td>
-                            <td>
-                                @elemento.fechaRegistro.ToString("dd/mm/aa")
+                                @elemento._estadoMesa!.nombre
                             </td>
                             <td>
                                 @elemento._sedes!.nombre
@@ -225,7 +190,7 @@
                                     asp-route-data="@elemento.id" />
                                 <input type="submit"
                                     value="Borrar"
-                                    asp-page-handler="BtBorrar"
+                                    asp-page-handler="BtBorrarVal"
                                     class="btn-table btn-delete"
                                     asp-route-data="@elemento.id" />
                             </td>

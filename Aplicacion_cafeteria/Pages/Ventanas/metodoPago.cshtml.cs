@@ -1,4 +1,3 @@
-
 using lib_cafeteria.modelos;
 using Lib_presentaciones.Implementaciones;
 using Lib_presentaciones.interfaces;
@@ -8,27 +7,20 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Aplicacion_cafeteria.Pages
 {
-    public class empleadosModel : PageModel
+    public class metodoPagoModel : PageModel
     {
-        private IempleadosNegocio? IempleadosNegocio;
-        private IrolesNegocio? IrolesNegocio;
-        private IhorariosNegocio? IhorariosNegocio;
-        [BindProperty] public List<empleados>? Lista { get; set; }
-        [BindProperty] public List<roles>? ListaRoles { get; set; }
-        [BindProperty] public List<dynamic>? ListaHorarios { get; set; }
-        [BindProperty] public empleados? empleado { get; set; }
+        private ImetodoPagoNegocio? ImetodoPagoNegocio;
+        [BindProperty] public List<metodoPago>? Lista { get; set; }
+        [BindProperty] public metodoPago? metodoPago { get; set; }
         [BindProperty] public bool Borrando { get; set; }
 
-        public empleadosModel()
+        public metodoPagoModel()
         {
-            IempleadosNegocio = new EmpleadosNegocio();
-            IrolesNegocio = new RolesNegocio();
-            IhorariosNegocio = new HorariosNegocio();
+            ImetodoPagoNegocio = new MetodoPagoNegocio();
         }
 
         public void OnPostBtNuevo()
         {
-                
         }
 
         public void OnGet()
@@ -40,17 +32,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                if (IempleadosNegocio == null)
+                if (ImetodoPagoNegocio == null)
                     return;
-                Lista = IempleadosNegocio.Consultar();
-                ListaRoles = IrolesNegocio!.Consultar();
-                ListaHorarios = IhorariosNegocio!.Consultar()
-                    .Select(x => new {
-                        id = x.id,
-                        dia = $"{x.dia} {x.horaEntrada} - {x.horaSalida}"
-                    })
-                    .ToList<dynamic>();
-                empleado = null;
+                Lista = ImetodoPagoNegocio.Consultar();
+                metodoPago = null;
             }
             catch (Exception ex)
             {
@@ -58,14 +43,14 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        
+
 
         public void OnPostBtModificar(int data)
         {
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                metodoPago = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
             }
@@ -80,13 +65,13 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
 
-                if (empleado == null)
+                if (metodoPago == null)
                     return;
-                if (empleado.id == 0)
-                    empleado = IempleadosNegocio!.Guardar(empleado!);
+                if (metodoPago.id == 0)
+                    metodoPago = ImetodoPagoNegocio!.Guardar(metodoPago!);
                 else
-                    empleado = IempleadosNegocio!.Modificar(empleado!);
-                if (empleado.id == 0)
+                    metodoPago = ImetodoPagoNegocio!.Modificar(metodoPago!);
+                if (metodoPago.id == 0)
                     return;
                 OnPostBtRefrescar();
             }
@@ -100,11 +85,12 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
-                if (empleado == null)
-                    return;
-                empleado = IempleadosNegocio!.Borrar(empleado!);
                 OnPostBtRefrescar();
+                metodoPago = Lista!.FirstOrDefault(x => x.id == data);
+                if (metodoPago == null)
+                    return;
+                metodoPago = ImetodoPagoNegocio!.Borrar(metodoPago!);
+
             }
             catch (Exception ex)
             {
@@ -117,7 +103,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                metodoPago = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = true;
             }

@@ -1,7 +1,7 @@
 ﻿@page
-@model clientesModel
+@model horariosModel
 @{
-    ViewData["Title"] = "Clientes";
+    ViewData["Title"] = "horarios";
 }
 <link href="~/css/estilo.css" rel="stylesheet" />
 
@@ -16,7 +16,7 @@
                 <div class="dashboard-container">
 
             <div class="dashboard-header" align="left">
-                <h3 style="color:white">GESTIÓN DE CLIENTES</h3>
+                <h3 style="color:white">GESTIÓN DE HORARIOS</h3>
             </div>
 
             <div class="action-buttons">
@@ -28,68 +28,58 @@
                     value="Nuevo"
                     class="btn-dashboard btn-new"
                     asp-page-handler="BtNuevo"
-                    disabled="@(Model.cliente != null)"/>
+                    disabled="@(Model.horario != null)"/>
                 <input type="submit"
                     value="Guardar"
                     class="btn-dashboard btn-save"
                     asp-page-handler="BtGuardar"
-                    disabled="@(Model.cliente == null)"/>
+                    disabled="@(Model.horario == null)"/>
             </div>
 
-            @if (Model.cliente != null)
+            @if (Model.horario != null)
             {
                 <input type="hidden" 
-                    asp-for="@Model.cliente!.id"/>
+                    asp-for="@Model.horario!.id"/>
                 <div>
                 
                     <div class="form-group">
                         <label style="color:white">
-                            Nombre
+                            Dia
                         </label>
                         <div class="col-6">
                             <input id="inNombre"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.cliente!.nombre" />
+                                   asp-for="@Model.horario!.dia" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label style="color:white">
-                            Cedula
+                            Hora de entrada
                         </label>
                         <div class="col-6">
                             <input id="inCedula"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.cliente!.cedula" />
+                                   asp-for="@Model.horario!.horaEntrada" />
                         </div>
                     </div>
                             <div class="form-group">
                                 <label style="color:white">
-                                    Correo
+                                    Hora de salida
                                 </label>
                                 <div class="col-6">
                                     <input id="inCorreo"
                                            class="cts_forms form-control"
-                                           asp-for="@Model.cliente!.correo" />
+                                           asp-for="@Model.horario!.horaSalida" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label style="color:white">
-                                    Telefono
+                                    Minutos de descanso
                                 </label>
                                 <div class="col-6">
                                     <input id="inTelefono"
                                            class="cts_forms form-control"
-                                           asp-for="@Model.cliente!.telefono" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label style="color:white">
-                                    Direccion
-                                </label>
-                                <div class="col-6">
-                                    <input id="inDireccion"
-                                           class="cts_forms form-control"
-                                           asp-for="@Model.cliente!.direccion" />
+                                           asp-for="@Model.horario!.minutosDescanso" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -99,24 +89,10 @@
                                 <div class="col-6">
                                     <label>Activo</label>
                                     <input type="checkbox"
-                                           asp-for="@Model.cliente!.activo"
+                                           asp-for="@Model.horario!.activo"
                                            class="form-check-input" />
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label style="color:white">
-                                    Sedes
-                                </label>
-                                <div class="col-6">
-                                    <select id="seSedes"
-                                           class="cts_forms form-control"
-                                           asp-for="@Model.cliente!.sedes"
-                                            asp-items="@(new SelectList(Model.ListaSedes, "id", "nombre"))">
-                                        </select>
-                                            
-                                </div>
-                            </div>
-
                     </div>
             }
 
@@ -126,7 +102,7 @@
                 @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
             }
 
-            @if (Model.cliente != null && Model.Borrando)
+            @if (Model.horario != null && Model.Borrando)
             {
                 <div class='popup'>
                     <div class='pp_ms_inner'>
@@ -136,10 +112,10 @@
                             </h2>
 
                             <h6 align="left">
-                                Desea borrar el cliente?
+                                Desea borrar el horario?
                             </h6>
                             <h6 align="left">
-                                @Model.cliente!.nombre
+                                @Model.horario!.dia
                             </h6>
                             
                             <input type="submit"
@@ -164,25 +140,16 @@
                 <table class="custom-table">
                     <tr>
                         <th>
-                            Nombre
+                            Dia
                         </th>
                         <th>
-                            Cedula
+                            Hora de entrada
                         </th>
                         <th>
-                            Correo
+                            Hora de salida
                         </th>
                         <th>
-                            Telefono
-                        </th>
-                        <th>
-                            Direccion
-                        </th>
-                        <th>
-                            Fecha de registro
-                        </th>
-                        <th>
-                            Sede
+                            Minutos de descanso
                         </th>
                         <th>
                             Activo
@@ -193,25 +160,16 @@
                     {
                         <tr>
                             <td>
-                                @elemento.nombre
+                                @elemento.dia
                             </td>
                             <td>
-                                @elemento.cedula
+                                @elemento.horaEntrada
                             </td>
                             <td>
-                                @elemento.correo
+                                @elemento.horaSalida
                             </td>
                             <td>
-                                @elemento.telefono
-                            </td>
-                            <td>
-                                @elemento.direccion
-                            </td>
-                            <td>
-                                @elemento.fechaRegistro.ToString("dd/mm/aa")
-                            </td>
-                            <td>
-                                @elemento._sedes!.nombre
+                                @elemento.minutosDescanso
                             </td>
                             <td>
                                 @elemento.activo

@@ -25,7 +25,10 @@ namespace lib_cafeteria.implementaciones
                 };
                 this.iConexion.historicos!.Add(historicos);
 
-                var lista = this.iConexion.mesas!.ToList();
+                var lista = this.iConexion.mesas!
+                    .Include(x => x._estadoMesa)
+                    .Include(x=>x._sedes)
+                    .ToList();
                 return lista;
             }
             catch

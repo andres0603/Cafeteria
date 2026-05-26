@@ -8,27 +8,20 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Aplicacion_cafeteria.Pages
 {
-    public class empleadosModel : PageModel
+    public class horariosModel : PageModel
     {
-        private IempleadosNegocio? IempleadosNegocio;
-        private IrolesNegocio? IrolesNegocio;
         private IhorariosNegocio? IhorariosNegocio;
-        [BindProperty] public List<empleados>? Lista { get; set; }
-        [BindProperty] public List<roles>? ListaRoles { get; set; }
-        [BindProperty] public List<dynamic>? ListaHorarios { get; set; }
-        [BindProperty] public empleados? empleado { get; set; }
+        [BindProperty] public List<horarios>? Lista { get; set; }
+        [BindProperty] public horarios? horario { get; set; }
         [BindProperty] public bool Borrando { get; set; }
 
-        public empleadosModel()
+        public horariosModel()
         {
-            IempleadosNegocio = new EmpleadosNegocio();
-            IrolesNegocio = new RolesNegocio();
             IhorariosNegocio = new HorariosNegocio();
         }
 
         public void OnPostBtNuevo()
         {
-                
         }
 
         public void OnGet()
@@ -40,17 +33,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                if (IempleadosNegocio == null)
+                if (IhorariosNegocio == null)
                     return;
-                Lista = IempleadosNegocio.Consultar();
-                ListaRoles = IrolesNegocio!.Consultar();
-                ListaHorarios = IhorariosNegocio!.Consultar()
-                    .Select(x => new {
-                        id = x.id,
-                        dia = $"{x.dia} {x.horaEntrada} - {x.horaSalida}"
-                    })
-                    .ToList<dynamic>();
-                empleado = null;
+                Lista = IhorariosNegocio.Consultar();
+                horario = null;
             }
             catch (Exception ex)
             {
@@ -65,7 +51,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                horario = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
             }
@@ -80,13 +66,13 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
 
-                if (empleado == null)
+                if (horario == null)
                     return;
-                if (empleado.id == 0)
-                    empleado = IempleadosNegocio!.Guardar(empleado!);
+                if (horario.id == 0)
+                    horario = IhorariosNegocio!.Guardar(horario!);
                 else
-                    empleado = IempleadosNegocio!.Modificar(empleado!);
-                if (empleado.id == 0)
+                    horario = IhorariosNegocio!.Modificar(horario!);
+                if (horario.id == 0)
                     return;
                 OnPostBtRefrescar();
             }
@@ -100,11 +86,12 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
-                if (empleado == null)
-                    return;
-                empleado = IempleadosNegocio!.Borrar(empleado!);
                 OnPostBtRefrescar();
+                horario = Lista!.FirstOrDefault(x => x.id == data);
+                if (horario == null)
+                    return;
+                horario = IhorariosNegocio!.Borrar(horario!);
+                
             }
             catch (Exception ex)
             {
@@ -117,7 +104,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                horario = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = true;
             }

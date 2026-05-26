@@ -8,27 +8,21 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Aplicacion_cafeteria.Pages
 {
-    public class empleadosModel : PageModel
+    public class estadoMesaModel : PageModel
     {
-        private IempleadosNegocio? IempleadosNegocio;
-        private IrolesNegocio? IrolesNegocio;
-        private IhorariosNegocio? IhorariosNegocio;
-        [BindProperty] public List<empleados>? Lista { get; set; }
-        [BindProperty] public List<roles>? ListaRoles { get; set; }
-        [BindProperty] public List<dynamic>? ListaHorarios { get; set; }
-        [BindProperty] public empleados? empleado { get; set; }
+        private IestadoMesaNegocio? IestadoMesaNegocio;
+        private IsedesNegocio? IsedesNegocio;
+        [BindProperty] public List<estadosMesa>? Lista { get; set; }
+        [BindProperty] public estadosMesa? estadoMesa { get; set; }
         [BindProperty] public bool Borrando { get; set; }
 
-        public empleadosModel()
+        public estadoMesaModel()
         {
-            IempleadosNegocio = new EmpleadosNegocio();
-            IrolesNegocio = new RolesNegocio();
-            IhorariosNegocio = new HorariosNegocio();
+            IestadoMesaNegocio = new EstadoMesaNegocio();
         }
 
         public void OnPostBtNuevo()
         {
-                
         }
 
         public void OnGet()
@@ -40,17 +34,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                if (IempleadosNegocio == null)
+                if (IestadoMesaNegocio == null)
                     return;
-                Lista = IempleadosNegocio.Consultar();
-                ListaRoles = IrolesNegocio!.Consultar();
-                ListaHorarios = IhorariosNegocio!.Consultar()
-                    .Select(x => new {
-                        id = x.id,
-                        dia = $"{x.dia} {x.horaEntrada} - {x.horaSalida}"
-                    })
-                    .ToList<dynamic>();
-                empleado = null;
+                Lista = IestadoMesaNegocio.Consultar();
+                estadoMesa = null;
             }
             catch (Exception ex)
             {
@@ -65,7 +52,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
             }
@@ -80,13 +67,13 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
 
-                if (empleado == null)
+                if (estadoMesa == null)
                     return;
-                if (empleado.id == 0)
-                    empleado = IempleadosNegocio!.Guardar(empleado!);
+                if (estadoMesa.id == 0)
+                    estadoMesa = IestadoMesaNegocio!.Guardar(estadoMesa!);
                 else
-                    empleado = IempleadosNegocio!.Modificar(empleado!);
-                if (empleado.id == 0)
+                    estadoMesa = IestadoMesaNegocio!.Modificar(estadoMesa!);
+                if (estadoMesa.id == 0)
                     return;
                 OnPostBtRefrescar();
             }
@@ -100,11 +87,12 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
-                if (empleado == null)
-                    return;
-                empleado = IempleadosNegocio!.Borrar(empleado!);
                 OnPostBtRefrescar();
+                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
+                if (estadoMesa == null)
+                    return;
+                estadoMesa = IestadoMesaNegocio!.Borrar(estadoMesa!);
+                
             }
             catch (Exception ex)
             {
@@ -117,7 +105,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = true;
             }

@@ -1,0 +1,202 @@
+﻿@page
+@model metodoPagoModel
+@{
+    ViewData["Title"] = "Metodos de pago";
+}
+<link href="~/css/estilo.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+<center>
+    <div>
+        <form method="POST"
+              enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="dashboard-background">
+                <div class="dashboard-container">
+
+                    <div class="dashboard-header" align="left">
+                        <h3 style="color:white">GESTIÓN DE METODOS DE PAGO</h3>
+                    </div>
+
+                    <div class="action-buttons">
+                        <input type="submit"
+                               value="Refrescar"
+                               class="btn-dashboard btn-refresh"
+                               asp-page-handler="BtRefrescar" />
+                        <input type="submit"
+                               value="Nuevo"
+                               class="btn-dashboard btn-new"
+                               asp-page-handler="BtNuevo"
+                               disabled="@(Model.metodoPago != null)" />
+                        <input type="submit"
+                               value="Guardar"
+                               class="btn-dashboard btn-save"
+                               asp-page-handler="BtGuardar"
+                               disabled="@(Model.metodoPago == null)" />
+                    </div>
+
+                    @if (Model.metodoPago != null)
+                    {
+                        <input type="hidden"
+                               asp-for="@Model.metodoPago!.id" />
+                        <div>
+
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Método
+                                </label>
+                                <div class="col-6">
+                                    <input id="inNombre"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.metodoPago!.metodo" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Comision porcentual
+                                </label>
+                                <div class="col-6">
+                                    <input id="inCedula"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.metodoPago!.comisionPorcentual" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Requiere codigo?
+                                </label>
+                                <div class="col-6">
+                                    <input type="checkbox"
+                                           asp-for="@Model.metodoPago!.requiereCodigo"
+                                           class="form-check-input" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Referencia de aprobacion
+                                </label>
+                                <div class="col-6">
+                                    <input id="inTelefono"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.metodoPago!.referenciaAprobacion" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Activo
+                                </label>
+                                <div class="col-6">
+                                    <label>Activo</label>
+                                    <input type="checkbox"
+                                           asp-for="@Model.metodoPago!.activo"
+                                           class="form-check-input" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    @if (ViewData.ContainsKey("Mensaje"))
+                    {
+                        @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+                        ;
+                    }
+
+                    @if (Model.metodoPago != null && Model.Borrando)
+                    {
+                        <div class='popup'>
+                            <div class='pp_ms_inner'>
+                                <div style='width:95%'>
+                                    <h2 align="left">
+                                        Mensaje
+                                    </h2>
+
+                                    <h6 align="left">
+                                        Desea borrar el metodoPago?
+                                    </h6>
+                                    <h6 align="left">
+                                        @Model.metodoPago!.metodo
+                                    </h6>
+
+                                    <input type="submit"
+                                           value="Cerrar"
+                                           asp-page-handler="BtCerrar"
+                                           class="btn btn-secondary" />
+                                    <input type="submit"
+                                           value="Borrar"
+                                           asp-page-handler="BtBorrar"
+                                           class="btn btn-secondary" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model != null &&
+                                        Model.Lista != null &&
+                                        Model.Lista.Count > 0)
+                    {
+                        <div class="admin-card table-card">
+                            <div class="table-responsive">
+                                <table class="custom-table">
+                                    <tr>
+                                        <th>
+                                            Metodo
+                                        </th>
+                                        <th>
+                                            Comision porcentual
+                                        </th>
+                                        <th>
+                                            Requiere codigo?
+                                        </th>
+                                        <th>
+                                            Referencia de aprobacion
+                                        </th>
+                                        <th>
+                                            Activo
+                                        </th>
+
+                                    </tr>
+                                    @foreach (var elemento in Model.Lista)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @elemento.metodo
+                                            </td>
+                                            <td>
+                                                @elemento.comisionPorcentual
+                                            </td>
+                                            <td>
+                                                @elemento.requiereCodigo
+                                            </td>
+                                            <td>
+                                                @elemento.referenciaAprobacion
+                                            </td>
+                                            <td>
+                                                @elemento.activo
+                                            </td>
+
+                                            <td>
+                                                <input type="submit"
+                                                       value="Modificar"
+                                                       asp-page-handler="BtModificar"
+                                                       class="btn-table btn-modify"
+                                                       asp-route-data="@elemento.id" />
+                                                <input type="submit"
+                                                       value="Borrar"
+                                                       asp-page-handler="BtBorrar"
+                                                       class="btn-table btn-delete"
+                                                       asp-route-data="@elemento.id" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </form>
+
+    </div>
+</center>

@@ -8,22 +8,22 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Aplicacion_cafeteria.Pages
 {
-    public class empleadosModel : PageModel
+    public class mesasModel : PageModel
     {
-        private IempleadosNegocio? IempleadosNegocio;
-        private IrolesNegocio? IrolesNegocio;
-        private IhorariosNegocio? IhorariosNegocio;
-        [BindProperty] public List<empleados>? Lista { get; set; }
-        [BindProperty] public List<roles>? ListaRoles { get; set; }
-        [BindProperty] public List<dynamic>? ListaHorarios { get; set; }
-        [BindProperty] public empleados? empleado { get; set; }
+        private ImesasNegocio? ImesasNegocio;
+        private IestadoMesaNegocio? IestadoMesaNegocio;
+        private IsedesNegocio? IsedesNegocio;
+        [BindProperty] public List<mesas>? Lista { get; set; }
+        [BindProperty] public List<estadosMesa>? ListaEstadosMesa { get; set; }
+        [BindProperty] public List<sedes>? ListaSedes { get; set; }
+        [BindProperty] public mesas? mesa { get; set; }
         [BindProperty] public bool Borrando { get; set; }
 
-        public empleadosModel()
+        public mesasModel()
         {
-            IempleadosNegocio = new EmpleadosNegocio();
-            IrolesNegocio = new RolesNegocio();
-            IhorariosNegocio = new HorariosNegocio();
+            ImesasNegocio = new MesasNegocio();
+            IestadoMesaNegocio = new EstadoMesaNegocio();
+            IsedesNegocio = new SedesNegocio();
         }
 
         public void OnPostBtNuevo()
@@ -40,17 +40,12 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                if (IempleadosNegocio == null)
+                if (ImesasNegocio == null)
                     return;
-                Lista = IempleadosNegocio.Consultar();
-                ListaRoles = IrolesNegocio!.Consultar();
-                ListaHorarios = IhorariosNegocio!.Consultar()
-                    .Select(x => new {
-                        id = x.id,
-                        dia = $"{x.dia} {x.horaEntrada} - {x.horaSalida}"
-                    })
-                    .ToList<dynamic>();
-                empleado = null;
+                Lista = ImesasNegocio.Consultar();
+                ListaEstadosMesa = IestadoMesaNegocio!.Consultar();
+                ListaSedes = IsedesNegocio!.Consultar();
+                mesa = null;
             }
             catch (Exception ex)
             {
@@ -65,7 +60,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                mesa = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
             }
@@ -80,13 +75,13 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
 
-                if (empleado == null)
+                if (mesa == null)
                     return;
-                if (empleado.id == 0)
-                    empleado = IempleadosNegocio!.Guardar(empleado!);
+                if (mesa.id == 0)
+                    mesa = ImesasNegocio!.Guardar(mesa!);
                 else
-                    empleado = IempleadosNegocio!.Modificar(empleado!);
-                if (empleado.id == 0)
+                    mesa = ImesasNegocio!.Modificar(mesa!);
+                if (mesa.id == 0)
                     return;
                 OnPostBtRefrescar();
             }
@@ -100,10 +95,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
-                if (empleado == null)
+                mesa = Lista!.FirstOrDefault(x => x.id == data);
+                if (mesa == null)
                     return;
-                empleado = IempleadosNegocio!.Borrar(empleado!);
+                mesa = ImesasNegocio!.Borrar(mesa!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -117,7 +112,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
+                mesa = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = true;
             }
