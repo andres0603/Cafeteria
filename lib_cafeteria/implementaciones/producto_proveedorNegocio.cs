@@ -22,7 +22,10 @@ namespace lib_cafeteria.implementaciones
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
-                var lista = this.iConexion.producto_proveedor!.ToList();
+                var lista = this.iConexion.producto_proveedor!
+                    .Include(x=>x._producto)
+                    .Include(x=>x._proveedor)
+                    .ToList();
                 return lista;
             }
             catch
@@ -87,7 +90,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public producto_proveedor Borrar(int id)
+        public producto_proveedor Borrar(producto_proveedor ProductoProveedor)
         {
             try
             {
@@ -95,7 +98,6 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var ProductoProveedor = this.iConexion.producto_proveedor!.Find(id);
 
                 if (ProductoProveedor != null)
                 {

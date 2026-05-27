@@ -89,7 +89,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public personas Borrar(int id)
+        public personas Borrar(personas persona)
         {
             try
             {
@@ -97,7 +97,6 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var persona = this.iConexion.personas!.Find(id);
 
                 if (persona != null)
                 {

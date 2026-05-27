@@ -25,6 +25,7 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
+            ListaSedes = IsedesNegocio!.Consultar();
         }
 
         public void OnGet()
@@ -39,7 +40,6 @@ namespace Aplicacion_cafeteria.Pages
                 if (IclientesNegocio == null)
                     return;
                 Lista = IclientesNegocio.Consultar();
-                ListaSedes = IsedesNegocio!.Consultar();
                 cliente = null;
             }
             catch (Exception ex)
@@ -55,6 +55,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
+                OnPostBtNuevo();
                 cliente = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
@@ -90,12 +91,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                OnPostBtRefrescar();
-                cliente = Lista!.FirstOrDefault(x => x.id == data);
-                if (cliente == null)
+                if(cliente==null) 
                     return;
                 cliente = IclientesNegocio!.Borrar(cliente!);
-                
+                OnPostBtRefrescar();
             }
             catch (Exception ex)
             {

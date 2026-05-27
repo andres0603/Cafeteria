@@ -89,7 +89,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public tareas Borrar(int id)
+        public tareas Borrar(tareas tarea)
         {
             try
             {
@@ -97,7 +97,6 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var tarea = this.iConexion.tareas!.Find(id);
 
                 if (tarea != null)
                 {

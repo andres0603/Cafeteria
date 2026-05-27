@@ -107,7 +107,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public sesiones Borrar(int id)
+        public sesiones Borrar(sesiones sesion)
         {
             try
             {
@@ -115,7 +115,6 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var sesion = this.iConexion.sesiones!.Find(id);
 
                 if (sesion != null)
                 {

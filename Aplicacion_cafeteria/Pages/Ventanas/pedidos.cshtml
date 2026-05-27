@@ -1,0 +1,191 @@
+﻿@page
+@model pedidosModel
+@{
+    ViewData["Title"] = "pedidos";
+}
+<link href="~/css/estilo.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+<center>
+    <div>
+        <form method="POST"
+            enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="dashboard-background">
+                <div class="dashboard-container">
+
+            <div class="dashboard-header" align="left">
+                <h3 style="color:white">GESTIÓN DE PEDIDOS</h3>
+            </div>
+
+            <div class="action-buttons">
+                <input type="submit"
+                    value="Refrescar"
+                    class="btn-dashboard btn-refresh"
+                    asp-page-handler="BtRefrescar" />
+                <input type="submit"
+                    value="Nuevo"
+                    class="btn-dashboard btn-new"
+                    asp-page-handler="BtNuevo"
+                    disabled="@(Model.pedidos != null)"/>
+                <input type="submit"
+                    value="Guardar"
+                    class="btn-dashboard btn-save"
+                    asp-page-handler="BtGuardar"
+                    disabled="@(Model.pedidos == null)"/>
+            </div>
+
+            @if (Model.pedidos != null)
+            {
+                <input type="hidden" 
+                    asp-for="@Model.pedidos!.id"/>
+                <div>
+                
+                    <div class="form-group">
+                        <label style="color:white">
+                            Total
+                        </label>
+                        <div class="col-6">
+                            <input id="inTotal"
+                                   class="cts_forms form-control"
+                                   asp-for="@Model.pedidos!.total" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="color:white">
+                            Notas para la cocina
+                        </label>
+                        <div class="col-6">
+                            <input id="inNotas"
+                                   class="cts_forms form-control"
+                                   asp-for="@Model.pedidos!.notasParaCocina" />
+                        </div>
+                    </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Clientes
+                                </label>
+                                <div class="col-6">
+                                    <select id="seClientes"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.pedidos.clientes"
+                                            asp-items="@(new SelectList(Model.ListaClientes, "id", "nombre"))">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Estado del pedido
+                                </label>
+                                <div class="col-6">
+                                    <select id="seProducto"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.pedidos!.estadosPedido"
+                                            asp-items="@(new SelectList(Model.ListaEstadoPedido, "id", "nombre"))">
+                                    </select>
+
+                                </div>
+                            </div>
+
+                    </div>
+            }
+
+            
+            @if (ViewData.ContainsKey("Mensaje"))
+            {
+                @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+            }
+
+            @if (Model.pedidos != null && Model.Borrando)
+            {
+                <div class='popup'>
+                    <div class='pp_ms_inner'>
+                        <div style='width:95%'>
+                            <h2 align="left">
+                                Mensaje
+                            </h2>
+
+                            <h6 align="left">
+                                Desea borrar el pedido?
+                            </h6>
+                            <h6 align="left">
+                                @Model.pedidos!.id
+                            </h6>
+                            
+                            <input type="submit"
+                                   value="Cerrar"
+                                   asp-page-handler="BtCerrar"
+                                   class="btn btn-secondary" />
+                            <input type="submit"
+                                   value="Borrar"
+                                   asp-page-handler="BtBorrar"
+                                   class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model != null &&
+                 Model.Lista != null &&
+                 Model.Lista.Count > 0 )
+            {
+         <div class="admin-card table-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <tr>
+                        <th>
+                            Total
+                        </th>
+                        <th>
+                            Notas para la cocina
+                        </th>
+                        <th>
+                            Cliente
+                        </th>
+                        <th>
+                            Estado del pedido
+                        </th>
+
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>
+                                @elemento.total
+                            </td>
+                            <td>
+                                @elemento.notasParaCocina
+                            </td>
+                            <td>
+                                @elemento._clientes!.nombre
+                            </td>
+                            <td>
+                                @elemento._estadosPedido!.nombre
+                            </td>
+
+                            <td>
+                                <input type="submit"
+                                    value="Modificar"
+                                    asp-page-handler="BtModificar"
+                                    class="btn-table btn-modify"
+                                    asp-route-data="@elemento.id" />
+                                <input type="submit"
+                                    value="Borrar"
+                                    asp-page-handler="BtBorrarVal"
+                                    class="btn-table btn-delete"
+                                    asp-route-data="@elemento.id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+         </div>
+            }
+                </div>
+            </div>
+        </form>
+   
+    </div>
+</center>

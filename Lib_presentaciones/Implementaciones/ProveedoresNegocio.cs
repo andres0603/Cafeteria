@@ -80,7 +80,7 @@ namespace Lib_presentaciones.Implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/proveedores/Eliminar";
+            datos["Url"] = "http://localhost:5245/proveedores/Borrar";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();

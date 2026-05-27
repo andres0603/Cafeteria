@@ -8,6 +8,6 @@ namespace lib_cafeteria.interfaces
         List<estadoReserva> Consultar();
         estadoReserva Guardar(estadoReserva entidad);
         estadoReserva Modificar(estadoReserva entidad);
-        estadoReserva Borrar(int id);
+        estadoReserva Borrar(estadoReserva entidad);
     }
 }

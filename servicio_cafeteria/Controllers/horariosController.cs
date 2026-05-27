@@ -41,18 +41,12 @@ namespace servicio_cafeteria.Controllers
             return this.IHorariosNegocio!.Modificar(entidadModificada);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Borrar(int id)
+        [HttpDelete]
+        public horarios Borrar(horarios entidad)
         {
-            try
-            {
-                this.IHorariosNegocio!.Borrar(id);
-                return Ok("Horario eliminado correctamente");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            if (this.IHorariosNegocio == null)
+                throw new Exception("No implementado");
+            return this.IHorariosNegocio!.Borrar(entidad);
         }
     }
 }

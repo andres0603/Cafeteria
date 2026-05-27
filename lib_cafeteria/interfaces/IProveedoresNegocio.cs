@@ -1,6 +1,7 @@
 ﻿
 
 using lib_cafeteria.modelos;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace lib_cafeteria.interfaces
 {
@@ -9,6 +10,6 @@ namespace lib_cafeteria.interfaces
         List<proveedores> Consultar();
         proveedores Guardar(proveedores entidad);
         proveedores Modificar(proveedores entidad);
-        proveedores Borrar(int id);
+        proveedores Borrar(proveedores entidad);
     }
 }

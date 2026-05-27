@@ -82,11 +82,10 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar(int data)
+        public void OnPostBtBorrar()
         {
             try
             {
-                estadoReserva = Lista!.FirstOrDefault(x => x.id == data);
                 if (estadoReserva == null)
                     return;
                 estadoReserva = IestadoReservaNegocio!.Borrar(estadoReserva!);

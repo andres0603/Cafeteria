@@ -1,0 +1,207 @@
+﻿@page
+@model pagosModel
+@{
+    ViewData["Title"] = "pagos";
+}
+<link href="~/css/estilo.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+<center>
+    <div>
+        <form method="POST"
+            enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="dashboard-background">
+                <div class="dashboard-container">
+
+            <div class="dashboard-header" align="left">
+                <h3 style="color:white">GESTIÓN DE LOS PAGOS</h3>
+            </div>
+
+            <div class="action-buttons">
+                <input type="submit"
+                    value="Refrescar"
+                    class="btn-dashboard btn-refresh"
+                    asp-page-handler="BtRefrescar" />
+                <input type="submit"
+                    value="Nuevo"
+                    class="btn-dashboard btn-new"
+                    asp-page-handler="BtNuevo"
+                    disabled="@(Model.pagos != null)"/>
+                <input type="submit"
+                    value="Guardar"
+                    class="btn-dashboard btn-save"
+                    asp-page-handler="BtGuardar"
+                    disabled="@(Model.pagos == null)"/>
+            </div>
+
+            @if (Model.pagos != null)
+            {
+                <input type="hidden" 
+                    asp-for="@Model.pagos!.id"/>
+                <div>
+                
+                    <div class="form-group">
+                        <label style="color:white">
+                            Monto pagado
+                        </label>
+                        <div class="col-6">
+                            <input id="inMonto"
+                                   class="cts_forms form-control"
+                                   asp-for="@Model.pagos!.montoPagado" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="color:white">
+                            Devuelta
+                        </label>
+                        <div class="col-6">
+                            <input id="inCantidad"
+                                   class="cts_forms form-control"
+                                   asp-for="@Model.pagos!.devuelta" />
+                        </div>
+                    </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Propina
+                                </label>
+                                <div class="col-6">
+                                    <input id="inProp"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.pagos!.propina" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Pedido
+                                </label>
+                                <div class="col-6">
+                                    <select id="sePedido"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.pagos.pedido"
+                                            asp-items="@(new SelectList(Model.ListaPedidos, "id", "id"))">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Metodo de pago
+                                </label>
+                                <div class="col-6">
+                                    <select id="seMetodo"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.pagos!.metodoPago"
+                                            asp-items="@(new SelectList(Model.ListaMetodo, "id", "metodo"))">
+                                    </select>
+
+                                </div>
+                            </div>
+
+                    </div>
+            }
+
+            
+            @if (ViewData.ContainsKey("Mensaje"))
+            {
+                @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+            }
+
+            @if (Model.pagos != null && Model.Borrando)
+            {
+                <div class='popup'>
+                    <div class='pp_ms_inner'>
+                        <div style='width:95%'>
+                            <h2 align="left">
+                                Mensaje
+                            </h2>
+
+                            <h6 align="left">
+                                Desea borrar el pago?
+                            </h6>
+                            <h6 align="left">
+                                @Model.pagos!.id    
+                            </h6>
+                            
+                            <input type="submit"
+                                   value="Cerrar"
+                                   asp-page-handler="BtCerrar"
+                                   class="btn btn-secondary" />
+                            <input type="submit"
+                                   value="Borrar"
+                                   asp-page-handler="BtBorrar"
+                                   class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model != null &&
+                 Model.Lista != null &&
+                 Model.Lista.Count > 0 )
+            {
+         <div class="admin-card table-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <tr>
+                        <th>
+                            Monto pagado
+                        </th>
+                        <th>
+                            Devuelta
+                        </th>
+                        <th>
+                            Propina
+                        </th>
+                        <th>
+                            Pedido
+                        </th>
+                        <th>
+                            Metodo de pago
+                        </th>
+
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>
+                                @elemento.montoPagado
+                            </td>
+                            <td>
+                                @elemento.devuelta
+                            </td>
+                            <td>
+                                @elemento.propina
+                            </td>
+                            <td>
+                                @elemento._pedido!.id
+                            </td>
+                            <td>
+                                @elemento._metodoPago!.metodo
+                            </td>
+
+                            <td>
+                                <input type="submit"
+                                    value="Modificar"
+                                    asp-page-handler="BtModificar"
+                                    class="btn-table btn-modify"
+                                    asp-route-data="@elemento.id" />
+                                <input type="submit"
+                                    value="Borrar"
+                                    asp-page-handler="BtBorrarVal"
+                                    class="btn-table btn-delete"
+                                    asp-route-data="@elemento.id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+         </div>
+            }
+                </div>
+            </div>
+        </form>
+   
+    </div>
+</center>

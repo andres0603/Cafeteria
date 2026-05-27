@@ -9,7 +9,7 @@ namespace lib_cafeteria.interfaces
         List<reservas> Consultar();
         reservas Guardar(reservas entidad);
         reservas Modificar(reservas entidad);
-        reservas Borrar(int id);
+        reservas Borrar(reservas entidad);
 
     }
 }

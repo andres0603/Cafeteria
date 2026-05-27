@@ -89,15 +89,12 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public estadosMesa Borrar(int id)
+        public estadosMesa Borrar(estadosMesa estadoMesa)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
-
-                var estadoMesa = this.iConexion.estadosMesa!.Find(id);
 
                 if (estadoMesa != null)
                 {

@@ -83,15 +83,14 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar(int data)
+        public void OnPostBtBorrar()
         {
             try
             {
-                OnPostBtRefrescar();
-                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
                 if (estadoMesa == null)
                     return;
                 estadoMesa = IestadoMesaNegocio!.Borrar(estadoMesa!);
+                OnPostBtRefrescar();
                 
             }
             catch (Exception ex)

@@ -41,18 +41,12 @@ namespace servicio_cafeteria.Controllers
             return this.IMesasNegocio!.Modificar(entidadModificada);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Borrar(int id)
+        [HttpDelete]
+        public mesas Borrar(mesas entidad)
         {
-            try
-            {
-                this.IMesasNegocio!.Borrar(id);
-                return Ok("Mesa eliminada correctamente");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            if (this.IMesasNegocio == null)
+                throw new Exception("No implementado");
+            return this.IMesasNegocio!.Borrar(entidad);
         }
     }
 }

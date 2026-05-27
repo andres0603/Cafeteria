@@ -9,6 +9,6 @@ namespace lib_cafeteria.interfaces
         List<sesiones> Consultar();
         sesiones Guardar(sesiones entidad);
         sesiones Modificar(sesiones entidad);
-        sesiones Borrar(int id);
+        sesiones Borrar(sesiones entidad);
     }
 }

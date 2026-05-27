@@ -7,6 +7,6 @@ namespace lib_cafeteria.interfaces
         List<horarios> Consultar();
         horarios Guardar(horarios entidad);
         horarios Modificar(horarios entidad);
-        horarios Borrar(int id);
+        horarios Borrar(horarios entidad);
     }
 }

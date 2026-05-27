@@ -30,6 +30,9 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
+            ListaPedidos = IpedidosNegocio!.Consultar();
+            ListaProductos = IproductosNegocio!.Consultar();
+            ListaProductoExtra = Iproducto_ExtraNegocio.Consultar();
         }
 
         public void OnGet()
@@ -44,9 +47,6 @@ namespace Aplicacion_cafeteria.Pages
                 if (IdetallesPedidoNegocio == null)
                     return;
                 Lista = IdetallesPedidoNegocio.Consultar();
-                ListaPedidos = IpedidosNegocio!.Consultar();
-                ListaProductos = IproductosNegocio!.Consultar();
-                ListaProductoExtra = Iproducto_ExtraNegocio.Consultar();
                 detallePedido = null;
             }
             catch (Exception ex)
@@ -62,6 +62,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
+                OnPostBtNuevo();
                 detallePedido = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
@@ -93,11 +94,10 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar(int data)
+        public void OnPostBtBorrar()
         {
             try
             {
-                detallePedido = Lista!.FirstOrDefault(x => x.id == data);
                 if (detallePedido == null)
                     return;
                 detallePedido = IdetallesPedidoNegocio!.Borrar(detallePedido!);

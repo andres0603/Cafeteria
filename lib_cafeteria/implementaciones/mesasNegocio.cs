@@ -94,15 +94,13 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public mesas Borrar(int id)
+        public mesas Borrar(mesas mesa)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
-
-                var mesa = this.iConexion.mesas!.Find(id);
 
                 if (mesa != null)
                 {

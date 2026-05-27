@@ -24,7 +24,9 @@ namespace lib_cafeteria.implementaciones
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
-                var lista = this.iConexion.productos!.ToList();
+                var lista = this.iConexion.productos!
+                    .Include(x=>x._categorias)
+                    .ToList();
                 return lista;
             }
             catch
@@ -90,7 +92,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public productos Borrar(int id)
+        public productos Borrar(productos producto)
         {
             try
             {
@@ -98,7 +100,6 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var producto = this.iConexion.productos!.Find(id);
 
                 if (producto != null)
                 {

@@ -8,6 +8,6 @@ namespace lib_cafeteria.interfaces
         List<mesas> Consultar();
         mesas Guardar(mesas entidad);
         mesas Modificar(mesas entidad);
-        mesas Borrar(int id);
+        mesas Borrar(mesas entidad);
     }
 }

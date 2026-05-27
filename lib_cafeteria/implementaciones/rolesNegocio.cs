@@ -90,15 +90,12 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public roles Borrar(int id)
+        public roles Borrar(roles rol)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
-
-                var rol = this.iConexion.roles!.Find(id);
 
                 if (rol != null)
                 {

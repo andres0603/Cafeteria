@@ -7,12 +7,12 @@ namespace servicio_cafeteria.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class proveedorController : ControllerBase
+    public class proveedoresController : ControllerBase
     {
 
         private IProveedoresNegocio? IProveedoresNegocio;
 
-        public proveedorController()
+        public proveedoresController()
         {
             this.IProveedoresNegocio = new proveedoresNegocio();
         }
@@ -41,18 +41,12 @@ namespace servicio_cafeteria.Controllers
             return this.IProveedoresNegocio!.Modificar(entidadModificada);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Borrar(int id)
+        [HttpDelete]
+        public proveedores Borrar(proveedores entidad)
         {
-            try
-            {
-                this.IProveedoresNegocio!.Borrar(id);
-                return Ok("proveedor eliminado correctamente");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            if (this.IProveedoresNegocio == null)
+                throw new Exception("No implementado");
+            return this.IProveedoresNegocio!.Borrar(entidad);
         }
     }
 }

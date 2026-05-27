@@ -89,7 +89,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public metodoPago Borrar(int id)
+        public metodoPago Borrar(metodoPago metodoPago)
         {
             try
             {
@@ -97,7 +97,6 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var metodoPago = this.iConexion.metodoPago!.Find(id);
 
                 if (metodoPago != null)
                 {

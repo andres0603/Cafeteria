@@ -82,16 +82,15 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar(int data)
+        public void OnPostBtBorrar()
         {
             try
             {
-                OnPostBtRefrescar();
-                horario = Lista!.FirstOrDefault(x => x.id == data);
                 if (horario == null)
                     return;
                 horario = IhorariosNegocio!.Borrar(horario!);
-                
+                OnPostBtRefrescar();
+
             }
             catch (Exception ex)
             {

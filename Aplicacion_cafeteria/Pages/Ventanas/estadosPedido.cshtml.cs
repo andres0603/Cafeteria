@@ -82,11 +82,10 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar(int data)
+        public void OnPostBtBorrar()
         {
             try
             {
-                categoria = Lista!.FirstOrDefault(x => x.id == data);
                 if (categoria == null)
                     return;
                 categoria = IestadosPedidoNegocio!.Borrar(categoria!);

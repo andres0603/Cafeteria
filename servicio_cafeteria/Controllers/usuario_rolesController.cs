@@ -41,18 +41,12 @@ namespace servicio_cafeteria.Controllers
             return this.IUsuario_rolesNegocio!.Modificar(entidadModificada);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Borrar(int id)
+        [HttpDelete]
+        public usuario_roles Borrar(usuario_roles entidad)
         {
-            try
-            {
-                this.IUsuario_rolesNegocio!.Borrar(id);
-                return Ok("Uusario por rol eliminado correctamente");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            if (this.IUsuario_rolesNegocio == null)
+                throw new Exception("No implementado");
+            return this.IUsuario_rolesNegocio!.Borrar(entidad);
         }
     }
 }

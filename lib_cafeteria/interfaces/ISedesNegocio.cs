@@ -12,7 +12,7 @@ namespace lib_cafeteria.interfaces
         List<sedes> Consultar();
         sedes Guardar(sedes entidad);
         sedes Modificar(sedes entidad);
-        sedes Borrar(int id);
+        sedes Borrar(sedes entidad);
         List<mesas> ObtenerMesasDisponibles(int personas);
 
     }

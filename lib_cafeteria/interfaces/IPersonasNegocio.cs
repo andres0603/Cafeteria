@@ -8,6 +8,6 @@ namespace lib_cafeteria.interfaces
         List<personas> Consultar();
         personas Guardar(personas entidad);
         personas Modificar(personas entidad);
-        personas Borrar(int id);
+        personas Borrar(personas entidad);
     }
 }

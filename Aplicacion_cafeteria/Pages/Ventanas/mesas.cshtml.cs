@@ -28,7 +28,8 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-                
+            ListaEstadosMesa = IestadoMesaNegocio!.Consultar();
+            ListaSedes = IsedesNegocio!.Consultar();
         }
 
         public void OnGet()
@@ -43,8 +44,6 @@ namespace Aplicacion_cafeteria.Pages
                 if (ImesasNegocio == null)
                     return;
                 Lista = ImesasNegocio.Consultar();
-                ListaEstadosMesa = IestadoMesaNegocio!.Consultar();
-                ListaSedes = IsedesNegocio!.Consultar();
                 mesa = null;
             }
             catch (Exception ex)
@@ -60,6 +59,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
+                OnPostBtNuevo();
                 mesa = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
@@ -95,7 +95,6 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                mesa = Lista!.FirstOrDefault(x => x.id == data);
                 if (mesa == null)
                     return;
                 mesa = ImesasNegocio!.Borrar(mesa!);

@@ -9,6 +9,6 @@ namespace lib_cafeteria.interfaces
         List<productos> Consultar();
         productos Guardar(productos entidad);
         productos Modificar(productos entidad);
-        productos Borrar(int id);
+        productos Borrar(productos entidad);
     }
 }

@@ -12,7 +12,7 @@ namespace lib_cafeteria.interfaces
         List<clientes> Consultar();
         clientes Guardar(clientes entidad);
         clientes Modificar(clientes entidad);
-        clientes Borrar(int id);
+        clientes Borrar(clientes entidad);
         string consultarDescuento(int clienteId);
     }
 }

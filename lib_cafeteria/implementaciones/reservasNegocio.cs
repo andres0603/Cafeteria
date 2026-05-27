@@ -90,15 +90,12 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public reservas Borrar(int id)
+        public reservas Borrar(reservas reserva)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
-
-                var reserva = this.iConexion.reservas!.Find(id);
 
                 if (reserva != null)
                 {

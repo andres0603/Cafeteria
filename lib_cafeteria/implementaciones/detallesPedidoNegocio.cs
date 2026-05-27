@@ -93,14 +93,11 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public detallesPedido Borrar(int id)
+        public detallesPedido Borrar(detallesPedido detallePedido)
         {
             try {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
-
-                var detallePedido = this.iConexion.detallesPedido!.Find(id);
 
                 if (detallePedido != null)
                 {

@@ -89,7 +89,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public producto_Extra Borrar(int id)
+        public producto_Extra Borrar(producto_Extra producto_Extra)
         {
             try
             {
@@ -97,7 +97,6 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var producto_Extra = this.iConexion.producto_Extra!.Find(id);
 
                 if (producto_Extra != null)
                 {

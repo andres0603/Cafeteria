@@ -94,15 +94,13 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public empleados Borrar(int id)
+        public empleados Borrar(empleados empleados)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
-
-                var empleados = this.iConexion.empleados!.Find(id);
 
                 if (empleados != null)
                 {

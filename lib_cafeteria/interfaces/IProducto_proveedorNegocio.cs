@@ -9,6 +9,6 @@ namespace lib_cafeteria.interfaces
         List<producto_proveedor> Consultar();
         producto_proveedor Guardar(producto_proveedor entidad);
         producto_proveedor Modificar(producto_proveedor entidad);
-        producto_proveedor Borrar(int id);
+        producto_proveedor Borrar(producto_proveedor entidad);
     }
 }

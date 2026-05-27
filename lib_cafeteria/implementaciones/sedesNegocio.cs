@@ -90,7 +90,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public sedes Borrar(int id)
+        public sedes Borrar(sedes sede)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var sede = this.iConexion.sedes!.Find(id);
+             
 
                 if (sede != null)
                 {

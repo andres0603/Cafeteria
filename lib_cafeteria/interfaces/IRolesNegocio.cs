@@ -8,7 +8,7 @@ namespace lib_cafeteria.interfaces
         List<roles> Consultar();
         roles Guardar(roles entidad);
         roles Modificar(roles entidad);
-        roles Borrar(int id);
+        roles Borrar(roles entidad);
         decimal calcularValorDia(int rolId);
     }
 }

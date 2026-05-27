@@ -90,7 +90,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public proveedores Borrar(int id)
+        public proveedores Borrar(proveedores proveedor)
         {
             try
             {
@@ -98,7 +98,6 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var proveedor = this.iConexion.proveedores!.Find(id);
 
                 if (proveedor != null)
                 {

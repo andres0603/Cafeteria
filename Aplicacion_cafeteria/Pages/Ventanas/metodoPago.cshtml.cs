@@ -81,16 +81,14 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar(int data)
+        public void OnPostBtBorrar()
         {
             try
             {
-                OnPostBtRefrescar();
-                metodoPago = Lista!.FirstOrDefault(x => x.id == data);
                 if (metodoPago == null)
                     return;
                 metodoPago = ImetodoPagoNegocio!.Borrar(metodoPago!);
-
+                OnPostBtRefrescar();
             }
             catch (Exception ex)
             {

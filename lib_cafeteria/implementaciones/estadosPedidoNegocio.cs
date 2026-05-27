@@ -90,15 +90,12 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public estadosPedido Borrar(int id)
+        public estadosPedido Borrar(estadosPedido estadosPedido)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
-
-                var estadosPedido = this.iConexion.estadosPedido!.Find(id);
 
                 if (estadosPedido != null)
                 {

@@ -89,15 +89,13 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public horarios Borrar(int id)
+        public horarios Borrar(horarios horario)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
-
-                var horario = this.iConexion.horarios!.Find(id);
 
                 if (horario != null)
                 {

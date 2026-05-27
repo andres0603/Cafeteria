@@ -24,7 +24,10 @@ namespace lib_cafeteria.implementaciones
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
-                var lista = this.iConexion.pagos!.ToList();
+                var lista = this.iConexion.pagos
+                    .Include(x=>x._pedido)
+                    .Include(x=>x._metodoPago)
+                    .ToList();
                 return lista;
             }
             catch
@@ -89,7 +92,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public pagos Borrar(int id)
+        public pagos Borrar(pagos pago)
         {
             try
             {
@@ -97,7 +100,6 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var pago = this.iConexion.pagos!.Find(id);
 
                 if (pago != null)
                 {

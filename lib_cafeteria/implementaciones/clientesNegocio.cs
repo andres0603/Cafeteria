@@ -95,15 +95,12 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public clientes Borrar(int id)
+        public clientes Borrar(clientes cliente)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
-
-                var cliente = this.iConexion.clientes!.Find(id);
 
                 if (cliente != null)
                 {

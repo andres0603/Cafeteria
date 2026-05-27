@@ -9,6 +9,6 @@ namespace lib_cafeteria.interfaces
         List<pedidos> Consultar();
         pedidos Guardar(pedidos entidad);
         pedidos Modificar(pedidos entidad);
-        pedidos Borrar(int id);
+        pedidos Borrar(pedidos entidad);
     }
 }

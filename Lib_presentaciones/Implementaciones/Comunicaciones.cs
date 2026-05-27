@@ -105,7 +105,7 @@ namespace Lib_presentaciones.Implementaciones
             var message = await httpClient.SendAsync(request);  
 
             if (!message.IsSuccessStatusCode)
-                throw new Exception("Error Comunicacion");
+                    throw new Exception("Error Comunicacion");
 
             var resp = await message.Content.ReadAsStringAsync();
             httpClient.Dispose(); httpClient = null;

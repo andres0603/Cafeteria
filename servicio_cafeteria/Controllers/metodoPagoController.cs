@@ -41,18 +41,12 @@ namespace servicio_cafeteria.Controllers
                 return this.IMetodoPagoNegocio!.Modificar(entidadModificada);
             }
 
-            [HttpDelete("{id}")]
-            public IActionResult Borrar(int id)
-            {
-                try
-                {
-                    this.IMetodoPagoNegocio!.Borrar(id);
-                    return Ok("Metodo de pago eliminado correctamente");
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
+        [HttpDelete]
+        public metodoPago Borrar(metodoPago entidad)
+        {
+            if (this.IMetodoPagoNegocio == null)
+                throw new Exception("No implementado");
+            return this.IMetodoPagoNegocio!.Borrar(entidad);
+        }
         }
 }

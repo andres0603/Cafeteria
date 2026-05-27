@@ -90,7 +90,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public usuario_roles Borrar(int id)
+        public usuario_roles Borrar(usuario_roles usuario_Rol)
         {
             try
             {
@@ -98,13 +98,12 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
 
-                var detallePedido = this.iConexion.usuario_roles!.Find(id);
 
-                if (detallePedido != null)
+                if (usuario_Rol != null)
                 {
 
-                    this.iConexion.usuario_roles.Remove(detallePedido);
-                    var entry = this.iConexion!.Entry<usuario_roles>(detallePedido!);
+                    this.iConexion.usuario_roles.Remove(usuario_Rol);
+                    var entry = this.iConexion!.Entry<usuario_roles>(usuario_Rol!);
 
                     var historicos = new historicos
                     {
@@ -114,7 +113,7 @@ namespace lib_cafeteria.implementaciones
                     };
                     this.iConexion.historicos!.Add(historicos);
                     this.iConexion.SaveChanges();
-                    return detallePedido;
+                    return usuario_Rol;
                 }
 
                 throw new Exception("El usuario con respecto al rol no existe");

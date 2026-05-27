@@ -9,6 +9,6 @@ namespace lib_cafeteria.interfaces
         List<pagos> Consultar();
         pagos Guardar(pagos entidad);
         pagos Modificar(pagos entidad);
-        pagos Borrar(int id);
+        pagos Borrar(pagos entidad);
     }
 }

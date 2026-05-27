@@ -28,7 +28,13 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-                
+            ListaRoles = IrolesNegocio!.Consultar();
+            ListaHorarios = IhorariosNegocio!.Consultar()
+                            .Select(x => new {
+                            id = x.id,
+                            dia = $"{x.dia} {x.horaEntrada} - {x.horaSalida}"
+                            })
+                            .ToList<dynamic>();
         }
 
         public void OnGet()
@@ -44,12 +50,6 @@ namespace Aplicacion_cafeteria.Pages
                     return;
                 Lista = IempleadosNegocio.Consultar();
                 ListaRoles = IrolesNegocio!.Consultar();
-                ListaHorarios = IhorariosNegocio!.Consultar()
-                    .Select(x => new {
-                        id = x.id,
-                        dia = $"{x.dia} {x.horaEntrada} - {x.horaSalida}"
-                    })
-                    .ToList<dynamic>();
                 empleado = null;
             }
             catch (Exception ex)
@@ -65,6 +65,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
+                OnPostBtNuevo();
                 empleado = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;

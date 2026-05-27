@@ -8,7 +8,7 @@ namespace lib_cafeteria.interfaces
         List<detallesPedido> Consultar();
         detallesPedido Guardar(detallesPedido entidad);
         detallesPedido Modificar(detallesPedido entidad);
-        detallesPedido Borrar(int id);
+        detallesPedido Borrar(detallesPedido entidad);
         decimal calcularSubTotal(int detalleId);
     }
 }

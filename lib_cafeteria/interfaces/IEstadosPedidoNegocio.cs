@@ -8,6 +8,6 @@ namespace lib_cafeteria.interfaces
         List<estadosPedido> Consultar();
         estadosPedido Guardar(estadosPedido entidad);
         estadosPedido Modificar(estadosPedido entidad);
-        estadosPedido Borrar(int id);
+        estadosPedido Borrar(estadosPedido entidad);
     }
 }

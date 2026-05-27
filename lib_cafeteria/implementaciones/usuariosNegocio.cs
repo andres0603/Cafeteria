@@ -91,15 +91,13 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("La entidad no existe");
         }
 
-        public usuarios Borrar(int id)
+        public usuarios Borrar(usuarios usuario)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
-
-                var usuario = this.iConexion.usuarios!.Find(id);
 
                 if (usuario != null)
                 {
