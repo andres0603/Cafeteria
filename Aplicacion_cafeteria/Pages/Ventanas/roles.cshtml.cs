@@ -8,17 +8,16 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Aplicacion_cafeteria.Pages
 {
-    public class estadoMesaModel : PageModel
+    public class rolesModel : PageModel
     {
-        private IestadoMesaNegocio? IestadoMesaNegocio;
-
-        [BindProperty] public List<estadosMesa>? Lista { get; set; }
-        [BindProperty] public estadosMesa? estadoMesa { get; set; }
+        private IrolesNegocio? IrolesNegocio;
+        [BindProperty] public List<roles>? Lista { get; set; }
+        [BindProperty] public roles? rol { get; set; }
         [BindProperty] public bool Borrando { get; set; }
 
-        public estadoMesaModel()
+        public rolesModel()
         {
-            IestadoMesaNegocio = new EstadoMesaNegocio();
+            IrolesNegocio = new RolesNegocio();
         }
 
         public void OnPostBtNuevo()
@@ -34,10 +33,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                if (IestadoMesaNegocio == null)
+                if (IrolesNegocio == null)
                     return;
-                Lista = IestadoMesaNegocio.Consultar();
-                estadoMesa = null;
+                Lista = IrolesNegocio.Consultar();
+                rol = null;
             }
             catch (Exception ex)
             {
@@ -52,7 +51,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
+                rol = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
             }
@@ -67,13 +66,13 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
 
-                if (estadoMesa == null)
+                if (rol == null)
                     return;
-                if (estadoMesa.id == 0)
-                    estadoMesa = IestadoMesaNegocio!.Guardar(estadoMesa!);
+                if (rol.id == 0)
+                    rol = IrolesNegocio!.Guardar(rol!);
                 else
-                    estadoMesa = IestadoMesaNegocio!.Modificar(estadoMesa!);
-                if (estadoMesa.id == 0)
+                    rol = IrolesNegocio!.Modificar(rol!);
+                if (rol.id == 0)
                     return;
                 OnPostBtRefrescar();
             }
@@ -87,11 +86,11 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                if (estadoMesa == null)
+                if (rol == null)
                     return;
-                estadoMesa = IestadoMesaNegocio!.Borrar(estadoMesa!);
+                rol = IrolesNegocio!.Borrar(rol!);
                 OnPostBtRefrescar();
-                
+
             }
             catch (Exception ex)
             {
@@ -104,7 +103,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
+                rol = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = true;
             }

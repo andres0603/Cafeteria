@@ -8,21 +8,24 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Aplicacion_cafeteria.Pages
 {
-    public class estadoMesaModel : PageModel
+    public class tareasModel : PageModel
     {
-        private IestadoMesaNegocio? IestadoMesaNegocio;
-
-        [BindProperty] public List<estadosMesa>? Lista { get; set; }
-        [BindProperty] public estadosMesa? estadoMesa { get; set; }
+        private ItareasNegocio? ItareasNegocio;
+        private IempleadosNegocio? IempleadosNegocio;
+        [BindProperty] public List<tareas>? Lista { get; set; }
+        [BindProperty] public List<empleados>? ListaEmpleados { get; set; }
+        [BindProperty] public tareas? tarea { get; set; }
         [BindProperty] public bool Borrando { get; set; }
 
-        public estadoMesaModel()
+        public tareasModel()
         {
-            IestadoMesaNegocio = new EstadoMesaNegocio();
+            ItareasNegocio = new TareasNegocio();
+            IempleadosNegocio = new EmpleadosNegocio(); 
         }
 
         public void OnPostBtNuevo()
         {
+            ListaEmpleados = IempleadosNegocio!.Consultar();
         }
 
         public void OnGet()
@@ -34,10 +37,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                if (IestadoMesaNegocio == null)
+                if (ItareasNegocio == null)
                     return;
-                Lista = IestadoMesaNegocio.Consultar();
-                estadoMesa = null;
+                Lista = ItareasNegocio.Consultar();
+                tarea = null;
             }
             catch (Exception ex)
             {
@@ -52,7 +55,8 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
+                OnPostBtNuevo();
+                tarea = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
             }
@@ -67,13 +71,13 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
 
-                if (estadoMesa == null)
+                if (tarea == null)
                     return;
-                if (estadoMesa.id == 0)
-                    estadoMesa = IestadoMesaNegocio!.Guardar(estadoMesa!);
+                if (tarea.id == 0)
+                    tarea = ItareasNegocio!.Guardar(tarea!);
                 else
-                    estadoMesa = IestadoMesaNegocio!.Modificar(estadoMesa!);
-                if (estadoMesa.id == 0)
+                    tarea = ItareasNegocio!.Modificar(tarea!);
+                if (tarea.id == 0)
                     return;
                 OnPostBtRefrescar();
             }
@@ -83,15 +87,14 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar()
+        public void OnPostBtBorrar(int data)
         {
             try
             {
-                if (estadoMesa == null)
+                if (tarea == null)
                     return;
-                estadoMesa = IestadoMesaNegocio!.Borrar(estadoMesa!);
+                tarea = ItareasNegocio!.Borrar(tarea!);
                 OnPostBtRefrescar();
-                
             }
             catch (Exception ex)
             {
@@ -104,7 +107,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
+                tarea = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = true;
             }

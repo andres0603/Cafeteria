@@ -1,7 +1,7 @@
 ﻿@page
-@model estadoMesaModel
+@model sedesModel
 @{
-    ViewData["Title"] = "Estados de mesa";
+    ViewData["Title"] = "sedes";
 }
 <link href="~/css/estilo.css" rel="stylesheet" />
 
@@ -16,7 +16,7 @@
                 <div class="dashboard-container">
 
             <div class="dashboard-header" align="left">
-                <h3 style="color:white">GESTIÓN DE ESTADOS DE UNA MESA</h3>
+                <h3 style="color:white">GESTIÓN DE SEDES</h3>
             </div>
 
             <div class="action-buttons">
@@ -28,18 +28,18 @@
                     value="Nuevo"
                     class="btn-dashboard btn-new"
                     asp-page-handler="BtNuevo"
-                    disabled="@(Model.estadoMesa != null)"/>
+                    disabled="@(Model.sede != null)"/>
                 <input type="submit"
                     value="Guardar"
                     class="btn-dashboard btn-save"
                     asp-page-handler="BtGuardar"
-                    disabled="@(Model.estadoMesa == null)"/>
+                    disabled="@(Model.sede == null)"/>
             </div>
 
-            @if (Model.estadoMesa != null)
+            @if (Model.sede != null)
             {
                 <input type="hidden" 
-                    asp-for="@Model.estadoMesa!.id"/>
+                    asp-for="@Model.sede!.id"/>
                 <div>
                 
                     <div class="form-group">
@@ -49,41 +49,40 @@
                         <div class="col-6">
                             <input id="inNombre"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.estadoMesa!.nombre" />
+                                   asp-for="@Model.sede!.nombre" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label style="color:white">
-                            Descripcion
+                            Fecha de fundacion
                         </label>
                         <div class="col-6">
-                            <input id="inCedula"
+                            <input type="date"
+                                   id="inFecha"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.estadoMesa!.descripcion" />
+                                   asp-for="@Model.sede!.fecha_fundacion" />
                         </div>
                     </div>
                             <div class="form-group">
                                 <label style="color:white">
-                                    Permite asignar pedido?
+                                    Direccion
                                 </label>
                                 <div class="col-6">
-                                    <input type="checkbox"
-                                           asp-for="@Model.estadoMesa!.PermiteAsignarPedido"
-                                           class="form-check-input" />
+                                    <input id="inDireccion"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.sede!.direccion" />
                                 </div>
                             </div>
-                            
                             <div class="form-group">
                                 <label style="color:white">
                                     Activo
                                 </label>
                                 <div class="col-6">
                                     <input type="checkbox"
-                                           asp-for="@Model.estadoMesa!.activo"
+                                           asp-for="@Model.sede!.activo"
                                            class="form-check-input" />
                                 </div>
                             </div>
-
                     </div>
             }
 
@@ -93,7 +92,7 @@
                 @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
             }
 
-            @if (Model.estadoMesa != null && Model.Borrando)
+            @if (Model.sede != null && Model.Borrando)
             {
                 <div class='popup'>
                     <div class='pp_ms_inner'>
@@ -103,10 +102,10 @@
                             </h2>
 
                                     <h6 align="left" style="color:white">
-                                Desea borrar el estadoMesa?
+                                Desea borrar el sede?
                             </h6>
                                     <h6 align="left" style="color:white">
-                                @Model.estadoMesa!.nombre
+                                @Model.sede!.nombre
                             </h6>
                             
                             <input type="submit"
@@ -134,10 +133,10 @@
                             Nombre
                         </th>
                         <th>
-                            Descripcion
+                            Fecha de fundacion
                         </th>
                         <th>
-                            Permite asignar pedido?
+                            Direccion
                         </th>
                         <th>
                             Activo
@@ -151,10 +150,10 @@
                                 @elemento.nombre
                             </td>
                             <td>
-                                @elemento.descripcion
+                                @elemento.fecha_fundacion.ToString("aaaa/mm/dd")
                             </td>
                             <td>
-                                @elemento.PermiteAsignarPedido
+                                @elemento.direccion
                             </td>
                             <td>
                                 @elemento.activo

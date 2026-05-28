@@ -1,7 +1,7 @@
 ﻿@page
-@model estadoMesaModel
+@model usuario_rolesModel
 @{
-    ViewData["Title"] = "Estados de mesa";
+    ViewData["Title"] = "usuario_roles";
 }
 <link href="~/css/estilo.css" rel="stylesheet" />
 
@@ -16,7 +16,7 @@
                 <div class="dashboard-container">
 
             <div class="dashboard-header" align="left">
-                <h3 style="color:white">GESTIÓN DE ESTADOS DE UNA MESA</h3>
+                <h3 style="color:white">GESTIÓN DE USUARIO POR ROL</h3>
             </div>
 
             <div class="action-buttons">
@@ -28,58 +28,64 @@
                     value="Nuevo"
                     class="btn-dashboard btn-new"
                     asp-page-handler="BtNuevo"
-                    disabled="@(Model.estadoMesa != null)"/>
+                    disabled="@(Model.usuario_rol != null)"/>
                 <input type="submit"
                     value="Guardar"
                     class="btn-dashboard btn-save"
                     asp-page-handler="BtGuardar"
-                    disabled="@(Model.estadoMesa == null)"/>
+                    disabled="@(Model.usuario_rol == null)"/>
             </div>
 
-            @if (Model.estadoMesa != null)
+            @if (Model.usuario_rol != null)
             {
                 <input type="hidden" 
-                    asp-for="@Model.estadoMesa!.id"/>
+                    asp-for="@Model.usuario_rol!.id"/>
                 <div>
                 
                     <div class="form-group">
                         <label style="color:white">
-                            Nombre
+                            Fecha de asignacion
                         </label>
                         <div class="col-6">
-                            <input id="inNombre"
+                            <input type="date"
+                                   id="inFecha"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.estadoMesa!.nombre" />
+                                   asp-for="@Model.usuario_rol!.fechaAsignacion" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label style="color:white">
-                            Descripcion
+                            Usuario
                         </label>
-                        <div class="col-6">
-                            <input id="inCedula"
-                                   class="cts_forms form-control"
-                                   asp-for="@Model.estadoMesa!.descripcion" />
-                        </div>
-                    </div>
-                            <div class="form-group">
-                                <label style="color:white">
-                                    Permite asignar pedido?
-                                </label>
                                 <div class="col-6">
-                                    <input type="checkbox"
-                                           asp-for="@Model.estadoMesa!.PermiteAsignarPedido"
-                                           class="form-check-input" />
+                                    <select id="seUsuario"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.usuario_rol!.id_usuario"
+                                            asp-items="@(new SelectList(Model.ListaUsuarios, "id", "nombre"))">
+                                        </select>
                                 </div>
                             </div>
-                            
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Rol
+                                </label>
+                                <div class="col-6">
+                                    <select id="seRol"
+                                            class="cts_forms form-control"
+                                            asp-for="@Model.usuario_rol!.id_rol"
+                                            asp-items="@(new SelectList(Model.ListaRoles, "id", "nombre"))">
+                                    </select>
+
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label style="color:white">
                                     Activo
                                 </label>
                                 <div class="col-6">
                                     <input type="checkbox"
-                                           asp-for="@Model.estadoMesa!.activo"
+                                           asp-for="@Model.usuario_rol!.activo"
                                            class="form-check-input" />
                                 </div>
                             </div>
@@ -93,7 +99,7 @@
                 @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
             }
 
-            @if (Model.estadoMesa != null && Model.Borrando)
+            @if (Model.usuario_rol != null && Model.Borrando)
             {
                 <div class='popup'>
                     <div class='pp_ms_inner'>
@@ -103,10 +109,10 @@
                             </h2>
 
                                     <h6 align="left" style="color:white">
-                                Desea borrar el estadoMesa?
+                                Desea borrar el usuario por rol?
                             </h6>
                                     <h6 align="left" style="color:white">
-                                @Model.estadoMesa!.nombre
+                                @Model.usuario_rol!.id
                             </h6>
                             
                             <input type="submit"
@@ -131,13 +137,13 @@
                 <table class="custom-table">
                     <tr>
                         <th>
-                            Nombre
+                            Fecha de asignacion
                         </th>
                         <th>
-                            Descripcion
+                            Usuario
                         </th>
                         <th>
-                            Permite asignar pedido?
+                            Rol
                         </th>
                         <th>
                             Activo
@@ -148,13 +154,13 @@
                     {
                         <tr>
                             <td>
-                                @elemento.nombre
+                                @elemento.fechaAsignacion 
                             </td>
                             <td>
-                                @elemento.descripcion
+                                @elemento._usuario!.nombre
                             </td>
                             <td>
-                                @elemento.PermiteAsignarPedido
+                                @elemento._rol!.nombre
                             </td>
                             <td>
                                 @elemento.activo

@@ -1,7 +1,7 @@
 ﻿@page
-@model estadoMesaModel
+@model rolesModel
 @{
-    ViewData["Title"] = "Estados de mesa";
+    ViewData["Title"] = "roles";
 }
 <link href="~/css/estilo.css" rel="stylesheet" />
 
@@ -16,7 +16,7 @@
                 <div class="dashboard-container">
 
             <div class="dashboard-header" align="left">
-                <h3 style="color:white">GESTIÓN DE ESTADOS DE UNA MESA</h3>
+                <h3 style="color:white">GESTIÓN DE ROLES</h3>
             </div>
 
             <div class="action-buttons">
@@ -28,18 +28,18 @@
                     value="Nuevo"
                     class="btn-dashboard btn-new"
                     asp-page-handler="BtNuevo"
-                    disabled="@(Model.estadoMesa != null)"/>
+                    disabled="@(Model.rol != null)"/>
                 <input type="submit"
                     value="Guardar"
                     class="btn-dashboard btn-save"
                     asp-page-handler="BtGuardar"
-                    disabled="@(Model.estadoMesa == null)"/>
+                    disabled="@(Model.rol == null)"/>
             </div>
 
-            @if (Model.estadoMesa != null)
+            @if (Model.rol != null)
             {
                 <input type="hidden" 
-                    asp-for="@Model.estadoMesa!.id"/>
+                    asp-for="@Model.rol!.id"/>
                 <div>
                 
                     <div class="form-group">
@@ -49,41 +49,49 @@
                         <div class="col-6">
                             <input id="inNombre"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.estadoMesa!.nombre" />
+                                   asp-for="@Model.rol!.nombre" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label style="color:white">
-                            Descripcion
+                            Salario base
                         </label>
                         <div class="col-6">
-                            <input id="inCedula"
+                            <input id="inSalario"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.estadoMesa!.descripcion" />
+                                   asp-for="@Model.rol!.salarioBase" />
                         </div>
                     </div>
                             <div class="form-group">
                                 <label style="color:white">
-                                    Permite asignar pedido?
+                                    Valor_dia
                                 </label>
                                 <div class="col-6">
-                                    <input type="checkbox"
-                                           asp-for="@Model.estadoMesa!.PermiteAsignarPedido"
-                                           class="form-check-input" />
+                                    <input id="inValor"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.rol!.valor_dia" />
                                 </div>
                             </div>
-                            
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Descripcion
+                                </label>
+                                <div class="col-6">
+                                    <input id="inDescripcion"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.rol!.descripcion" />
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label style="color:white">
                                     Activo
                                 </label>
                                 <div class="col-6">
                                     <input type="checkbox"
-                                           asp-for="@Model.estadoMesa!.activo"
+                                           asp-for="@Model.rol!.activo"
                                            class="form-check-input" />
                                 </div>
                             </div>
-
                     </div>
             }
 
@@ -93,7 +101,7 @@
                 @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
             }
 
-            @if (Model.estadoMesa != null && Model.Borrando)
+            @if (Model.rol != null && Model.Borrando)
             {
                 <div class='popup'>
                     <div class='pp_ms_inner'>
@@ -103,10 +111,10 @@
                             </h2>
 
                                     <h6 align="left" style="color:white">
-                                Desea borrar el estadoMesa?
+                                Desea borrar el rol?
                             </h6>
                                     <h6 align="left" style="color:white">
-                                @Model.estadoMesa!.nombre
+                                @Model.rol!.nombre
                             </h6>
                             
                             <input type="submit"
@@ -134,10 +142,13 @@
                             Nombre
                         </th>
                         <th>
-                            Descripcion
+                            Salario Base
                         </th>
                         <th>
-                            Permite asignar pedido?
+                            Valor del dia
+                        </th>
+                        <th>
+                            Descripcion
                         </th>
                         <th>
                             Activo
@@ -151,10 +162,13 @@
                                 @elemento.nombre
                             </td>
                             <td>
-                                @elemento.descripcion
+                                @elemento.salarioBase
                             </td>
                             <td>
-                                @elemento.PermiteAsignarPedido
+                                @elemento.valor_dia
+                            </td>
+                            <td>
+                                @elemento.descripcion
                             </td>
                             <td>
                                 @elemento.activo

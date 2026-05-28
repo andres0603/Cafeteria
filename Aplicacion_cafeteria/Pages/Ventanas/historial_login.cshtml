@@ -1,0 +1,81 @@
+﻿@page
+@model historial_loginModel
+@{
+    ViewData["Title"] = "historial_login";
+}
+<link href="~/css/estilo.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+<center>
+    <div>
+        <form method="POST"
+              enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="dashboard-background">
+                <div class="dashboard-container">
+
+                    <div class="dashboard-header" align="left">
+                        <h3 style="color:white">CONSULTA DEL HISTORIAL DE LOGIN</h3>
+                    </div>
+
+                    <div class="action-buttons">
+                        <input type="submit"
+                               value="Refrescar"
+                               class="btn-dashboard btn-refresh"
+                               asp-page-handler="BtRefrescar" />
+                    </div>
+
+
+
+                    @if (ViewData.ContainsKey("Mensaje"))
+                    {
+                        @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+                        ;
+                    }
+
+
+                    @if (Model != null &&
+                                        Model.Lista != null &&
+                                        Model.Lista.Count > 0)
+                    {
+                        <div class="admin-card table-card">
+                            <div class="table-responsive">
+                                <table class="custom-table">
+                                    <tr>
+                                        <th>
+                                            Fecha de ingreso
+                                        </th>
+                                        <th>
+                                            Resultado
+                                        </th>
+                                        <th>
+                                            Usuario
+                                        </th>
+
+                                    </tr>
+                                    @foreach (var elemento in Model.Lista)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @elemento.fecha_ingreso
+                                            </td>
+                                            <td>
+                                                @elemento.resultado
+                                            </td>
+                                            <td>
+                                                @elemento._usuario!.nombre
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </form>
+
+    </div>
+</center>

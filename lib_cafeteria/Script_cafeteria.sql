@@ -165,6 +165,7 @@ CREATE TABLE pagos (
     [propina] DECIMAL(18,2)
 );
 GO
+select * from producto_proveedor
 CREATE TABLE producto_proveedor (
     [id] INT PRIMARY KEY IDENTITY(1,1),
     [idProducto] INT FOREIGN KEY REFERENCES productos(id),

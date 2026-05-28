@@ -2,6 +2,7 @@
 using lib_cafeteria.interfaces;
 using lib_cafeteria.modelos;
 using lib_cafeteria.nucleo;
+using Microsoft.EntityFrameworkCore;
 
 namespace lib_cafeteria.implementaciones
 {
@@ -16,7 +17,9 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
 
-                var lista = this.iConexion.historial_login!.ToList();
+                var lista = this.iConexion.historial_login!
+                    .Include(x=>x._usuario)
+                    .ToList();
                 return lista;
             }
             catch

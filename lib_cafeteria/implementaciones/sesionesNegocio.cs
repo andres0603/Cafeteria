@@ -25,7 +25,9 @@ namespace lib_cafeteria.implementaciones
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
-                var lista = this.iConexion.sesiones!.ToList();
+                var lista = this.iConexion.sesiones!
+                    .Include(x=>x._usuario)
+                    .ToList();
                 return lista;
             }
             catch

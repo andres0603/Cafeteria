@@ -26,77 +26,211 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/categorias">Categorias</a>
+                            <a class="nav-link" asp-area="" asp-page="Ventanas/sedes">Sedes</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/clientes">Clientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/detallesPedido">Detalles del pedido</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/EstadoMesa">Estados de la mesa</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/empleados">Empleados</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/estadoMesa">Estados de una mesa</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/estadoReserva">Estados de una reserva</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/horarios">Horarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/mesas">Mesas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/metodoPago">Metodo de pago</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/pagos">Pagos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/pedidos"">Pedidos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/producto_Extra">Producto extra</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/producto_proveedor">Producto proveedor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/productos">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Ventanas/proveedores">Proveedores</a>
-                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle"
                                href="#"
                                role="button"
                                data-bs-toggle="dropdown"
                                aria-expanded="false">
-                                Ventas
+                                Mesas
                             </a>
 
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" asp-controller="Ventas" asp-action="Index">
-                                        Lista Ventas
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/mesas">
+                                        Mesas
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a class="dropdown-item" asp-controller="Ventas" asp-action="Create">
-                                        Nueva Venta
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/estadoMesa">
+                                        Estados de una mesa
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/reservas">
+                                        Reservas
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/estadoReserva">
+                                        Estados de una reserva
+                                    </a>
+                                </li>
+                                </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Personas
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/clientes">
+                                        Clientes
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/empleados">
+                                        Empleados
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/horarios">
+                                        Horarios del empleado
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/usuarios">
+                                        Usuarios
+                                    </a>
+                                </li>
+                                <li >
+                                    <a class="dropdown-item" asp-area="" asp-page="Ventanas/roles">Roles</a>
+                                </li>
+
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="Ventanas/tareas">Tareas del empleado</a>
+                                </li>
+
+                                <li >
+                                    <a class="dropdown-item" asp-area="" asp-page="Ventanas/usuario_roles">Usuarios roles</a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="Ventanas/usuarios">Usuarios</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Pedidos
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/pedidos">
+                                        Pedidos
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/detallesPedido">
+                                        Detalles del pedido
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/estadosPedido">
+                                        Estado del pedido
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/pagos">
+                                        Pagos
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/metodoPago">
+                                        Metodo de pago
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Productos y proveedores
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/productos">
+                                        Productos
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/producto_Extra">
+                                        Producto extra
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/categorias">
+                                        Categorias
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/proveedores">
+                                        Proveedores
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/producto_proveedor">
+                                        Producto por proveedor
+                                    </a>
+                                </li>
+                            </ul>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Historicos
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/historicos">
+                                        Historicos
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/historial_login">
+                                        Historial del login
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Ventanas/sesiones">
+                                        Sesiones
                                     </a>
                                 </li>
                             </ul>
                         </li>
+                    
+                        
                     </ul>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 ﻿@page
-@model estadoMesaModel
+@model usuariosModel
 @{
-    ViewData["Title"] = "Estados de mesa";
+    ViewData["Title"] = "usuarios";
 }
 <link href="~/css/estilo.css" rel="stylesheet" />
 
@@ -16,7 +16,7 @@
                 <div class="dashboard-container">
 
             <div class="dashboard-header" align="left">
-                <h3 style="color:white">GESTIÓN DE ESTADOS DE UNA MESA</h3>
+                <h3 style="color:white">GESTIÓN DE USUARIOS</h3>
             </div>
 
             <div class="action-buttons">
@@ -28,18 +28,18 @@
                     value="Nuevo"
                     class="btn-dashboard btn-new"
                     asp-page-handler="BtNuevo"
-                    disabled="@(Model.estadoMesa != null)"/>
+                    disabled="@(Model.usuario != null)"/>
                 <input type="submit"
                     value="Guardar"
                     class="btn-dashboard btn-save"
                     asp-page-handler="BtGuardar"
-                    disabled="@(Model.estadoMesa == null)"/>
+                    disabled="@(Model.usuario == null)"/>
             </div>
 
-            @if (Model.estadoMesa != null)
+            @if (Model.usuario != null)
             {
                 <input type="hidden" 
-                    asp-for="@Model.estadoMesa!.id"/>
+                    asp-for="@Model.usuario!.id"/>
                 <div>
                 
                     <div class="form-group">
@@ -49,41 +49,39 @@
                         <div class="col-6">
                             <input id="inNombre"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.estadoMesa!.nombre" />
+                                   asp-for="@Model.usuario!.nombre" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label style="color:white">
-                            Descripcion
+                            Correo
                         </label>
                         <div class="col-6">
-                            <input id="inCedula"
+                            <input id="inCorreo"
                                    class="cts_forms form-control"
-                                   asp-for="@Model.estadoMesa!.descripcion" />
+                                   asp-for="@Model.usuario!.correo" />
                         </div>
                     </div>
                             <div class="form-group">
                                 <label style="color:white">
-                                    Permite asignar pedido?
+                                    Contraseña
                                 </label>
                                 <div class="col-6">
-                                    <input type="checkbox"
-                                           asp-for="@Model.estadoMesa!.PermiteAsignarPedido"
-                                           class="form-check-input" />
+                                    <input id="inContraseña"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.usuario!.contraseña" />
                                 </div>
                             </div>
-                            
                             <div class="form-group">
                                 <label style="color:white">
                                     Activo
                                 </label>
                                 <div class="col-6">
                                     <input type="checkbox"
-                                           asp-for="@Model.estadoMesa!.activo"
+                                           asp-for="@Model.usuario!.activo"
                                            class="form-check-input" />
                                 </div>
                             </div>
-
                     </div>
             }
 
@@ -93,20 +91,20 @@
                 @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
             }
 
-            @if (Model.estadoMesa != null && Model.Borrando)
+            @if (Model.usuario != null && Model.Borrando)
             {
                 <div class='popup'>
                     <div class='pp_ms_inner'>
                         <div style='width:95%'>
-                                    <h2 align="left" style="color:white">
+                            <h2 align="left" style="color:white">
                                 Mensaje
                             </h2>
 
                                     <h6 align="left" style="color:white">
-                                Desea borrar el estadoMesa?
+                                Desea borrar el usuario?
                             </h6>
                                     <h6 align="left" style="color:white">
-                                @Model.estadoMesa!.nombre
+                                @Model.usuario!.nombre
                             </h6>
                             
                             <input type="submit"
@@ -134,10 +132,10 @@
                             Nombre
                         </th>
                         <th>
-                            Descripcion
+                            Correo
                         </th>
                         <th>
-                            Permite asignar pedido?
+                            Contraseña
                         </th>
                         <th>
                             Activo
@@ -151,10 +149,10 @@
                                 @elemento.nombre
                             </td>
                             <td>
-                                @elemento.descripcion
+                                @elemento.correo
                             </td>
                             <td>
-                                @elemento.PermiteAsignarPedido
+                                @elemento.contraseña
                             </td>
                             <td>
                                 @elemento.activo

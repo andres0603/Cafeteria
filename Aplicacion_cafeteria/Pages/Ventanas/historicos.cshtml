@@ -1,0 +1,80 @@
+﻿@page
+@model historicosModel
+@{
+    ViewData["Title"] = "historicos";
+}
+<link href="~/css/estilo.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+<center>
+    <div>
+        <form method="POST"
+            enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="dashboard-background">
+                <div class="dashboard-container">
+
+            <div class="dashboard-header" align="left">
+                <h3 style="color:white">CONSULTA DE HISTORICOS</h3>
+            </div>
+
+            <div class="action-buttons">
+                <input type="submit"
+                    value="Refrescar"
+                    class="btn-dashboard btn-refresh"
+                    asp-page-handler="BtRefrescar" />
+            </div>
+
+
+            
+            @if (ViewData.ContainsKey("Mensaje"))
+            {
+                @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+            }
+
+
+            @if (Model != null &&
+                 Model.Lista != null &&
+                 Model.Lista.Count > 0 )
+            {
+         <div class="admin-card table-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <tr>
+                        <th>
+                            Nombre de la tabla
+                        </th>
+                        <th>
+                            Accion
+                        </th>
+                        <th>
+                            Fecha de cambio
+                        </th>
+
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>
+                                @elemento.nombreTabla
+                            </td>
+                            <td>
+                                @elemento.accion
+                            </td>
+                            <td>
+                                @elemento.fechaCambio
+                            </td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+         </div>
+            }
+                </div>
+            </div>
+        </form>
+   
+    </div>
+</center>

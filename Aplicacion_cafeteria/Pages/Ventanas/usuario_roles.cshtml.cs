@@ -8,21 +8,28 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Aplicacion_cafeteria.Pages
 {
-    public class estadoMesaModel : PageModel
+    public class usuario_rolesModel : PageModel
     {
-        private IestadoMesaNegocio? IestadoMesaNegocio;
-
-        [BindProperty] public List<estadosMesa>? Lista { get; set; }
-        [BindProperty] public estadosMesa? estadoMesa { get; set; }
+        private Iusuario_rolesNegocio? Iusuario_rolesNegocio;
+        private IusuariosNegocio? IusuariosNegocio;
+        private IrolesNegocio? IrolesNegocio;
+        [BindProperty] public List<usuario_roles>? Lista { get; set; }
+        [BindProperty] public List<roles>? ListaRoles { get; set; }
+        [BindProperty] public List<usuarios>? ListaUsuarios { get; set; }
+        [BindProperty] public usuario_roles? usuario_rol { get; set; }
         [BindProperty] public bool Borrando { get; set; }
 
-        public estadoMesaModel()
+        public usuario_rolesModel()
         {
-            IestadoMesaNegocio = new EstadoMesaNegocio();
+            Iusuario_rolesNegocio = new Usuario_rolesNegocio();
+            IrolesNegocio = new RolesNegocio();
+            IusuariosNegocio = new UsuariosNegocio();
         }
 
         public void OnPostBtNuevo()
         {
+            ListaRoles = IrolesNegocio!.Consultar();
+            ListaUsuarios = IusuariosNegocio!.Consultar();
         }
 
         public void OnGet()
@@ -34,10 +41,11 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-                if (IestadoMesaNegocio == null)
+                if (Iusuario_rolesNegocio == null)
                     return;
-                Lista = IestadoMesaNegocio.Consultar();
-                estadoMesa = null;
+                Lista = Iusuario_rolesNegocio.Consultar();
+                ListaRoles = IrolesNegocio!.Consultar();
+                usuario_rol = null;
             }
             catch (Exception ex)
             {
@@ -52,7 +60,8 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
+                OnPostBtNuevo();
+                usuario_rol = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = false;
             }
@@ -67,13 +76,13 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
 
-                if (estadoMesa == null)
+                if (usuario_rol == null)
                     return;
-                if (estadoMesa.id == 0)
-                    estadoMesa = IestadoMesaNegocio!.Guardar(estadoMesa!);
+                if (usuario_rol.id == 0)
+                    usuario_rol = Iusuario_rolesNegocio!.Guardar(usuario_rol!);
                 else
-                    estadoMesa = IestadoMesaNegocio!.Modificar(estadoMesa!);
-                if (estadoMesa.id == 0)
+                    usuario_rol = Iusuario_rolesNegocio!.Modificar(usuario_rol!);
+                if (usuario_rol.id == 0)
                     return;
                 OnPostBtRefrescar();
             }
@@ -83,15 +92,15 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar()
+        public void OnPostBtBorrar(int data)
         {
             try
             {
-                if (estadoMesa == null)
+                usuario_rol = Lista!.FirstOrDefault(x => x.id == data);
+                if (usuario_rol == null)
                     return;
-                estadoMesa = IestadoMesaNegocio!.Borrar(estadoMesa!);
+                usuario_rol = Iusuario_rolesNegocio!.Borrar(usuario_rol!);
                 OnPostBtRefrescar();
-                
             }
             catch (Exception ex)
             {
@@ -104,7 +113,7 @@ namespace Aplicacion_cafeteria.Pages
             try
             {
                 OnPostBtRefrescar();
-                estadoMesa = Lista!.FirstOrDefault(x => x.id == data);
+                usuario_rol = Lista!.FirstOrDefault(x => x.id == data);
                 Lista = null;
                 Borrando = true;
             }

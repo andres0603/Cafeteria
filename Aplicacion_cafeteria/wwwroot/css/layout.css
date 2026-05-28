@@ -29,24 +29,19 @@
         background: #3b3b3b;
     }
 
-/* CONTENIDO DESPLEGABLE */
-.dropdown-container {
-    display: none;
-    padding-left: 15px;
+.dropdown-menu {
+    background-color: #0d1117; /* mismo color del fondo */
+    border: 1px solid #1f2937;
 }
 
-    .dropdown-container a {
-        display: block;
-        color: #d1d5db;
-        text-decoration: none;
-        padding: 10px;
-        border-radius: 8px;
+    .dropdown-menu .dropdown-item {
+        color: white;
     }
 
-        .dropdown-container a:hover {
-            background: #444;
-        }
-.navbar-brand,
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #1f2937;
+            color: white;
+        }.navbar-brand,
 .nav-link {
     color: white !important;
 }

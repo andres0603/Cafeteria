@@ -23,7 +23,9 @@ namespace lib_cafeteria.implementaciones
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
-                var lista = this.iConexion.tareas!.ToList();
+                var lista = this.iConexion.tareas!
+                    .Include(x=>x._empleados)
+                    .ToList();
                 return lista;
             }
             catch

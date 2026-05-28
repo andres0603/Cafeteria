@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Lib_presentaciones.Implementaciones
 {
-    public class Usuario_roles : Iusuario_rolesNegocio
+    public class Usuario_rolesNegocio : Iusuario_rolesNegocio
     {
         private IComunicaciones? iComunicaciones;
 

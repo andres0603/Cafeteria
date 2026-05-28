@@ -24,7 +24,10 @@ namespace lib_cafeteria.implementaciones
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
-                var lista = this.iConexion.reservas!.ToList();
+                var lista = this.iConexion.reservas!
+                    .Include(x=>x._estadoReserva)
+                    .Include(x => x._clientes)
+                    .ToList();
                 return lista;
             }
             catch
