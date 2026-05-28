@@ -11,10 +11,10 @@ namespace Lib_presentaciones.implementaciones
     {
         private IComunicaciones? iComunicaciones;
 
-        public List<categorias> Consultar()
+        public List<categorias> Consultar(string usuario)
         {
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/categorias/Consultar";
+            datos["Url"] = $"http://localhost:5245/categorias/Consultar?usuario={usuario}";
 
             this.iComunicaciones = new Comunicaciones();
             var task = this.iComunicaciones.Ejecutar(datos)!;
@@ -28,7 +28,7 @@ namespace Lib_presentaciones.implementaciones
                 respuesta["Valor"].ToString()!)!;
         }
 
-        public categorias Guardar(categorias entidad)
+        public categorias Guardar(categorias entidad, string usuario)
         {
             if (entidad.id != 0)
                 throw new Exception("Ya se guardo");
@@ -36,7 +36,7 @@ namespace Lib_presentaciones.implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/categorias/Guardar";
+            datos["Url"] = $"http://localhost:5245/categorias/Guardar?usuario={usuario}";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();

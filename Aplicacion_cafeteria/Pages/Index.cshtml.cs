@@ -3,6 +3,7 @@ using lib_cafeteria.implementaciones;
 using lib_cafeteria.interfaces;
 using lib_cafeteria.modelos;
 using lib_cafeteria.nucleo;
+using Lib_presentaciones.Configuraciones;
 using Lib_presentaciones.Implementaciones;
 using Lib_presentaciones.interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -92,9 +93,34 @@ namespace Aplicacion_cafeteria.Pages
                     estado = true
                 };
                 this.IsesionesNegocio!.Guardar(sesion);
-                
-                
-                OnPostBtClean();
+
+
+            // ---- AGREGA ESTO ----
+            var usuarioRol = this.iConexion.usuario_roles!
+                .FirstOrDefault(ur => ur.id_usuario == usuarioBD.id);
+
+            if (usuarioRol == null)
+            {
+                EstaLogueado = false;
+                return;
+            }
+
+            HttpContext.Session.SetInt32("Rol", usuarioRol.id_rol);
+
+            switch (usuarioRol.id_rol)
+            {
+                case Roles.Administrador:
+                    Response.Redirect("/Ventanas/pedidos");
+                    break;
+                case Roles.Cajero:
+                    Response.Redirect("/Ventanas/pedidos");
+                    break;
+                case Roles.Cliente:
+                    Response.Redirect("/Ventanas/productos");
+                    break;
+            }
+
+            OnPostBtClean();
             }
             catch (Exception ex)
             {

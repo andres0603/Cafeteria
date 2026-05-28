@@ -26,7 +26,7 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-            ListaCategorias = IcategoriasNegocio!.Consultar();
+            /*ListaCategorias = IcategoriasNegocio!.Consultar();*/
         }
 
         public void OnGet()

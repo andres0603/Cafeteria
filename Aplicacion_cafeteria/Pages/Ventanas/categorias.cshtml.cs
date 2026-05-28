@@ -15,6 +15,7 @@ namespace Aplicacion_cafeteria.Pages
         [BindProperty] public categorias? categoria { get; set; }
         [BindProperty] public bool Borrando { get; set; }
 
+        [BindProperty] public string? Usuario { get; set; }
         public categoriasModel()
         {
             ICategoriasNegocio = new CategoriasNegocio();
@@ -33,9 +34,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (ICategoriasNegocio == null)
                     return;
-                Lista = ICategoriasNegocio.Consultar();
+                Lista = ICategoriasNegocio.Consultar(usuario!);
                 categoria = null;
             }
             catch (Exception ex)
@@ -65,11 +67,11 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (categoria == null)
                     return;
                 if (categoria.id == 0)
-                    categoria = ICategoriasNegocio!.Guardar(categoria!);
+                    categoria = ICategoriasNegocio!.Guardar(categoria!,usuario!);
                 else
                     categoria = ICategoriasNegocio!.Modificar(categoria!);
                 if (categoria.id == 0)

@@ -11,7 +11,7 @@ namespace lib_cafeteria.implementaciones
     {
         private IConexion? iConexion;
 
-        public List<categorias> Consultar()
+        public List<categorias> Consultar(string usuario)
         {
             try 
             { 
@@ -20,7 +20,7 @@ namespace lib_cafeteria.implementaciones
                 var historicos = new historicos
                 {
                     nombreTabla = "Categorias",
-                    accion = "Select",
+                    accion = usuario,
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
@@ -34,7 +34,7 @@ namespace lib_cafeteria.implementaciones
             }
 }
 
-        public categorias Guardar(categorias entidad)
+        public categorias Guardar(categorias entidad, string usuario)
         {
             if (entidad.id != 0)
                 throw new Exception("Ya se guardo");
@@ -49,7 +49,7 @@ namespace lib_cafeteria.implementaciones
                 var historicos = new historicos
                 {
                     nombreTabla = entry.Metadata.GetTableName(),
-                    accion = entry.State.ToString(),
+                    accion = usuario,
                     fechaCambio = DateTime.Now
                 };
 

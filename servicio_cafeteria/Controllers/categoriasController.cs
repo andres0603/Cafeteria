@@ -18,19 +18,19 @@ namespace servicio_cafeteria.Controllers
         }
 
         [HttpGet]
-        public List<categorias> Consultar()
+        public List<categorias> Consultar(string usuario)
         {
             if (this.ICategoriasNegocio == null)
                 throw new Exception("No implementado");
-            return this.ICategoriasNegocio!.Consultar();
+            return this.ICategoriasNegocio!.Consultar(usuario);
         }
 
         [HttpPost]
-        public categorias Guardar(categorias entidad)
+        public categorias Guardar(categorias entidad, string usuario)
         {
             if (this.ICategoriasNegocio == null)
                 throw new Exception("No implementado");
-            return this.ICategoriasNegocio!.Guardar(entidad);
+            return this.ICategoriasNegocio!.Guardar(entidad, usuario);
         }
 
         [HttpPut]

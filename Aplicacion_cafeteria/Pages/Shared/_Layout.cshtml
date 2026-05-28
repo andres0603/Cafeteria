@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Lib_presentaciones.Configuraciones
+@{
+    var rol = Context.Session.GetInt32("Rol") ?? 0;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,11 +32,88 @@
                             <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="Ventanas/sedes">Sedes</a>
-                        </li>
 
-                        <li class="nav-item dropdown">
+
+                       
+
+                            @* Solo Administrador *@
+                            @if (rol == Roles.Administrador)
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="Ventanas/sedes">Sedes</a>
+                            </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Mesas</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/mesas">Mesas</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/estadoMesa">Estados de una mesa</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/reservas">Reservas</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/estadoReserva">Estados de una reserva</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Personas</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/clientes">Clientes</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/empleados">Empleados</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/horarios">Horarios del empleado</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/usuarios">Usuarios</a></li>
+                                        <li><a class="dropdown-item" asp-page="Ventanas/roles">Roles</a></li>
+                                        <li><a class="dropdown-item" asp-page="Ventanas/tareas">Tareas del empleado</a></li>
+                                        <li><a class="dropdown-item" asp-page="Ventanas/usuario_roles">Usuarios roles</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Historicos</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/historicos">Historicos</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/historial_login">Historial del login</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/sesiones">Sesiones</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+                            @* Administrador y Cajero *@
+                            @if (rol == Roles.Administrador || rol == Roles.Cajero)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Pedidos</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/pedidos">Pedidos</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/detallesPedido">Detalles del pedido</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/estadosPedido">Estado del pedido</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/pagos">Pagos</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/metodoPago">Metodo de pago</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+                            @* Todos los roles *@
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Productos y proveedores</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-page="/Ventanas/productos">Productos</a></li>
+                                    <li><a class="dropdown-item" asp-page="/Ventanas/producto_Extra">Producto extra</a></li>
+                                    <li><a class="dropdown-item" asp-page="/Ventanas/categorias">Categorias</a></li>
+                                    @if (rol == Roles.Administrador || rol == Roles.Cajero)
+                                    {
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/proveedores">Proveedores</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Ventanas/producto_proveedor">Producto por proveedor</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        </ul>
+
+
+
+
+
+
+
+                       @*  <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle"
                                href="#"
                                role="button"
@@ -99,10 +181,10 @@
                                 </li>
                                 <li >
                                     <a class="dropdown-item" asp-area="" asp-page="Ventanas/roles">Roles</a>
-                                </li>
+                                </li>*@
 
 
-                                <li>
+                        @* <li>
                                     <a class="dropdown-item" asp-area="" asp-page="Ventanas/tareas">Tareas del empleado</a>
                                 </li>
 
@@ -228,7 +310,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>*@
                     
                         
                     </ul>
