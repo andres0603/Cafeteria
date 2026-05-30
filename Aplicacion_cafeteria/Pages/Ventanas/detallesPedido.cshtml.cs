@@ -30,9 +30,10 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-            ListaPedidos = IpedidosNegocio!.Consultar();
-            ListaProductos = IproductosNegocio!.Consultar();
-            ListaProductoExtra = Iproducto_ExtraNegocio.Consultar();
+            var usuario = HttpContext.Session.GetString("Usuario");
+            ListaPedidos = IpedidosNegocio!.Consultar(usuario!);
+            ListaProductos = IproductosNegocio!.Consultar(usuario!);
+            ListaProductoExtra = Iproducto_ExtraNegocio.Consultar(usuario!);
         }
 
         public void OnGet()
@@ -46,7 +47,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (IdetallesPedidoNegocio == null)
                     return;
-                Lista = IdetallesPedidoNegocio.Consultar();
+                var usuario = HttpContext.Session.GetString("Usuario");
+                Lista = IdetallesPedidoNegocio.Consultar(usuario!);
                 detallePedido = null;
             }
             catch (Exception ex)
@@ -77,13 +79,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (detallePedido == null)
                     return;
                 if (detallePedido.id == 0)
-                    detallePedido = IdetallesPedidoNegocio!.Guardar(detallePedido!);
+                    detallePedido = IdetallesPedidoNegocio!.Guardar(detallePedido!,usuario!);
                 else
-                    detallePedido = IdetallesPedidoNegocio!.Modificar(detallePedido!);
+                    detallePedido = IdetallesPedidoNegocio!.Modificar(detallePedido!,usuario!);
                 if (detallePedido.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -100,7 +102,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (detallePedido == null)
                     return;
-                detallePedido = IdetallesPedidoNegocio!.Borrar(detallePedido!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                detallePedido = IdetallesPedidoNegocio!.Borrar(detallePedido!, usuario!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)

@@ -10,10 +10,10 @@ namespace Lib_presentaciones.Implementaciones
     {
         private IComunicaciones? iComunicaciones;
 
-        public List<estadoReserva> Consultar()
+        public List<estadoReserva> Consultar(string usuario)
         {
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/estadoReserva/Consultar";
+            datos["Url"] = $"http://localhost:5245/estadoReserva/Consultar?usuario={usuario}";
 
             this.iComunicaciones = new Comunicaciones();
             var task = this.iComunicaciones.Ejecutar(datos)!;
@@ -27,7 +27,7 @@ namespace Lib_presentaciones.Implementaciones
                 respuesta["Valor"].ToString()!)!;
         }
 
-        public estadoReserva Guardar(estadoReserva entidad)
+        public estadoReserva Guardar(estadoReserva entidad, string usuario)
         {
             if (entidad.id != 0)
                 throw new Exception("Ya se guardo");
@@ -35,7 +35,7 @@ namespace Lib_presentaciones.Implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/estadoReserva/Guardar";
+            datos["Url"] = $"http://localhost:5245/estadoReserva/Guardar?usuario={usuario}";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();
@@ -50,7 +50,7 @@ namespace Lib_presentaciones.Implementaciones
                 respuesta["Valor"].ToString()!)!;
         }
 
-        public estadoReserva Modificar(estadoReserva entidad)
+        public estadoReserva Modificar(estadoReserva entidad, string usuario)
         {
             if (entidad.id == 0)
                 throw new Exception("No se ha guardado");
@@ -58,7 +58,7 @@ namespace Lib_presentaciones.Implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/estadoReserva/Modificar";
+            datos["Url"] = $"http://localhost:5245/estadoReserva/Modificar?usuario={usuario}";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();
@@ -73,7 +73,7 @@ namespace Lib_presentaciones.Implementaciones
                 respuesta["Valor"].ToString()!)!;
         }
 
-        public estadoReserva Borrar(estadoReserva entidad)
+        public estadoReserva Borrar(estadoReserva entidad, string usuario)
         {
             if (entidad.id == 0)
                 throw new Exception("No se ha guardado");
@@ -81,7 +81,7 @@ namespace Lib_presentaciones.Implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/estadoReserva/Borrar";
+            datos["Url"] = $"http://localhost:5245/estadoReserva/Borrar?usuario={usuario}";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();

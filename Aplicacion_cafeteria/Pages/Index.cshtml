@@ -65,6 +65,16 @@
 
                     </div>
             </form>
+            @if (!ModelState.IsValid)
+            {
+                <div style="background-color: #c0392b; color: white; border-radius: 8px;
+                        padding: 10px; text-align: center; margin-top: 10px;">
+                    @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <p style="margin:0;">@error.ErrorMessage</p>
+                    }
+                </div>
+            }
         </div>
     </div>
 }

@@ -34,19 +34,19 @@ namespace servicio_cafeteria.Controllers
         }
 
         [HttpPut]
-        public categorias Modificar(categorias entidadModificada)
+        public categorias Modificar(categorias entidadModificada,string usuario)
         {
             if (this.ICategoriasNegocio == null)
                 throw new Exception("No implementado");
-            return this.ICategoriasNegocio!.Modificar(entidadModificada);
+            return this.ICategoriasNegocio!.Modificar(entidadModificada, usuario!);
         }
 
         [HttpDelete]
-        public categorias Borrar(categorias entidad)
+        public categorias Borrar(categorias entidad, string usuario)
         {
             try
             {
-                this.ICategoriasNegocio!.Borrar(entidad!);
+                this.ICategoriasNegocio!.Borrar(entidad!, usuario!);
                 return entidad;
             }
             catch (Exception ex)

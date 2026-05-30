@@ -10,10 +10,10 @@ namespace Lib_presentaciones.Implementaciones
     {
         private IComunicaciones? iComunicaciones;
 
-        public List<pagos> Consultar()
+        public List<pagos> Consultar(string usuario)
         {
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/pagos/Consultar";
+            datos["Url"] = $"http://localhost:5245/pagos/Consultar?usuario={usuario}";
 
             this.iComunicaciones = new Comunicaciones();
             var task = this.iComunicaciones.Ejecutar(datos)!;
@@ -27,7 +27,7 @@ namespace Lib_presentaciones.Implementaciones
                 respuesta["Valor"].ToString()!)!;
         }
 
-        public pagos Guardar(pagos entidad)
+        public pagos Guardar(pagos entidad, string usuario)
         {
             if (entidad.id != 0)
                 throw new Exception("Ya se guardo");
@@ -35,7 +35,7 @@ namespace Lib_presentaciones.Implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/pagos/Guardar";
+            datos["Url"] = $"http://localhost:5245/pagos/Guardar?usuario={usuario}";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();
@@ -50,7 +50,7 @@ namespace Lib_presentaciones.Implementaciones
                 respuesta["Valor"].ToString()!)!;
         }
 
-        public pagos Modificar(pagos entidad)
+        public pagos Modificar(pagos entidad, string usuario)
         {
             if (entidad.id == 0)
                 throw new Exception("No se ha guardado");
@@ -58,7 +58,7 @@ namespace Lib_presentaciones.Implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/pagos/Modificar";
+            datos["Url"] = $"http://localhost:5245/pagos/Modificar?usuario={usuario}";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();
@@ -73,7 +73,7 @@ namespace Lib_presentaciones.Implementaciones
                 respuesta["Valor"].ToString()!)!;
         }
 
-        public pagos Borrar(pagos entidad)
+        public pagos Borrar(pagos entidad, string usuario)
         {
             if (entidad.id == 0)
                 throw new Exception("No se ha guardado");
@@ -81,7 +81,7 @@ namespace Lib_presentaciones.Implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/pagos/Borrar";
+            datos["Url"] = $"http://localhost:5245/pagos/Borrar?usuario={usuario}";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();

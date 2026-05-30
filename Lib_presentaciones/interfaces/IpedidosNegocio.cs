@@ -6,9 +6,9 @@ namespace Lib_presentaciones.interfaces
 {
     public interface IpedidosNegocio
     {
-        List<pedidos> Consultar();
-        pedidos Guardar(pedidos entidad);
-        pedidos Modificar(pedidos entidad);
-        pedidos Borrar(pedidos entidad);
+        List<pedidos> Consultar(string usuario);
+        pedidos Guardar(pedidos entidad, string usuario);
+        pedidos Modificar(pedidos entidad, string usuario);
+        pedidos Borrar(pedidos entidad, string usuario);
     }
 }

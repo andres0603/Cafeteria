@@ -4,6 +4,8 @@
     ViewData["Title"] = "sedes";
 }
 <link href="~/css/estilo.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 @Html.AntiForgeryToken()
 <center>
@@ -71,6 +73,16 @@
                                     <input id="inDireccion"
                                            class="cts_forms form-control"
                                            asp-for="@Model.sede!.direccion" />
+                                </div>
+                            </div>
+                            <input type="hidden" asp-for="@Model.sede!.latitud" id="inLatitud" />
+                            <input type="hidden" asp-for="@Model.sede!.longitud" id="inLongitud" />
+
+                            <div class="form-group">
+                                <label style="color:white">Ubicación en mapa</label>
+                                <div class="col-6">
+                                    <div id="mapa" style="height:300px; border-radius:8px;"></div>
+                                    <small style="color:white">Haz clic en el mapa para marcar la ubicación</small>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -141,6 +153,9 @@
                         <th>
                             Activo
                         </th>
+                        <th>
+                            Ubicacion
+                        </th>
 
                     </tr>
                     @foreach (var elemento in Model.Lista)
@@ -150,15 +165,29 @@
                                 @elemento.nombre
                             </td>
                             <td>
-                                @elemento.fecha_fundacion.ToString("aaaa/mm/dd")
+                                @elemento.fecha_fundacion.ToString("dd/mm/yyyy")
                             </td>
                             <td>
                                 @elemento.direccion
                             </td>
+
                             <td>
                                 @elemento.activo
                             </td>
-
+                            <td>
+                                @if (elemento.latitud != null && elemento.longitud != null)
+                                {
+                                    <a href="https://www.openstreetmap.org/?mlat=@elemento.latitud&mlon=@elemento.longitud"
+                                        target="_blank"
+                                        style="color:#f0a500">
+                                        Ver en mapa
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span style="color:gray">Sin ubicación</span>
+                                }
+                            </td>
                             <td>
                                 <input type="submit"
                                     value="Modificar"
@@ -182,4 +211,25 @@
         </form>
    
     </div>
+    @if (Model.sede != null)
+    {
+        <script>
+            var lat = parseFloat(document.getElementById('inLatitud').value) || 6.2442;
+        var lng = parseFloat(document.getElementById('inLongitud').value) || -75.5812;
+
+        var mapa = L.map('mapa').setView([lat, lng], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(mapa);
+
+        var marcador = L.marker([lat, lng]).addTo(mapa);
+
+        mapa.on('click', function(e) {
+            marcador.setLatLng(e.latlng);
+            document.getElementById('inLatitud').value = e.latlng.lat.toFixed(6);
+            document.getElementById('inLongitud').value = e.latlng.lng.toFixed(6);
+        });
+    </script>
+    }
 </center>

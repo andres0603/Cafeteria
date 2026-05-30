@@ -6,9 +6,9 @@ namespace Lib_presentaciones.interfaces
 {
     public interface IclientesNegocio
     {
-        List<clientes> Consultar();
-        clientes Guardar(clientes entidad);
-        clientes Modificar(clientes entidad);
-        clientes Borrar(clientes entidad);
+        List<clientes> Consultar(string usuario);
+        clientes Guardar(clientes entidad, string usuario);
+        clientes Modificar(clientes entidad, string usuario);
+        clientes Borrar(clientes entidad, string usuario);
     }
 }

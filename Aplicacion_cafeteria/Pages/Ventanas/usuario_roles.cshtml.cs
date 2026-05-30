@@ -28,8 +28,9 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-            ListaRoles = IrolesNegocio!.Consultar();
-            ListaUsuarios = IusuariosNegocio!.Consultar();
+            var usuario = HttpContext.Session.GetString("Usuario");
+            ListaRoles = IrolesNegocio!.Consultar(usuario!);
+            ListaUsuarios = IusuariosNegocio!.Consultar(usuario!);
         }
 
         public void OnGet()
@@ -41,10 +42,11 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (Iusuario_rolesNegocio == null)
                     return;
-                Lista = Iusuario_rolesNegocio.Consultar();
-                ListaRoles = IrolesNegocio!.Consultar();
+                Lista = Iusuario_rolesNegocio.Consultar(usuario!);
+                ListaRoles = IrolesNegocio!.Consultar(usuario!);
                 usuario_rol = null;
             }
             catch (Exception ex)
@@ -75,13 +77,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (usuario_rol == null)
                     return;
                 if (usuario_rol.id == 0)
-                    usuario_rol = Iusuario_rolesNegocio!.Guardar(usuario_rol!);
+                    usuario_rol = Iusuario_rolesNegocio!.Guardar(usuario_rol!,usuario!);
                 else
-                    usuario_rol = Iusuario_rolesNegocio!.Modificar(usuario_rol!);
+                    usuario_rol = Iusuario_rolesNegocio!.Modificar(usuario_rol!,usuario!);
                 if (usuario_rol.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -99,7 +101,8 @@ namespace Aplicacion_cafeteria.Pages
                 usuario_rol = Lista!.FirstOrDefault(x => x.id == data);
                 if (usuario_rol == null)
                     return;
-                usuario_rol = Iusuario_rolesNegocio!.Borrar(usuario_rol!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                usuario_rol = Iusuario_rolesNegocio!.Borrar(usuario_rol!,usuario!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)

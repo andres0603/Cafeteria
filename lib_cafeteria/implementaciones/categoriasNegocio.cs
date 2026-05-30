@@ -19,8 +19,9 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
                 var historicos = new historicos
                 {
+                    usuario=usuario,
                     nombreTabla = "Categorias",
-                    accion = usuario,
+                    accion = "Consultar",
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
@@ -48,8 +49,9 @@ namespace lib_cafeteria.implementaciones
 
                 var historicos = new historicos
                 {
+                    usuario=usuario,
                     nombreTabla = entry.Metadata.GetTableName(),
-                    accion = usuario,
+                    accion = "Guardar",
                     fechaCambio = DateTime.Now
                 };
 
@@ -63,7 +65,7 @@ namespace lib_cafeteria.implementaciones
             }
 }
 
-        public categorias Modificar(categorias entidad)
+        public categorias Modificar(categorias entidad,string usuario)
         {
             try 
             { 
@@ -75,8 +77,9 @@ namespace lib_cafeteria.implementaciones
                 entry.State = EntityState.Modified;
                 var historicos = new historicos
                 {
+                    usuario=usuario,
                     nombreTabla = entry.Metadata.GetTableName(),
-                    accion = entry.State.ToString(),
+                    accion = "Modificar",
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
@@ -92,7 +95,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public categorias Borrar(categorias entidad)
+        public categorias Borrar(categorias entidad, string usuario)
         {
             try 
             { 
@@ -107,8 +110,9 @@ namespace lib_cafeteria.implementaciones
 
                 var historicos = new historicos
                 {
+                    usuario = usuario,
                     nombreTabla = entry.Metadata.GetTableName(),
-                    accion = entry.State.ToString(),
+                    accion = "Borrar",
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);

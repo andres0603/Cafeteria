@@ -84,6 +84,26 @@
                             </div>
                             <div class="form-group">
                                 <label style="color:white">
+                                    Imagen
+                                </label>
+                                <div class="col-6">
+                                    <input id="inImagen"
+                                           class="cts_forms form-control"
+                                           type="file"
+                                           accept="image/*"
+                                           name="ImagenArchivo" />
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.producto!.imageUrl))
+                                {
+                                    <div class="col-6" style="margin-top:8px">
+                                        <img src="@Model.producto!.imageUrl"
+                                             alt="Imagen actual"
+                                             style="max-width:150px; max-height:150px; border-radius:8px;" />
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
                                     Categoria
                                 </label>
                                 <div class="col-6">
@@ -155,6 +175,9 @@
                             Cantidad
                         </th>
                         <th>
+                            Imagen
+                        </th>
+                        <th>
                             Categoria
                         </th>
 
@@ -173,6 +196,18 @@
                             </td>
                             <td>
                                 @elemento.cantidad
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(elemento.imageUrl))
+                                {
+                                    <img src="@elemento.imageUrl"
+                                    alt="@elemento.nombre"
+                                    style="width:80px; height:80px; object-fit:contain; border-radius:6px;" />
+                                }
+                                else
+                                {
+                                    <span style="color:gray">Sin imagen</span>
+                                }
                             </td>
                             <td>
                                 @elemento._categorias!.nombre

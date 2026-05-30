@@ -35,7 +35,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (IproveedoresNegocio == null)
                     return;
-                Lista = IproveedoresNegocio.Consultar();
+                var usuario = HttpContext.Session.GetString("Usuario");
+                Lista = IproveedoresNegocio.Consultar(usuario!);
                 proveedor = null;
             }
             catch (Exception ex)
@@ -65,13 +66,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (proveedor == null)
                     return;
                 if (proveedor.id == 0)
-                    proveedor = IproveedoresNegocio!.Guardar(proveedor!);
+                    proveedor = IproveedoresNegocio!.Guardar(proveedor!,usuario!);
                 else
-                    proveedor = IproveedoresNegocio!.Modificar(proveedor!);
+                    proveedor = IproveedoresNegocio!.Modificar(proveedor!,usuario!);
                 if (proveedor.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -88,7 +89,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (proveedor == null)
                     return;
-                proveedor = IproveedoresNegocio!.Borrar(proveedor!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                proveedor = IproveedoresNegocio!.Borrar(proveedor!, usuario!);
                 OnPostBtRefrescar();
 
             }

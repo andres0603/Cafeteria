@@ -5,69 +5,68 @@
 }
 <link href="~/css/estilo.css" rel="stylesheet" />
 
-@Html.AntiForgeryToken()
 <center>
     <div>
         <form method="POST"
-            enctype="multipart/form-data">
+              enctype="multipart/form-data">
             @Html.AntiForgeryToken()
 
             <div class="dashboard-background">
                 <div class="dashboard-container">
 
-            <div class="dashboard-header" align="left">
-                <h3 style="color:white">GESTIÓN DE USUARIOS</h3>
-            </div>
-
-            <div class="action-buttons">
-                <input type="submit"
-                    value="Refrescar"
-                    class="btn-dashboard btn-refresh"
-                    asp-page-handler="BtRefrescar" />
-                <input type="submit"
-                    value="Nuevo"
-                    class="btn-dashboard btn-new"
-                    asp-page-handler="BtNuevo"
-                    disabled="@(Model.usuario != null)"/>
-                <input type="submit"
-                    value="Guardar"
-                    class="btn-dashboard btn-save"
-                    asp-page-handler="BtGuardar"
-                    disabled="@(Model.usuario == null)"/>
-            </div>
-
-            @if (Model.usuario != null)
-            {
-                <input type="hidden" 
-                    asp-for="@Model.usuario!.id"/>
-                <div>
-                
-                    <div class="form-group">
-                        <label style="color:white">
-                            Nombre
-                        </label>
-                        <div class="col-6">
-                            <input id="inNombre"
-                                   class="cts_forms form-control"
-                                   asp-for="@Model.usuario!.nombre" />
-                        </div>
+                    <div class="dashboard-header" align="left">
+                        <h3 style="color:white">GESTIÓN DE USUARIOS</h3>
                     </div>
-                    <div class="form-group">
-                        <label style="color:white">
-                            Correo
-                        </label>
-                        <div class="col-6">
-                            <input id="inCorreo"
-                                   class="cts_forms form-control"
-                                   asp-for="@Model.usuario!.correo" />
-                        </div>
+
+                    <div class="action-buttons">
+                        <input type="submit"
+                               value="Refrescar"
+                               class="btn-dashboard btn-refresh"
+                               asp-page-handler="BtRefrescar" />
+                        <input type="submit"
+                               value="Nuevo"
+                               class="btn-dashboard btn-new"
+                               asp-page-handler="BtNuevo"
+                               disabled="@(Model.usuario != null)" />
+                        <input type="submit"
+                               value="Guardar"
+                               class="btn-dashboard btn-save"
+                               asp-page-handler="BtGuardar"
+                               disabled="@(Model.usuario == null)" />
                     </div>
+
+                    @if (Model.usuario != null)
+                    {
+                        <input type="hidden"
+                               asp-for="@Model.usuario!.id" />
+                        <div>
+
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Nombre
+                                </label>
+                                <div class="col-6">
+                                    <input id="inNombre"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.usuario!.nombre" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="color:white">
+                                    Correo
+                                </label>
+                                <div class="col-6">
+                                    <input id="inCedula"
+                                           class="cts_forms form-control"
+                                           asp-for="@Model.usuario!.correo" />
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label style="color:white">
                                     Contraseña
                                 </label>
                                 <div class="col-6">
-                                    <input id="inContraseña"
+                                    <input id="inCorreo"
                                            class="cts_forms form-control"
                                            asp-for="@Model.usuario!.contraseña" />
                                 </div>
@@ -82,49 +81,50 @@
                                            class="form-check-input" />
                                 </div>
                             </div>
-                    </div>
-            }
-
-            
-            @if (ViewData.ContainsKey("Mensaje"))
-            {
-                @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
-            }
-
-            @if (Model.usuario != null && Model.Borrando)
-            {
-                <div class='popup'>
-                    <div class='pp_ms_inner'>
-                        <div style='width:95%'>
-                            <h2 align="left" style="color:white">
-                                Mensaje
-                            </h2>
-
-                                    <h6 align="left" style="color:white">
-                                Desea borrar el usuario?
-                            </h6>
-                                    <h6 align="left" style="color:white">
-                                @Model.usuario!.nombre
-                            </h6>
-                            
-                            <input type="submit"
-                                   value="Cerrar"
-                                   asp-page-handler="BtCerrar"
-                                   class="btn btn-secondary" />
-                            <input type="submit"
-                                   value="Borrar"
-                                   asp-page-handler="BtBorrar"
-                                   class="btn btn-secondary" />
                         </div>
-                    </div>
-                </div>
-            }
+                    }
 
-            @if (Model != null &&
-                 Model.Lista != null &&
-                 Model.Lista.Count > 0 )
-            {
-         <div class="admin-card table-card">
+
+                    @if (ViewData.ContainsKey("Mensaje"))
+                    {
+                        @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+                        ;
+                    }
+
+                    @if (Model.usuario != null && Model.Borrando)
+                    {
+                        <div class='popup'>
+                            <div class='pp_ms_inner'>
+                                <div style='width:95%'>
+                                    <h2 align="left" style="color:white">
+                                        Mensaje
+                                    </h2>
+
+                                    <h6 align="left" style="color:white">
+                                        Desea borrar el usuario?
+                                    </h6>
+                                    <h6 align="left" style="color:white">
+                                        @Model.usuario!.nombre
+                                    </h6>
+
+                                    <input type="submit"
+                                           value="Cerrar"
+                                           asp-page-handler="BtCerrar"
+                                           class="btn btn-secondary" />
+                                    <input type="submit"
+                                           value="Borrar"
+                                           asp-page-handler="BtBorrar"
+                                           class="btn btn-secondary" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model != null &&
+                        Model.Lista != null &&
+                        Model.Lista.Count > 0)
+                    {
+                         <div class="admin-card table-card">
             <div class="table-responsive">
                 <table class="custom-table">
                     <tr>
@@ -159,26 +159,60 @@
                             </td>
 
                             <td>
-                                <input type="submit"
-                                    value="Modificar"
-                                    asp-page-handler="BtModificar"
-                                    class="btn-table btn-modify"
-                                    asp-route-data="@elemento.id" />
-                                <input type="submit"
-                                    value="Borrar"
-                                    asp-page-handler="BtBorrarVal"
-                                    class="btn-table btn-delete"
-                                    asp-route-data="@elemento.id" />
-                            </td>
-                        </tr>
+                             <input type="submit"
+                            value="Modificar"
+                            asp-page-handler="BtModificar"
+                            class="btn-table btn-modify"
+                            asp-route-data="@elemento.id" />
+                            <input type="submit"
+                            value="Borrar"
+                            asp-page-handler="BtBorrarVal"
+                            class="btn-table btn-delete"
+                            asp-route-data="@elemento.id" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
                     }
-                </table>
-            </div>
-         </div>
-            }
                 </div>
             </div>
         </form>
-   
+
     </div>
 </center>
+
+@* <div class="admin-card table-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Correo
+                        </th>
+                        <th>
+                            Contraseña
+                        </th>
+                        <th>
+                            Activo
+                        </th>
+
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>
+                                @elemento.nombre
+                            </td>
+                            <td>
+                                @elemento.correo
+                            </td>
+                            <td>
+                                @elemento.contraseña
+                            </td>
+                            <td>
+                                @elemento.activo
+                            </td>*@

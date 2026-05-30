@@ -5,7 +5,7 @@
 }
 <link href="~/css/estilo.css" rel="stylesheet" />
 
-@Html.AntiForgeryToken()
+
 <center>
     <div>
         <form method="POST"
@@ -145,6 +145,71 @@
                             Salario Base
                         </th>
                         <th>
+                            Descripcion
+                        </th>
+                        <th>
+                            Activo
+                        </th>
+
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>
+                                @elemento.nombre
+                            </td>
+                            <td>
+                                @elemento.salarioBase
+                            </td>
+
+                            <td>
+                                @elemento.descripcion
+                            </td>
+                            <td>
+                                @elemento.activo
+                            </td>
+
+                            <td>
+                                <input type="submit"
+                                    value="Modificar"
+                                    asp-page-handler="BtModificar"
+                                    class="btn-table btn-modify"
+                                    asp-route-data="@elemento.id" />
+                                <input type="submit"
+                                    value="Borrar"
+                                    asp-page-handler="BtBorrarVal"
+                                    class="btn-table btn-delete"
+                                    asp-route-data="@elemento.id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+         </div>
+            }
+                </div>
+            </div>
+        </form>
+   
+    </div>
+</center>
+
+
+
+
+
+
+@* <div class="admin-card table-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Salario Base
+                        </th>
+                        <th>
                             Valor del dia
                         </th>
                         <th>
@@ -187,14 +252,4 @@
                                     asp-route-data="@elemento.id" />
                             </td>
                         </tr>
-                    }
-                </table>
-            </div>
-         </div>
-            }
-                </div>
-            </div>
-        </form>
-   
-    </div>
-</center>
+                    }*@

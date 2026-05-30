@@ -6,9 +6,9 @@ namespace lib_cafeteria.interfaces
 {
     public interface ITareasNegocio
     {
-        List<tareas> Consultar();
-        tareas Guardar(tareas entidad);
-        tareas Modificar(tareas entidad);
-        tareas Borrar(tareas entidad);
+        List<tareas> Consultar(string usuario);
+        tareas Guardar(tareas entidad, string usuario);
+        tareas Modificar(tareas entidad, string usuario);
+        tareas Borrar(tareas entidad, string usuario);
     }
 }

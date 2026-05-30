@@ -4,9 +4,9 @@ namespace Lib_presentaciones.interfaces
 {
     public interface IsesionesNegocio
     {
-        List<sesiones> Consultar();
-        sesiones Guardar(sesiones entidad);
-        sesiones Modificar(sesiones entidad);
-        sesiones Borrar(sesiones entidad);
+        List<sesiones> Consultar(string usuario);
+        sesiones Guardar(sesiones entidad, string usuario);
+        sesiones Modificar(sesiones entidad, string usuario);
+        sesiones Borrar(sesiones entidad, string usuario);
     }
 }

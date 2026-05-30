@@ -18,35 +18,35 @@ namespace servicio_cafeteria.Controllers
         }
 
         [HttpGet]
-        public List<pagos> Consultar()
+        public List<pagos> Consultar(string usuario)
         {
             if (this.IPagosNegocio == null)
                 throw new Exception("No implementado");
-            return this.IPagosNegocio!.Consultar();
+            return this.IPagosNegocio!.Consultar(usuario);
         }
 
         [HttpPost]
-        public pagos Guardar(pagos entidad)
+        public pagos Guardar(pagos entidad, string usuario)
         {
             if (this.IPagosNegocio == null)
                 throw new Exception("No implementado");
-            return this.IPagosNegocio!.Guardar(entidad);
+            return this.IPagosNegocio!.Guardar(entidad, usuario);
         }
 
         [HttpPut]
-        public pagos Modificar(pagos entidadModificada)
+        public pagos Modificar(pagos entidadModificada, string usuario)
         {
             if (this.IPagosNegocio == null)
                 throw new Exception("No implementado");
-            return this.IPagosNegocio!.Modificar(entidadModificada);
+            return this.IPagosNegocio!.Modificar(entidadModificada, usuario);
         }
 
         [HttpDelete]
-        public pagos Borrar(pagos entidad)
+        public pagos Borrar(pagos entidad, string usuario)
         {
             if (this.IPagosNegocio == null)
                 throw new Exception("No implementado");
-            return this.IPagosNegocio!.Borrar(entidad);
+            return this.IPagosNegocio!.Borrar(entidad, usuario);
         }
     }
 }

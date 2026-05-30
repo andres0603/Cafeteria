@@ -13,20 +13,26 @@ namespace Aplicacion_cafeteria.Pages
     {
         private IproductosNegocio? IproductosNegocio;
         private IcategoriasNegocio? IcategoriasNegocio;
+        private readonly IWebHostEnvironment _env;
+        public string? imagenUrl { get; set; }
         [BindProperty] public List<productos>? Lista { get; set; }
         [BindProperty] public List<categorias>? ListaCategorias { get; set; }
         [BindProperty] public productos? producto { get; set; }
         [BindProperty] public bool Borrando { get; set; }
+        [BindProperty] public IFormFile? ImagenArchivo { get; set; }
 
-        public productosModel()
+
+        public productosModel(IWebHostEnvironment env)
         {
             IproductosNegocio = new ProductosNegocio();
             IcategoriasNegocio = new CategoriasNegocio();
+            _env = env;
         }
 
         public void OnPostBtNuevo()
         {
-            /*ListaCategorias = IcategoriasNegocio!.Consultar();*/
+            var usuario = HttpContext.Session.GetString("Usuario");
+            ListaCategorias = IcategoriasNegocio!.Consultar(usuario!);
         }
 
         public void OnGet()
@@ -40,7 +46,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (IproductosNegocio == null)
                     return;
-                Lista = IproductosNegocio.Consultar();
+                var usuario = HttpContext.Session.GetString("Usuario");
+                Lista = IproductosNegocio.Consultar(usuario!);
                 producto = null;
             }
             catch (Exception ex)
@@ -67,19 +74,47 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtGuardar()
+        public async Task OnPostBtGuardar()
         {
             try
             {
+                if (ImagenArchivo != null &&
+                    ImagenArchivo.Length > 0 &&
+                    !string.IsNullOrEmpty(ImagenArchivo.FileName))
+                {
+                    var carpeta = Path.Combine(_env.WebRootPath, "Imagenes");
+
+                    // Crear carpeta si no existe
+                    if (!Directory.Exists(carpeta))
+                    {
+                        Directory.CreateDirectory(carpeta);
+                    }
+
+                    var extension = Path.GetExtension(ImagenArchivo.FileName);
+                    var nombreArchivo = $"{Guid.NewGuid()}{extension}";
+                    var rutaCompleta = Path.Combine(carpeta, nombreArchivo);
+
+                    using (var stream = new FileStream(rutaCompleta, FileMode.Create))
+                    {
+                        await ImagenArchivo.CopyToAsync(stream);
+                    }
+
+                    producto!.imageUrl = "/Imagenes/" + nombreArchivo;
+                }
+
+                var usuario = HttpContext.Session.GetString("Usuario");
 
                 if (producto == null)
                     return;
+
                 if (producto.id == 0)
-                    producto = IproductosNegocio!.Guardar(producto!);
+                    producto = IproductosNegocio!.Guardar(producto, usuario!);
                 else
-                    producto = IproductosNegocio!.Modificar(producto!);
+                    producto = IproductosNegocio!.Modificar(producto, usuario!);
+
                 if (producto.id == 0)
                     return;
+
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -88,13 +123,14 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar(int data)
+        public void OnPostBtBorrar()
         {
             try
             {
                 if (producto == null)
                     return;
-                producto = IproductosNegocio!.Borrar(producto!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                producto = IproductosNegocio!.Borrar(producto!,usuario!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)

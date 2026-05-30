@@ -5,11 +5,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
+	
+	 <ItemGroup>
+    <PackageReference Include="itext7" Version="9.6.0" />
+	   <PackageReference Include="itext.bouncy-castle-adapter" Version="9.6.0" />
+	   <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+
+ 
+	
   <ItemGroup>
     <ProjectReference Include="..\lib_cafeteria\lib_cafeteria.csproj" />
   </ItemGroup>

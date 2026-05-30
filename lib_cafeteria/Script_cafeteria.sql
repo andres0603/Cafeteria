@@ -1,6 +1,9 @@
 CREATE DATABASE db_cafeteria
 GO
 
+
+
+
 USE db_cafeteria
 GO
 
@@ -43,7 +46,7 @@ CREATE TABLE estadosPedido (
 );
 GO
 
-SELECT * from estadosPedido
+
 CREATE TABLE metodoPago (
     [id] INT PRIMARY KEY IDENTITY(1,1),
     [metodo] VARCHAR(50),
@@ -165,7 +168,7 @@ CREATE TABLE pagos (
     [propina] DECIMAL(18,2)
 );
 GO
-select * from producto_proveedor
+
 CREATE TABLE producto_proveedor (
     [id] INT PRIMARY KEY IDENTITY(1,1),
     [idProducto] INT FOREIGN KEY REFERENCES productos(id),
@@ -187,6 +190,7 @@ CREATE TABLE detallesPedido (
 
 CREATE TABLE historicos(
 	[id] INT PRIMARY KEY IDENTITY(1,1),
+	[usuario] NVARCHAR(30) NOT NULL,
 	[nombreTabla] NVARCHAR(30) NOT NULL,
 	[accion] NVARCHAR(30) NOT NULL,
 	[fechaCambio] SMALLDATETIME
@@ -245,7 +249,7 @@ GO
 INSERT INTO roles (nombre, descripcion, salarioBase, activo) VALUES
 ('Administrador', 'Responsable de la operación global y gestión de inventarios.', 2500000, 1),
 ('Cajero', 'Se encarga de facturar en nuestra tienda', 1450000, 1),
-('Mesero', 'Atención en mesas, toma de pedidos y entrega de productos.', 1300000, 1),
+('Cliente', 'Atención en mesas, toma de pedidos y entrega de productos.', 1300000, 1),
 ('Repostero', 'Encargado de la elaboración de postres y productos de panadería.', 1600000,  1),
 ('Mantenimiento', 'Se encarga de cualquier daño que pueda haber en el local', 1160000, 0);
 GO
@@ -306,7 +310,7 @@ INSERT INTO proveedores (nombre, nit, direccion, telefono, activo) VALUES
 ('Distribuidora El Queso Dorado', '811.000.999-2', 'Km 5 Vía San Félix, Antioquia', '3127778899', 1);
 GO
 
-INSERT INTO personas (cedula,nombre,telefono,correo,direccion,activo) values
+INSERT INTO personas (nombre,cedula,telefono,correo,direccion,activo) values
 ('Juan Pérez','10203040', '3001234567', 'juan.perez@email.com', 'Calle 100 # 15-20',  1),
 ('Maria Garcia','52987654', '3159876543', 'maria.g@email.com', 'Carrera 7 # 12-45', 1),
 ('Carlos Rodriguez', '80123456', '3204567890', 'carlos.rod@email.com', 'Avenida 19 # 103-11', 0),
@@ -404,8 +408,22 @@ GO
 
 INSERT INTO usuarios VALUES
 ('andres123','Andres45@gmsil.com','123',1),
-('sara','sara@gmail.com','123',1)
+('sara','sara@gmail.com','123',1),
+('cristan456','cristan@gmail.com','456',1),
+('dayron147','moreno@gmail.com','147',1),
+('angelica789','angelica@gmail.com','258',0)
 GO
+
+INSERT INTO usuario_roles values
+(1,1,'2025-02-01',1),
+(2,2,'2026-05-02',1),
+(3,3,'2026-06-03',1),
+(4,4,'2026-04-02',1),
+(5,5,'2026-03-03',1)
+GO
+
+
+
 
 
 

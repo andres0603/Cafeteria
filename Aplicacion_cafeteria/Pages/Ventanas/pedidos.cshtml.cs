@@ -1,5 +1,6 @@
 
 using lib_cafeteria.modelos;
+using Lib_presentaciones.Configuraciones;
 using Lib_presentaciones.Implementaciones;
 using Lib_presentaciones.interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -27,8 +28,9 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-            ListaClientes = IclientesNegocio!.Consultar();
-            ListaEstadoPedido = IestadosPedidoNegocio!.Consultar();
+            var usuario = HttpContext.Session.GetString("Usuario");
+            ListaClientes = IclientesNegocio!.Consultar(usuario!);
+            ListaEstadoPedido = IestadosPedidoNegocio!.Consultar(usuario!);
         }
 
         public void OnGet()
@@ -42,7 +44,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (IpedidosNegocio == null)
                     return;
-                Lista = IpedidosNegocio.Consultar();
+                var usuario = HttpContext.Session.GetString("Usuario");
+                Lista = IpedidosNegocio.Consultar(usuario!);
                 pedidos = null;
             }
             catch (Exception ex)
@@ -51,7 +54,13 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        
+        public IActionResult OnPostBtReporte()
+        {
+            var usuario = HttpContext.Session.GetString("Usuario");
+            var lista = IpedidosNegocio!.Consultar(usuario!); // usa tu método de listar
+            var pdf = ReportePedidos.Generar(lista);
+            return File(pdf, "application/pdf", "ReportePedidos.pdf");
+        }
 
         public void OnPostBtModificar(int data)
         {
@@ -73,13 +82,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (pedidos == null)
                     return;
                 if (pedidos.id == 0)
-                    pedidos = IpedidosNegocio!.Guardar(pedidos!);
+                    pedidos = IpedidosNegocio!.Guardar(pedidos!, usuario!);
                 else
-                    pedidos = IpedidosNegocio!.Modificar(pedidos!);
+                    pedidos = IpedidosNegocio!.Modificar(pedidos!, usuario!);
                 if (pedidos.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -96,7 +105,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (pedidos == null)
                     return;
-                pedidos = IpedidosNegocio!.Borrar(pedidos!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                pedidos = IpedidosNegocio!.Borrar(pedidos!, usuario!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)

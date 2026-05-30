@@ -4,9 +4,9 @@ namespace Lib_presentaciones.interfaces
 {
     public interface IusuariosNegocio
     {
-        List<usuarios> Consultar();
-        usuarios Guardar(usuarios entidad);
-        usuarios Modificar(usuarios entidad);
-        usuarios Borrar(usuarios entidad);
+        List<usuarios> Consultar(string usuario);
+        usuarios Guardar(usuarios entidad, string usuario);
+        usuarios Modificar(usuarios entidad, string usuario);
+        usuarios Borrar(usuarios entidad, string usuario);
     }
 }

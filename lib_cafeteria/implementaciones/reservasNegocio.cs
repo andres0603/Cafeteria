@@ -11,16 +11,17 @@ namespace lib_cafeteria.implementaciones
     {
         private IConexion? iConexion;
 
-        public List<reservas> Consultar()
+        public List<reservas> Consultar(string usuario)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
                 var historicos = new historicos
-                {
+                { 
+                    usuario = usuario,
                     nombreTabla = "Reservas",
-                    accion = "Select",
+                    accion = "Consultar",
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
@@ -36,7 +37,7 @@ namespace lib_cafeteria.implementaciones
             }
         }
 
-        public reservas Guardar(reservas entidad)
+        public reservas Guardar(reservas entidad, string usuario)
         {
             if (entidad.id != 0)
                 throw new Exception("Ya se guardo");
@@ -49,7 +50,8 @@ namespace lib_cafeteria.implementaciones
                 var entry = this.iConexion!.Entry<reservas>(entidad!);
 
                 var historicos = new historicos
-                {
+                { 
+                    usuario = usuario,    
                     nombreTabla = entry.Metadata.GetTableName(),
                     accion = entry.State.ToString(),
                     fechaCambio = DateTime.Now
@@ -65,7 +67,7 @@ namespace lib_cafeteria.implementaciones
             }
         }
 
-        public reservas Modificar(reservas entidad)
+        public reservas Modificar(reservas entidad, string usuario)
         {
             try
             {
@@ -76,8 +78,9 @@ namespace lib_cafeteria.implementaciones
                 entry.State = EntityState.Modified;
                 var historicos = new historicos
                 {
+                    usuario = usuario,
                     nombreTabla = entry.Metadata.GetTableName(),
-                    accion = entry.State.ToString(),
+                    accion = "Modificar",
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
@@ -93,7 +96,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public reservas Borrar(reservas reserva)
+        public reservas Borrar(reservas reserva, string usuario)
         {
             try
             {
@@ -108,8 +111,9 @@ namespace lib_cafeteria.implementaciones
 
                     var historicos = new historicos
                     {
+                        usuario = usuario,
                         nombreTabla = entry.Metadata.GetTableName(),
-                        accion = entry.State.ToString(),
+                        accion = "Borrar",
                         fechaCambio = DateTime.Now
                     };
                     this.iConexion.historicos!.Add(historicos);

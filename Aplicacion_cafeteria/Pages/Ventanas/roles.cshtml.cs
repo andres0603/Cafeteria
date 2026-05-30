@@ -35,7 +35,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (IrolesNegocio == null)
                     return;
-                Lista = IrolesNegocio.Consultar();
+                var usuario = HttpContext.Session.GetString("Usuario");
+                Lista = IrolesNegocio.Consultar(usuario!);
                 rol = null;
             }
             catch (Exception ex)
@@ -65,13 +66,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (rol == null)
                     return;
                 if (rol.id == 0)
-                    rol = IrolesNegocio!.Guardar(rol!);
+                    rol = IrolesNegocio!.Guardar(rol!, usuario!);
                 else
-                    rol = IrolesNegocio!.Modificar(rol!);
+                    rol = IrolesNegocio!.Modificar(rol!, usuario!);
                 if (rol.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -88,7 +89,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (rol == null)
                     return;
-                rol = IrolesNegocio!.Borrar(rol!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                rol = IrolesNegocio!.Borrar(rol!, usuario!);
                 OnPostBtRefrescar();
 
             }

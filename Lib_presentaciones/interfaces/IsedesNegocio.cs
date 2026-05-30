@@ -6,9 +6,9 @@ namespace Lib_presentaciones.interfaces
 {
     public interface IsedesNegocio
     {
-        List<sedes> Consultar();
-        sedes Guardar(sedes entidad);
-        sedes Modificar(sedes entidad);
-        sedes Borrar(sedes entidad);
+        List<sedes> Consultar(string usuario);
+        sedes Guardar(sedes entidad, string usuario);
+        sedes Modificar(sedes entidad, string usuario);
+        sedes Borrar(sedes entidad, string usuario);
     }
 }

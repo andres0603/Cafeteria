@@ -51,7 +51,7 @@ namespace Lib_presentaciones.implementaciones
                 respuesta["Valor"].ToString()!)!;
         }
 
-        public categorias Modificar(categorias entidad)
+        public categorias Modificar(categorias entidad, string usuario)
         {
             if (entidad.id == 0)
                 throw new Exception("No se ha guardado");
@@ -59,7 +59,7 @@ namespace Lib_presentaciones.implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/categorias/Modificar";
+            datos["Url"] = $"http://localhost:5245/categorias/Modificar?usuario={usuario}";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();
@@ -74,7 +74,7 @@ namespace Lib_presentaciones.implementaciones
                 respuesta["Valor"].ToString()!)!;
         }
 
-        public categorias Borrar(categorias entidad)
+        public categorias Borrar(categorias entidad, string usuario)
         {
             if (entidad.id == 0)
                 throw new Exception("No se ha guardado");
@@ -82,7 +82,7 @@ namespace Lib_presentaciones.implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = "http://localhost:5245/categorias/Borrar";
+            datos["Url"] = $"http://localhost:5245/categorias/Borrar?usuario={usuario}";
             datos["Entidad"] = entidad;
 
             this.iComunicaciones = new Comunicaciones();

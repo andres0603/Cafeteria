@@ -11,7 +11,7 @@ namespace lib_cafeteria.implementaciones
     {
         private IConexion? iConexion;
 
-        public List<producto_Extra> Consultar()
+        public List<producto_Extra> Consultar(string usuario)
         {
             try
             {
@@ -19,8 +19,9 @@ namespace lib_cafeteria.implementaciones
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
                 var historicos = new historicos
                 {
+                    usuario = usuario,
                     nombreTabla = "Producto_Extra",
-                    accion = "Select",
+                    accion = "Consultar",
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
@@ -33,7 +34,7 @@ namespace lib_cafeteria.implementaciones
             }
         }
 
-        public producto_Extra Guardar(producto_Extra entidad)
+        public producto_Extra Guardar(producto_Extra entidad, string usuario)
         {
             if (entidad.id != 0)
                 throw new Exception("Ya se guardo");
@@ -47,8 +48,9 @@ namespace lib_cafeteria.implementaciones
 
                 var historicos = new historicos
                 {
+                    usuario = usuario,
                     nombreTabla = entry.Metadata.GetTableName(),
-                    accion = entry.State.ToString(),
+                    accion = "Guardar",
                     fechaCambio = DateTime.Now
                 };
 
@@ -62,7 +64,7 @@ namespace lib_cafeteria.implementaciones
             }
         }
 
-        public producto_Extra Modificar(producto_Extra entidad)
+        public producto_Extra Modificar(producto_Extra entidad, string usuario)
         {
             try
             {
@@ -73,8 +75,9 @@ namespace lib_cafeteria.implementaciones
                 entry.State = EntityState.Modified;
                 var historicos = new historicos
                 {
+                    usuario = usuario,
                     nombreTabla = entry.Metadata.GetTableName(),
-                    accion = entry.State.ToString(),
+                    accion = "Modificar",
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
@@ -89,14 +92,12 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public producto_Extra Borrar(producto_Extra producto_Extra)
+        public producto_Extra Borrar(producto_Extra producto_Extra, string usuario)
         {
             try
             {
                 this.iConexion = new Conexion();
                 this.iConexion.string_conexion = Configuraciones.obtener("string_conexion");
-
-
 
                 if (producto_Extra != null)
                 {
@@ -106,8 +107,9 @@ namespace lib_cafeteria.implementaciones
 
                     var historicos = new historicos
                     {
+                        usuario = usuario,
                         nombreTabla = entry.Metadata.GetTableName(),
-                        accion = entry.State.ToString(),
+                        accion = "Borrar",
                         fechaCambio = DateTime.Now
                     };
                     this.iConexion.historicos!.Add(historicos);
@@ -115,6 +117,7 @@ namespace lib_cafeteria.implementaciones
                     return producto_Extra;
                 }
 
+                
                 throw new Exception("El producto no existe");
             }
             catch

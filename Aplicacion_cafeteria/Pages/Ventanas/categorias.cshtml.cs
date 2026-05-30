@@ -73,7 +73,7 @@ namespace Aplicacion_cafeteria.Pages
                 if (categoria.id == 0)
                     categoria = ICategoriasNegocio!.Guardar(categoria!,usuario!);
                 else
-                    categoria = ICategoriasNegocio!.Modificar(categoria!);
+                    categoria = ICategoriasNegocio!.Modificar(categoria!,usuario!);
                 if (categoria.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -88,9 +88,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (categoria == null)
                     return;
-                categoria = ICategoriasNegocio!.Borrar(categoria!);
+                categoria = ICategoriasNegocio!.Borrar(categoria!, usuario!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)

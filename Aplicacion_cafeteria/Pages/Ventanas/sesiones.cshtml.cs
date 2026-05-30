@@ -28,9 +28,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (IsesionesNegocio == null)
                     return;
-                Lista = IsesionesNegocio.Consultar();
+                Lista = IsesionesNegocio.Consultar(usuario!);
                 historico = null;
             }
             catch (Exception ex)

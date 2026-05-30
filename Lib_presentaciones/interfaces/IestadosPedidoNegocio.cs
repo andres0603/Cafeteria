@@ -5,9 +5,9 @@ namespace Lib_presentaciones.interfaces
 {
     public interface IestadosPedidoNegocio
     {
-        List<estadosPedido> Consultar();
-        estadosPedido Guardar(estadosPedido entidad);
-        estadosPedido Modificar(estadosPedido entidad);
-        estadosPedido Borrar(estadosPedido entidad);
+        List<estadosPedido> Consultar(string usuario);
+        estadosPedido Guardar(estadosPedido entidad, string usuario);
+        estadosPedido Modificar(estadosPedido entidad, string usuario);
+        estadosPedido Borrar(estadosPedido entidad, string usuario);
     }
 }

@@ -27,8 +27,9 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-            ListaPedidos = IpedidosNegocio!.Consultar();
-            ListaMetodo = ImetodoPagoNegocio!.Consultar();
+            var usuario = HttpContext.Session.GetString("Usuario");
+            ListaPedidos = IpedidosNegocio!.Consultar(usuario!);
+            ListaMetodo = ImetodoPagoNegocio!.Consultar(usuario!);
         }
 
         public void OnGet()
@@ -42,7 +43,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (IpagosNegocio == null)
                     return;
-                Lista = IpagosNegocio.Consultar();
+                var usuario = HttpContext.Session.GetString("Usuario");
+                Lista = IpagosNegocio.Consultar(usuario!);
                 pagos = null;
             }
             catch (Exception ex)
@@ -73,13 +75,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (pagos == null)
                     return;
                 if (pagos.id == 0)
-                    pagos = IpagosNegocio!.Guardar(pagos!);
+                    pagos = IpagosNegocio!.Guardar(pagos!, usuario!);
                 else
-                    pagos = IpagosNegocio!.Modificar(pagos!);
+                    pagos = IpagosNegocio!.Modificar(pagos!, usuario!);
                 if (pagos.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -94,9 +96,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (pagos == null)
                     return;
-                pagos = IpagosNegocio!.Borrar(pagos!);
+                pagos = IpagosNegocio!.Borrar(pagos!, usuario!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)

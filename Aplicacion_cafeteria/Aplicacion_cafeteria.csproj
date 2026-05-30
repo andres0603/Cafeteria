@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Lib_presentaciones\Lib_presentaciones.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Imagenes\" />
+  </ItemGroup>
+
 </Project>

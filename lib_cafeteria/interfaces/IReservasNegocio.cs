@@ -6,10 +6,10 @@ namespace lib_cafeteria.interfaces
 {
     public interface IReservasNegocio
     {
-        List<reservas> Consultar();
-        reservas Guardar(reservas entidad);
-        reservas Modificar(reservas entidad);
-        reservas Borrar(reservas entidad);
+        List<reservas> Consultar(string usuario);
+        reservas Guardar(reservas entidad, string usuario);
+        reservas Modificar(reservas entidad, string usuario);
+        reservas Borrar(reservas entidad, string usuario);
 
     }
 }

@@ -98,7 +98,7 @@
                                     <li><a class="dropdown-item" asp-page="/Ventanas/productos">Productos</a></li>
                                     <li><a class="dropdown-item" asp-page="/Ventanas/producto_Extra">Producto extra</a></li>
                                     <li><a class="dropdown-item" asp-page="/Ventanas/categorias">Categorias</a></li>
-                                    @if (rol == Roles.Administrador || rol == Roles.Cajero)
+                                    @if (rol == Roles.Administrador)
                                     {
                                         <li><a class="dropdown-item" asp-page="/Ventanas/proveedores">Proveedores</a></li>
                                         <li><a class="dropdown-item" asp-page="/Ventanas/producto_proveedor">Producto por proveedor</a></li>

@@ -28,8 +28,9 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-            ListaRoles = IrolesNegocio!.Consultar();
-            ListaHorarios = IhorariosNegocio!.Consultar()
+            var usuario = HttpContext.Session.GetString("Usuario");
+            ListaRoles = IrolesNegocio!.Consultar(usuario!);
+            ListaHorarios = IhorariosNegocio!.Consultar(usuario!)
                             .Select(x => new {
                             id = x.id,
                             dia = $"{x.dia} {x.horaEntrada} - {x.horaSalida}"
@@ -46,10 +47,11 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (IempleadosNegocio == null)
                     return;
-                Lista = IempleadosNegocio.Consultar();
-                ListaRoles = IrolesNegocio!.Consultar();
+                Lista = IempleadosNegocio.Consultar(usuario!);
+                ListaRoles = IrolesNegocio!.Consultar(usuario!);
                 empleado = null;
             }
             catch (Exception ex)
@@ -80,13 +82,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (empleado == null)
                     return;
                 if (empleado.id == 0)
-                    empleado = IempleadosNegocio!.Guardar(empleado!);
+                    empleado = IempleadosNegocio!.Guardar(empleado!, usuario!);
                 else
-                    empleado = IempleadosNegocio!.Modificar(empleado!);
+                    empleado = IempleadosNegocio!.Modificar(empleado!, usuario!);
                 if (empleado.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -97,14 +99,14 @@ namespace Aplicacion_cafeteria.Pages
             }
         }
 
-        public void OnPostBtBorrar(int data)
+        public void OnPostBtBorrar()
         {
             try
             {
-                empleado = Lista!.FirstOrDefault(x => x.id == data);
                 if (empleado == null)
                     return;
-                empleado = IempleadosNegocio!.Borrar(empleado!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                empleado = IempleadosNegocio!.Borrar(empleado!, usuario!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)

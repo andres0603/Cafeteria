@@ -11,7 +11,7 @@ namespace lib_cafeteria.implementaciones
     {
         private IConexion? iConexion;
 
-        public List<pagos> Consultar()
+        public List<pagos> Consultar(string usuario)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace lib_cafeteria.implementaciones
                 var historicos = new historicos
                 {
                     nombreTabla = "Pagos",
-                    accion = "Select",
+                    accion = "Consultar",
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
@@ -36,7 +36,7 @@ namespace lib_cafeteria.implementaciones
             }
         }
 
-        public pagos Guardar(pagos entidad)
+        public pagos Guardar(pagos entidad, string usuario)
         {
             if (entidad.id != 0)
                 throw new Exception("Ya se guardo");
@@ -50,6 +50,7 @@ namespace lib_cafeteria.implementaciones
 
                 var historicos = new historicos
                 {
+                    usuario = usuario,
                     nombreTabla = entry.Metadata.GetTableName(),
                     accion = entry.State.ToString(),
                     fechaCambio = DateTime.Now
@@ -65,7 +66,7 @@ namespace lib_cafeteria.implementaciones
             }
         }
 
-        public pagos Modificar(pagos entidad)
+        public pagos Modificar(pagos entidad, string usuario)
         {
             try
             {
@@ -76,8 +77,9 @@ namespace lib_cafeteria.implementaciones
                 entry.State = EntityState.Modified;
                 var historicos = new historicos
                 {
+                    usuario = usuario,
                     nombreTabla = entry.Metadata.GetTableName(),
-                    accion = entry.State.ToString(),
+                    accion = "Modificar",
                     fechaCambio = DateTime.Now
                 };
                 this.iConexion.historicos!.Add(historicos);
@@ -92,7 +94,7 @@ namespace lib_cafeteria.implementaciones
             throw new Exception("");
         }
 
-        public pagos Borrar(pagos pago)
+        public pagos Borrar(pagos pago, string usuario)
         {
             try
             {
@@ -109,8 +111,9 @@ namespace lib_cafeteria.implementaciones
 
                     var historicos = new historicos
                     {
+                        usuario = usuario,
                         nombreTabla = entry.Metadata.GetTableName(),
-                        accion = entry.State.ToString(),
+                        accion = "Borrar",
                         fechaCambio = DateTime.Now
                     };
                     this.iConexion.historicos!.Add(historicos);

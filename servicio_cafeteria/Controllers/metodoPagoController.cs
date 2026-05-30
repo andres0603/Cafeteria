@@ -18,35 +18,35 @@ namespace servicio_cafeteria.Controllers
             }
 
             [HttpGet]
-            public List<metodoPago> Consultar()
+            public List<metodoPago> Consultar(string usuario)
             {
                 if (this.IMetodoPagoNegocio == null)
                     throw new Exception("No implementado");
-                return this.IMetodoPagoNegocio!.Consultar();
+                return this.IMetodoPagoNegocio!.Consultar(usuario);
             }
 
             [HttpPost]
-            public metodoPago Guardar(metodoPago entidad)
+            public metodoPago Guardar(metodoPago entidad,string usuario)
             {
                 if (this.IMetodoPagoNegocio == null)
                     throw new Exception("No implementado");
-                return this.IMetodoPagoNegocio!.Guardar(entidad);
+                return this.IMetodoPagoNegocio!.Guardar(entidad, usuario);
             }
 
             [HttpPut]
-            public metodoPago Modificar(metodoPago entidadModificada)
+            public metodoPago Modificar(metodoPago entidadModificada, string usuario)
             {
                 if (this.IMetodoPagoNegocio == null)
                     throw new Exception("No implementado");
-                return this.IMetodoPagoNegocio!.Modificar(entidadModificada);
+                return this.IMetodoPagoNegocio!.Modificar(entidadModificada, usuario);
             }
 
         [HttpDelete]
-        public metodoPago Borrar(metodoPago entidad)
+        public metodoPago Borrar(metodoPago entidad, string usuario)
         {
             if (this.IMetodoPagoNegocio == null)
                 throw new Exception("No implementado");
-            return this.IMetodoPagoNegocio!.Borrar(entidad);
+            return this.IMetodoPagoNegocio!.Borrar(entidad, usuario);
         }
         }
 }

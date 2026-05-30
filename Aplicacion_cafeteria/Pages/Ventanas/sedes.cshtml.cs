@@ -35,7 +35,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (IsedesNegocio == null)
                     return;
-                Lista = IsedesNegocio.Consultar();
+                var usuario = HttpContext.Session.GetString("Usuario");
+                Lista = IsedesNegocio.Consultar(usuario!);
                 sede = null;
             }
             catch (Exception ex)
@@ -65,13 +66,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (sede == null)
                     return;
                 if (sede.id == 0)
-                    sede = IsedesNegocio!.Guardar(sede!);
+                    sede = IsedesNegocio!.Guardar(sede!, usuario!);
                 else
-                    sede = IsedesNegocio!.Modificar(sede!);
+                    sede = IsedesNegocio!.Modificar(sede!, usuario!);
                 if (sede.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -88,7 +89,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (sede == null)
                     return;
-                sede = IsedesNegocio!.Borrar(sede!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                sede = IsedesNegocio!.Borrar(sede!, usuario!);
                 OnPostBtRefrescar();
 
             }

@@ -6,9 +6,9 @@ namespace Lib_presentaciones.interfaces
 {
     public interface IrolesNegocio
     {
-        List<roles> Consultar();
-        roles Guardar(roles entidad);
-        roles Modificar(roles entidad);
-        roles Borrar(roles entidad);
+        List<roles> Consultar(string usuario);
+        roles Guardar(roles entidad, string usuario);
+        roles Modificar(roles entidad, string usuario);
+        roles Borrar(roles entidad, string usuario);
     }
 }

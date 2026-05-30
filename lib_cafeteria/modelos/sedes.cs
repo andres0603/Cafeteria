@@ -9,6 +9,8 @@ namespace lib_cafeteria.modelos
         public DateTime fecha_fundacion { get; set; }
         public string? direccion { get; set; }
         public bool activo { get; set; }
+        public double latitud { get; set; }
+        public double longitud { get; set; }
         public List<mesas>? mesas { get; set; }
         public List<clientes>? clientes { get; set; }
     }

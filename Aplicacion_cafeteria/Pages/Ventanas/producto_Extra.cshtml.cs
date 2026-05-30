@@ -33,9 +33,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (Iproducto_ExtraNegocio == null)
                     return;
-                Lista = Iproducto_ExtraNegocio.Consultar();
+                Lista = Iproducto_ExtraNegocio.Consultar(usuario!);
                 producto_Extra = null;
             }
             catch (Exception ex)
@@ -65,13 +66,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (producto_Extra == null)
                     return;
                 if (producto_Extra.id == 0)
-                    producto_Extra = Iproducto_ExtraNegocio!.Guardar(producto_Extra!);
+                    producto_Extra = Iproducto_ExtraNegocio!.Guardar(producto_Extra!, usuario!);
                 else
-                    producto_Extra = Iproducto_ExtraNegocio!.Modificar(producto_Extra!);
+                    producto_Extra = Iproducto_ExtraNegocio!.Modificar(producto_Extra!, usuario!);
                 if (producto_Extra.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -86,9 +87,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (producto_Extra == null)
                     return;
-                producto_Extra = Iproducto_ExtraNegocio!.Borrar(producto_Extra!);
+                producto_Extra = Iproducto_ExtraNegocio!.Borrar(producto_Extra!,usuario!);
                 OnPostBtRefrescar();
 
             }

@@ -33,9 +33,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (IhorariosNegocio == null)
                     return;
-                Lista = IhorariosNegocio.Consultar();
+                Lista = IhorariosNegocio.Consultar(usuario!);
                 horario = null;
             }
             catch (Exception ex)
@@ -65,13 +66,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (horario == null)
                     return;
                 if (horario.id == 0)
-                    horario = IhorariosNegocio!.Guardar(horario!);
+                    horario = IhorariosNegocio!.Guardar(horario!, usuario!);
                 else
-                    horario = IhorariosNegocio!.Modificar(horario!);
+                    horario = IhorariosNegocio!.Modificar(horario!, usuario!);
                 if (horario.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -88,7 +89,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (horario == null)
                     return;
-                horario = IhorariosNegocio!.Borrar(horario!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                horario = IhorariosNegocio!.Borrar(horario!, usuario!);
                 OnPostBtRefrescar();
 
             }

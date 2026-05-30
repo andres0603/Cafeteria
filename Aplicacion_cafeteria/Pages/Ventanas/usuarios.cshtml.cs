@@ -1,4 +1,5 @@
 
+using lib_cafeteria.interfaces;
 using lib_cafeteria.modelos;
 using Lib_presentaciones.Implementaciones;
 using Lib_presentaciones.interfaces;
@@ -35,9 +36,13 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (IusuariosNegocio == null)
                     return;
-                Lista = IusuariosNegocio.Consultar();
+                var usuarioI = HttpContext.Session.GetString("Usuario");
+                Lista = IusuariosNegocio.Consultar(usuarioI!);
                 usuario = null;
             }
+        
+        
+        
             catch (Exception ex)
             {
                 ViewData["Mensaje"] = ex.Message;
@@ -65,13 +70,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuarioI = HttpContext.Session.GetString("Usuario");
                 if (usuario == null)
                     return;
                 if (usuario.id == 0)
-                    usuario = IusuariosNegocio!.Guardar(usuario!);
+                    usuario = IusuariosNegocio!.Guardar(usuario!, usuarioI!);
                 else
-                    usuario = IusuariosNegocio!.Modificar(usuario!);
+                    usuario = IusuariosNegocio!.Modificar(usuario!, usuarioI!);
                 if (usuario.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -86,9 +91,11 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                
                 if (usuario == null)
                     return;
-                usuario = IusuariosNegocio!.Borrar(usuario!);
+                var usuarioI = HttpContext.Session.GetString("Usuario");
+                usuario = IusuariosNegocio!.Borrar(usuario!,usuarioI!);
                 OnPostBtRefrescar();
 
             }

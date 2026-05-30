@@ -18,35 +18,35 @@ namespace servicio_cafeteria.Controllers
         }
 
         [HttpGet]
-        public List<proveedores> Consultar()
+        public List<proveedores> Consultar(string usuario)
         {
             if (this.IProveedoresNegocio == null)
                 throw new Exception("No implementado");
-            return this.IProveedoresNegocio!.Consultar();
+            return this.IProveedoresNegocio!.Consultar(usuario);
         }
 
         [HttpPost]
-        public proveedores Guardar(proveedores entidad)
+        public proveedores Guardar(proveedores entidad, string usuario)
         {
             if (this.IProveedoresNegocio == null)
                 throw new Exception("No implementado");
-            return this.IProveedoresNegocio!.Guardar(entidad);
+            return this.IProveedoresNegocio!.Guardar(entidad, usuario);
         }
 
         [HttpPut]
-        public proveedores Modificar(proveedores entidadModificada)
+        public proveedores Modificar(proveedores entidadModificada, string usuario)
         {
             if (this.IProveedoresNegocio == null)
                 throw new Exception("No implementado");
-            return this.IProveedoresNegocio!.Modificar(entidadModificada);
+            return this.IProveedoresNegocio!.Modificar(entidadModificada, usuario);
         }
 
         [HttpDelete]
-        public proveedores Borrar(proveedores entidad)
+        public proveedores Borrar(proveedores entidad, string usuario)
         {
             if (this.IProveedoresNegocio == null)
                 throw new Exception("No implementado");
-            return this.IProveedoresNegocio!.Borrar(entidad);
+            return this.IProveedoresNegocio!.Borrar(entidad, usuario);
         }
     }
 }

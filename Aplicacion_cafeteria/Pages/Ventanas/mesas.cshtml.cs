@@ -28,8 +28,9 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-            ListaEstadosMesa = IestadoMesaNegocio!.Consultar();
-            ListaSedes = IsedesNegocio!.Consultar();
+            var usuario = HttpContext.Session.GetString("Usuario");
+            ListaEstadosMesa = IestadoMesaNegocio!.Consultar(usuario!);
+            ListaSedes = IsedesNegocio!.Consultar(usuario!);
         }
 
         public void OnGet()
@@ -41,9 +42,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (ImesasNegocio == null)
                     return;
-                Lista = ImesasNegocio.Consultar();
+                Lista = ImesasNegocio.Consultar(usuario!);
                 mesa = null;
             }
             catch (Exception ex)
@@ -74,13 +76,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (mesa == null)
                     return;
                 if (mesa.id == 0)
-                    mesa = ImesasNegocio!.Guardar(mesa!);
+                    mesa = ImesasNegocio!.Guardar(mesa!, usuario!);
                 else
-                    mesa = ImesasNegocio!.Modificar(mesa!);
+                    mesa = ImesasNegocio!.Modificar(mesa!, usuario!);
                 if (mesa.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -95,9 +97,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (mesa == null)
                     return;
-                mesa = ImesasNegocio!.Borrar(mesa!);
+                mesa = ImesasNegocio!.Borrar(mesa!,usuario!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)

@@ -27,8 +27,9 @@ namespace Aplicacion_cafeteria.Pages
 
         public void OnPostBtNuevo()
         {
-            ListaProveedores = IproveedoresNegocio!.Consultar();
-            ListaProductos = IproductosNegocio!.Consultar();
+            var usuario = HttpContext.Session.GetString("Usuario");
+            ListaProveedores = IproveedoresNegocio!.Consultar(usuario!);
+            ListaProductos = IproductosNegocio!.Consultar(usuario!);
         }
 
         public void OnGet()
@@ -40,9 +41,10 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (Iproducto_proveedorNegocio == null)
                     return;
-                Lista = Iproducto_proveedorNegocio.Consultar();
+                Lista = Iproducto_proveedorNegocio.Consultar(usuario!);
                 producto_proveedor = null;
             }
             catch (Exception ex)
@@ -73,13 +75,13 @@ namespace Aplicacion_cafeteria.Pages
         {
             try
             {
-
+                var usuario = HttpContext.Session.GetString("Usuario");
                 if (producto_proveedor == null)
                     return;
                 if (producto_proveedor.id == 0)
-                    producto_proveedor = Iproducto_proveedorNegocio!.Guardar(producto_proveedor!);
+                    producto_proveedor = Iproducto_proveedorNegocio!.Guardar(producto_proveedor!, usuario!);
                 else
-                    producto_proveedor = Iproducto_proveedorNegocio!.Modificar(producto_proveedor!);
+                    producto_proveedor = Iproducto_proveedorNegocio!.Modificar(producto_proveedor!,usuario!);
                 if (producto_proveedor.id == 0)
                     return;
                 OnPostBtRefrescar();
@@ -96,7 +98,8 @@ namespace Aplicacion_cafeteria.Pages
             {
                 if (producto_proveedor == null)
                     return;
-                producto_proveedor = Iproducto_proveedorNegocio!.Borrar(producto_proveedor!);
+                var usuario = HttpContext.Session.GetString("Usuario");
+                producto_proveedor = Iproducto_proveedorNegocio!.Borrar(producto_proveedor!, usuario!);
                 OnPostBtRefrescar();
             }
             catch (Exception ex)

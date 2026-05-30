@@ -10,6 +10,7 @@ namespace lib_cafeteria.modelos
         public string? nombre { get; set; }
         public decimal precio { get; set; }
         public string? descripcion { get; set; }
+        public string? imageUrl { get; set; }
         public int categoria { get; set; }
         public int cantidad { get; set; }
         [ForeignKey("categoria")]
